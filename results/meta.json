@@ -1,0 +1,20 @@
+{
+  "run": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/delta-iris-full-21531393/hydra",
+  "out": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/analysis-21531393",
+  "max_episodes": -1,
+  "episodes_scanned": 29136,
+  "transitions_scanned": 9980073,
+  "batch_size": 256,
+  "top_k": 32,
+  "K_slots": 4,
+  "C": 1024,
+  "embed_dim": 64,
+  "n_active_codes_total": 1024,
+  "n_active_codes_per_slot": [
+    975,
+    972,
+    931,
+    911
+  ],
+  "seconds_elapsed": 1683.8019828796387
+}

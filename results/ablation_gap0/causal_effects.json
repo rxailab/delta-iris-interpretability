@@ -1,0 +1,722 @@
+[
+  {
+    "concept": "collect_stone",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.04737741947174072,
+    "std": 0.40176589304854693,
+    "ci_lo": -0.034761960506439205,
+    "ci_hi": 0.1511276531219481
+  },
+  {
+    "concept": "collect_stone",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.006043350696563721,
+    "std": 0.2969052260443674,
+    "ci_lo": -0.0567592915892601,
+    "ci_hi": 0.07128199726343154
+  },
+  {
+    "concept": "collect_stone",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.11236281590536237,
+    "std": 0.3006666876789237,
+    "ci_lo": 0.04924567903857679,
+    "ci_hi": 0.17543957729591056
+  },
+  {
+    "concept": "collect_stone",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.038332652067765594,
+    "std": 0.26273100421393003,
+    "ci_lo": -0.0974302573769819,
+    "ci_hi": 0.01805720791104248
+  },
+  {
+    "concept": "defeat_skeleton",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": 2.2015087107662112,
+    "std": 3.6097020320830953,
+    "ci_lo": 1.4830554043699522,
+    "ci_hi": 3.0315510140650437
+  },
+  {
+    "concept": "defeat_skeleton",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.00864640143699944,
+    "std": 0.3627686370127119,
+    "ci_lo": -0.08781222779885865,
+    "ci_hi": 0.06355462316772896
+  },
+  {
+    "concept": "defeat_skeleton",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.39138381015509366,
+    "std": 0.7639908401249661,
+    "ci_lo": -0.5407123352121562,
+    "ci_hi": -0.22592062065843496
+  },
+  {
+    "concept": "defeat_skeleton",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.027268931176513432,
+    "std": 0.3609479698283594,
+    "ci_lo": -0.04539592620451003,
+    "ci_hi": 0.10768963544396681
+  },
+  {
+    "concept": "eat_cow",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.10241016680374741,
+    "std": 0.3479741379786989,
+    "ci_lo": -0.18958652585861271,
+    "ci_hi": -0.03244114202214408
+  },
+  {
+    "concept": "eat_cow",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.007047115638852119,
+    "std": 0.43648441508217833,
+    "ci_lo": -0.08400111501920036,
+    "ci_hi": 0.099907006570138
+  },
+  {
+    "concept": "eat_cow",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.1042081874795258,
+    "std": 0.4421077943740324,
+    "ci_lo": 0.009687132874969395,
+    "ci_hi": 0.20154001457383855
+  },
+  {
+    "concept": "eat_cow",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.05395255461335182,
+    "std": 0.3678090394550298,
+    "ci_lo": -0.028095362978056072,
+    "ci_hi": 0.1422405259404331
+  },
+  {
+    "concept": "wake_up",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": 4.854900473356247,
+    "std": 2.3842641130494258,
+    "ci_lo": 4.381074780374766,
+    "ci_hi": 5.38079429641366
+  },
+  {
+    "concept": "wake_up",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.03680303692817688,
+    "std": 0.4298677160725563,
+    "ci_lo": -0.06582285583019257,
+    "ci_hi": 0.12874241814017295
+  },
+  {
+    "concept": "wake_up",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.07691333233378828,
+    "std": 0.6256210543004184,
+    "ci_lo": -0.06448805274441838,
+    "ci_hi": 0.20898872725898393
+  },
+  {
+    "concept": "wake_up",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.03446310674771667,
+    "std": 0.3299889773272465,
+    "ci_lo": -0.04881948513211682,
+    "ci_hi": 0.10182213278370907
+  },
+  {
+    "concept": "defeat_zombie",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.7167418320663274,
+    "std": 1.4000228659022609,
+    "ci_lo": 0.4351219289703295,
+    "ci_hi": 1.0334148536901921
+  },
+  {
+    "concept": "defeat_zombie",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.007614315953105688,
+    "std": 0.3891052024970806,
+    "ci_lo": -0.06550490079214796,
+    "ci_hi": 0.10007694614934734
+  },
+  {
+    "concept": "defeat_zombie",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.26172179598361256,
+    "std": 0.8936265898631813,
+    "ci_lo": 0.07855209341621958,
+    "ci_hi": 0.46863126884447404
+  },
+  {
+    "concept": "defeat_zombie",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.021938810776919126,
+    "std": 0.449640204425272,
+    "ci_lo": -0.12989846983226017,
+    "ci_hi": 0.07036355589982118
+  },
+  {
+    "concept": "collect_wood",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.011182332038879394,
+    "std": 0.20604051507450874,
+    "ci_lo": -0.03619417250156403,
+    "ci_hi": 0.05190575718879698
+  },
+  {
+    "concept": "collect_wood",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.07248595952987671,
+    "std": 0.34605620689859157,
+    "ci_lo": -0.15977370887994766,
+    "ci_hi": -0.0006666162610054108
+  },
+  {
+    "concept": "collect_wood",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.05126778692938387,
+    "std": 0.30155180845596713,
+    "ci_lo": -0.020629577320069075,
+    "ci_hi": 0.11047751943580805
+  },
+  {
+    "concept": "collect_wood",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.024191214283928276,
+    "std": 0.4581973076818615,
+    "ci_lo": -0.081512782915961,
+    "ci_hi": 0.12954160769120784
+  },
+  {
+    "concept": "make_wood_sword",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.0038659870624542236,
+    "std": 0.34623688728383223,
+    "ci_lo": -0.07133543521165847,
+    "ci_hi": 0.07790451943874357
+  },
+  {
+    "concept": "make_wood_sword",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.0736968994140625,
+    "std": 0.5272226373753027,
+    "ci_lo": -0.03435281902551651,
+    "ci_hi": 0.19894026130437842
+  },
+  {
+    "concept": "make_wood_sword",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.06426082979887723,
+    "std": 0.2232354611055994,
+    "ci_lo": -0.11407724745338782,
+    "ci_hi": -0.02233084338949994
+  },
+  {
+    "concept": "make_wood_sword",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.012395957997068763,
+    "std": 0.38315137607300587,
+    "ci_lo": -0.09625917130964808,
+    "ci_hi": 0.06955993538023891
+  },
+  {
+    "concept": "collect_coal",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": 2.4058317214250566,
+    "std": 2.1063356523104413,
+    "ci_lo": 1.954058496952057,
+    "ci_hi": 2.8150733552128075
+  },
+  {
+    "concept": "collect_coal",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.01906191110610962,
+    "std": 0.4297180009570888,
+    "ci_lo": -0.12078437015414238,
+    "ci_hi": 0.05925309106707573
+  },
+  {
+    "concept": "collect_coal",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.050133655010722575,
+    "std": 0.27874937807731204,
+    "ci_lo": -0.11333542603533715,
+    "ci_hi": 0.0021200028090970556
+  },
+  {
+    "concept": "collect_coal",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.016298088431358337,
+    "std": 0.41884716415089396,
+    "ci_lo": -0.07729016796685755,
+    "ci_hi": 0.1040496140532195
+  },
+  {
+    "concept": "collect_drink",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.33403514460660516,
+    "std": 0.9855866838446956,
+    "ci_lo": -0.5303824158629868,
+    "ci_hi": -0.12313373179640635
+  },
+  {
+    "concept": "collect_drink",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.09374955208040774,
+    "std": 0.40023292013796835,
+    "ci_lo": -0.17724671932752245,
+    "ci_hi": -0.0069713953975588105
+  },
+  {
+    "concept": "collect_drink",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.11266896603628992,
+    "std": 0.49744608725083617,
+    "ci_lo": -0.22778003862069454,
+    "ci_hi": -0.010947735887020927
+  },
+  {
+    "concept": "collect_drink",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.08993309399811551,
+    "std": 0.4452558823144229,
+    "ci_lo": -0.001959876252512909,
+    "ci_hi": 0.1929918016886222
+  },
+  {
+    "concept": "place_furnace",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.13281577825546265,
+    "std": 0.7190653204653177,
+    "ci_lo": -0.00267183870077133,
+    "ci_hi": 0.28861726164817814
+  },
+  {
+    "concept": "place_furnace",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.05836445093154907,
+    "std": 0.21959712751131105,
+    "ci_lo": -0.10835659533739089,
+    "ci_hi": -0.012254296541213995
+  },
+  {
+    "concept": "place_furnace",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.7798752550967037,
+    "std": 1.2442310117366135,
+    "ci_lo": 0.5231698693870567,
+    "ci_hi": 1.0730940727167764
+  },
+  {
+    "concept": "place_furnace",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.011304699210450053,
+    "std": 0.3704445982032412,
+    "ci_lo": -0.0886634511151351,
+    "ci_hi": 0.07157350733526975
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.1171245515346527,
+    "std": 0.2929021657111069,
+    "ci_lo": -0.1818617096543312,
+    "ci_hi": -0.04876484096050265
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.07969401478767395,
+    "std": 0.41559693056183367,
+    "ci_lo": -0.17799317792057992,
+    "ci_hi": 0.005507135838270169
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.03539494378492236,
+    "std": 0.2636959920744737,
+    "ci_lo": -0.09883990484988317,
+    "ci_hi": 0.02162592406850308
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.0233780718408525,
+    "std": 0.33559128068781774,
+    "ci_lo": -0.09857090386911295,
+    "ci_hi": 0.050869065533624865
+  },
+  {
+    "concept": "place_stone",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.08341280221939087,
+    "std": 0.47154059193392867,
+    "ci_lo": -0.17206824660301206,
+    "ci_hi": 0.03175526648759828
+  },
+  {
+    "concept": "place_stone",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.049020802974700926,
+    "std": 0.34036016707394195,
+    "ci_lo": -0.02120415598154068,
+    "ci_hi": 0.12331470668315885
+  },
+  {
+    "concept": "place_stone",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.176298256078735,
+    "std": 0.3964775343567168,
+    "ci_lo": 0.0913501591689419,
+    "ci_hi": 0.2711408284760545
+  },
+  {
+    "concept": "place_stone",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.02826727502979338,
+    "std": 0.3094069121275265,
+    "ci_lo": -0.04387019954039715,
+    "ci_hi": 0.0934046872134786
+  },
+  {
+    "concept": "place_table",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.030092966556549073,
+    "std": 1.221398182840617,
+    "ci_lo": -0.2851743412017822,
+    "ci_hi": 0.22859372466802597
+  },
+  {
+    "concept": "place_table",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.020367193222045898,
+    "std": 0.32583572311826164,
+    "ci_lo": -0.04107286959886551,
+    "ci_hi": 0.09129015326499937
+  },
+  {
+    "concept": "place_table",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.2406012299004942,
+    "std": 0.7467818971685396,
+    "ci_lo": -0.3977059955475852,
+    "ci_hi": -0.0773885394318496
+  },
+  {
+    "concept": "place_table",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.057083995547145605,
+    "std": 0.284425744332736,
+    "ci_lo": -0.12397959447931498,
+    "ci_hi": 0.00404341804096475
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.4362987756729126,
+    "std": 0.8899952941792106,
+    "ci_lo": 0.2686389914155006,
+    "ci_hi": 0.6469433540105819
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.005502092838287354,
+    "std": 0.45066463067756185,
+    "ci_lo": -0.10097428143024445,
+    "ci_hi": 0.0939407169818878
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.07775787431746721,
+    "std": 0.35493637700003916,
+    "ci_lo": -0.15918198917526752,
+    "ci_hi": -0.0015719361370429594
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.04320310782641172,
+    "std": 0.3226544545491775,
+    "ci_lo": -0.10748334215022623,
+    "ci_hi": 0.026075794044882052
+  },
+  {
+    "concept": "collect_iron",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.3408339977264404,
+    "std": 0.5257198411728852,
+    "ci_lo": -0.4537712541222572,
+    "ci_hi": -0.23546210885047913
+  },
+  {
+    "concept": "collect_iron",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.021277683973312377,
+    "std": 0.3385092495077445,
+    "ci_lo": -0.049926188439130784,
+    "ci_hi": 0.0925733920931816
+  },
+  {
+    "concept": "collect_iron",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.17918018496129662,
+    "std": 0.577198164015672,
+    "ci_lo": 0.0673597315326333,
+    "ci_hi": 0.3202271732705411
+  },
+  {
+    "concept": "collect_iron",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.02196546664927155,
+    "std": 0.2717686291287412,
+    "ci_lo": -0.03692113001307006,
+    "ci_hi": 0.08340319177135821
+  },
+  {
+    "concept": "collect_sapling",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 26,
+    "mean": 1.7326850891113281,
+    "std": 1.000727376012323,
+    "ci_lo": 1.3016646238473746,
+    "ci_hi": 2.115744966727037
+  },
+  {
+    "concept": "collect_sapling",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 26,
+    "mean": -0.04208454718956581,
+    "std": 0.22961891902803833,
+    "ci_lo": -0.13021475901970497,
+    "ci_hi": 0.0433384161729079
+  },
+  {
+    "concept": "collect_sapling",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": -0.03037392282858491,
+    "std": 0.2398912330813279,
+    "ci_lo": -0.0832091859728098,
+    "ci_hi": 0.018822369894478455
+  },
+  {
+    "concept": "collect_sapling",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.021911892108619213,
+    "std": 0.32538690960542577,
+    "ci_lo": -0.09720093436772002,
+    "ci_hi": 0.053619418502785246
+  },
+  {
+    "concept": "make_stone_sword",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.22184641361236573,
+    "std": 0.46946564033030325,
+    "ci_lo": 0.12786405354738237,
+    "ci_hi": 0.3339652988314628
+  },
+  {
+    "concept": "make_stone_sword",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.01956535577774048,
+    "std": 0.45022656296185176,
+    "ci_lo": -0.0742279514670372,
+    "ci_hi": 0.12123973280191419
+  },
+  {
+    "concept": "make_stone_sword",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.04499532678164542,
+    "std": 0.3770607492061763,
+    "ci_lo": -0.037586810113862154,
+    "ci_hi": 0.12659449468250383
+  },
+  {
+    "concept": "make_stone_sword",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": -0.03229679970536381,
+    "std": 0.44652904293390644,
+    "ci_lo": -0.1312000745307887,
+    "ci_hi": 0.0685853585373843
+  },
+  {
+    "concept": "place_plant",
+    "moment_type": "unlock",
+    "condition": "feat",
+    "n": 29,
+    "mean": 0.32237401501885776,
+    "std": 0.5090384783213027,
+    "ci_lo": 0.1591680666496014,
+    "ci_hi": 0.5033256218351166
+  },
+  {
+    "concept": "place_plant",
+    "moment_type": "unlock",
+    "condition": "rand",
+    "n": 29,
+    "mean": 0.002644012714254445,
+    "std": 0.16341968307406013,
+    "ci_lo": -0.05731991899424586,
+    "ci_hi": 0.059377025735789325
+  },
+  {
+    "concept": "place_plant",
+    "moment_type": "ordinary",
+    "condition": "feat",
+    "n": 80,
+    "mean": 0.29914624262601136,
+    "std": 0.9908075105206817,
+    "ci_lo": 0.07853444810491056,
+    "ci_hi": 0.5115739896241573
+  },
+  {
+    "concept": "place_plant",
+    "moment_type": "ordinary",
+    "condition": "rand",
+    "n": 80,
+    "mean": 0.002071036584675312,
+    "std": 0.2890709475436017,
+    "ci_lo": -0.07107695518061519,
+    "ci_hi": 0.06267861029133198
+  }
+]

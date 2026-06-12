@@ -1,0 +1,29 @@
+# Upstream clones — get them with:
+#   git clone https://github.com/eloialonso/iris
+#   git clone https://github.com/vmicheli/delta-iris
+/iris/
+/delta-iris/
+
+# Conda environments (rebuild per README)
+/envs/
+
+# Slurm logs and per-job output dirs (checkpoints, hydra runs, symlinks to scratch)
+/runs/*.out
+/runs/*.err
+/runs/*-smoke-*/
+/runs/delta-iris-full-*
+/runs/iris-smoke-*
+/runs/delta-iris-bench-*
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Large artefacts live on scratch (see README), never in git
+*.npz
+*.pt
+!results/**/*.json
+
+# harness-internal
+/.claude/

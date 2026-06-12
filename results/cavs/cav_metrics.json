@@ -1,0 +1,1362 @@
+[
+  {
+    "concept": "just[collect_coal]",
+    "rep": "raw_codes",
+    "auroc": 0.9818193602403827,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "cum[collect_coal]",
+    "rep": "raw_codes",
+    "auroc": 0.622818264350313,
+    "n_pos_test": 11108
+  },
+  {
+    "concept": "just[collect_diamond]",
+    "rep": "raw_codes",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[collect_diamond]",
+    "rep": "raw_codes",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[collect_drink]",
+    "rep": "raw_codes",
+    "auroc": 0.8977261549559001,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[collect_drink]",
+    "rep": "raw_codes",
+    "auroc": 0.6131896098466373,
+    "n_pos_test": 14916
+  },
+  {
+    "concept": "just[collect_iron]",
+    "rep": "raw_codes",
+    "auroc": 0.9999335955303755,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "cum[collect_iron]",
+    "rep": "raw_codes",
+    "auroc": 0.6116224934473748,
+    "n_pos_test": 8006
+  },
+  {
+    "concept": "just[collect_sapling]",
+    "rep": "raw_codes",
+    "auroc": 0.9999923485978806,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[collect_sapling]",
+    "rep": "raw_codes",
+    "auroc": 0.9143229388128241,
+    "n_pos_test": 17104
+  },
+  {
+    "concept": "just[collect_stone]",
+    "rep": "raw_codes",
+    "auroc": 0.9860709600441645,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[collect_stone]",
+    "rep": "raw_codes",
+    "auroc": 0.6017043416517782,
+    "n_pos_test": 14670
+  },
+  {
+    "concept": "just[collect_wood]",
+    "rep": "raw_codes",
+    "auroc": 0.992208003366617,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[collect_wood]",
+    "rep": "raw_codes",
+    "auroc": 0.7989014912286967,
+    "n_pos_test": 16754
+  },
+  {
+    "concept": "just[defeat_skeleton]",
+    "rep": "raw_codes",
+    "auroc": 0.8634482986892626,
+    "n_pos_test": 26
+  },
+  {
+    "concept": "cum[defeat_skeleton]",
+    "rep": "raw_codes",
+    "auroc": 0.6009023649176173,
+    "n_pos_test": 10827
+  },
+  {
+    "concept": "just[defeat_zombie]",
+    "rep": "raw_codes",
+    "auroc": 0.8504085020667493,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[defeat_zombie]",
+    "rep": "raw_codes",
+    "auroc": 0.6001433387386492,
+    "n_pos_test": 12345
+  },
+  {
+    "concept": "just[eat_cow]",
+    "rep": "raw_codes",
+    "auroc": 0.9472110639274648,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[eat_cow]",
+    "rep": "raw_codes",
+    "auroc": 0.6589215339002669,
+    "n_pos_test": 16024
+  },
+  {
+    "concept": "just[eat_plant]",
+    "rep": "raw_codes",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[eat_plant]",
+    "rep": "raw_codes",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_iron_pickaxe]",
+    "rep": "raw_codes",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[make_iron_pickaxe]",
+    "rep": "raw_codes",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_iron_sword]",
+    "rep": "raw_codes",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[make_iron_sword]",
+    "rep": "raw_codes",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_stone_pickaxe]",
+    "rep": "raw_codes",
+    "auroc": 0.987330527230401,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[make_stone_pickaxe]",
+    "rep": "raw_codes",
+    "auroc": 0.6087861867352032,
+    "n_pos_test": 11832
+  },
+  {
+    "concept": "just[make_stone_sword]",
+    "rep": "raw_codes",
+    "auroc": 0.9576547950041926,
+    "n_pos_test": 26
+  },
+  {
+    "concept": "cum[make_stone_sword]",
+    "rep": "raw_codes",
+    "auroc": 0.6143640951087483,
+    "n_pos_test": 10815
+  },
+  {
+    "concept": "just[make_wood_pickaxe]",
+    "rep": "raw_codes",
+    "auroc": 0.9879883177708788,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[make_wood_pickaxe]",
+    "rep": "raw_codes",
+    "auroc": 0.6074283978225632,
+    "n_pos_test": 14825
+  },
+  {
+    "concept": "just[make_wood_sword]",
+    "rep": "raw_codes",
+    "auroc": 0.9764234073248304,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[make_wood_sword]",
+    "rep": "raw_codes",
+    "auroc": 0.6000075324406585,
+    "n_pos_test": 13566
+  },
+  {
+    "concept": "just[place_furnace]",
+    "rep": "raw_codes",
+    "auroc": 0.9701680792812879,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[place_furnace]",
+    "rep": "raw_codes",
+    "auroc": 0.5918315639208582,
+    "n_pos_test": 14144
+  },
+  {
+    "concept": "just[place_plant]",
+    "rep": "raw_codes",
+    "auroc": 0.9921592256781055,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[place_plant]",
+    "rep": "raw_codes",
+    "auroc": 0.9194731035277913,
+    "n_pos_test": 17074
+  },
+  {
+    "concept": "just[place_stone]",
+    "rep": "raw_codes",
+    "auroc": 0.9740177251708111,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[place_stone]",
+    "rep": "raw_codes",
+    "auroc": 0.6007939940431036,
+    "n_pos_test": 14641
+  },
+  {
+    "concept": "just[place_table]",
+    "rep": "raw_codes",
+    "auroc": 0.9922761549161725,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[place_table]",
+    "rep": "raw_codes",
+    "auroc": 0.6784361673483832,
+    "n_pos_test": 16143
+  },
+  {
+    "concept": "just[wake_up]",
+    "rep": "raw_codes",
+    "auroc": 0.9694846552345979,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[wake_up]",
+    "rep": "raw_codes",
+    "auroc": 0.5744065724640602,
+    "n_pos_test": 15129
+  },
+  {
+    "concept": "just[collect_coal]",
+    "rep": "wm_input",
+    "auroc": 0.9795763977874254,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "cum[collect_coal]",
+    "rep": "wm_input",
+    "auroc": 0.9432868566147481,
+    "n_pos_test": 11108
+  },
+  {
+    "concept": "just[collect_diamond]",
+    "rep": "wm_input",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[collect_diamond]",
+    "rep": "wm_input",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[collect_drink]",
+    "rep": "wm_input",
+    "auroc": 0.9706404308337979,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[collect_drink]",
+    "rep": "wm_input",
+    "auroc": 0.904201929756769,
+    "n_pos_test": 14916
+  },
+  {
+    "concept": "just[collect_iron]",
+    "rep": "wm_input",
+    "auroc": 0.9999486874552901,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "cum[collect_iron]",
+    "rep": "wm_input",
+    "auroc": 0.9076400900382914,
+    "n_pos_test": 8006
+  },
+  {
+    "concept": "just[collect_sapling]",
+    "rep": "wm_input",
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[collect_sapling]",
+    "rep": "wm_input",
+    "auroc": 0.9999945188260054,
+    "n_pos_test": 17104
+  },
+  {
+    "concept": "just[collect_stone]",
+    "rep": "wm_input",
+    "auroc": 0.9985436787545288,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[collect_stone]",
+    "rep": "wm_input",
+    "auroc": 0.9862521048126993,
+    "n_pos_test": 14670
+  },
+  {
+    "concept": "just[collect_wood]",
+    "rep": "wm_input",
+    "auroc": 0.9996767282604537,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[collect_wood]",
+    "rep": "wm_input",
+    "auroc": 0.9982412670427474,
+    "n_pos_test": 16754
+  },
+  {
+    "concept": "just[defeat_skeleton]",
+    "rep": "wm_input",
+    "auroc": 0.9512511584800741,
+    "n_pos_test": 26
+  },
+  {
+    "concept": "cum[defeat_skeleton]",
+    "rep": "wm_input",
+    "auroc": 0.8424125263125966,
+    "n_pos_test": 10827
+  },
+  {
+    "concept": "just[defeat_zombie]",
+    "rep": "wm_input",
+    "auroc": 0.9953639121220935,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[defeat_zombie]",
+    "rep": "wm_input",
+    "auroc": 0.9556948263733452,
+    "n_pos_test": 12345
+  },
+  {
+    "concept": "just[eat_cow]",
+    "rep": "wm_input",
+    "auroc": 0.9983759899001492,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[eat_cow]",
+    "rep": "wm_input",
+    "auroc": 0.9709994191673382,
+    "n_pos_test": 16024
+  },
+  {
+    "concept": "just[eat_plant]",
+    "rep": "wm_input",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[eat_plant]",
+    "rep": "wm_input",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_iron_pickaxe]",
+    "rep": "wm_input",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[make_iron_pickaxe]",
+    "rep": "wm_input",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_iron_sword]",
+    "rep": "wm_input",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[make_iron_sword]",
+    "rep": "wm_input",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_stone_pickaxe]",
+    "rep": "wm_input",
+    "auroc": 0.9787083183055182,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[make_stone_pickaxe]",
+    "rep": "wm_input",
+    "auroc": 0.9887689597225067,
+    "n_pos_test": 11832
+  },
+  {
+    "concept": "just[make_stone_sword]",
+    "rep": "wm_input",
+    "auroc": 0.9998278829604131,
+    "n_pos_test": 26
+  },
+  {
+    "concept": "cum[make_stone_sword]",
+    "rep": "wm_input",
+    "auroc": 0.9890873622113652,
+    "n_pos_test": 10815
+  },
+  {
+    "concept": "just[make_wood_pickaxe]",
+    "rep": "wm_input",
+    "auroc": 0.9998753420673033,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[make_wood_pickaxe]",
+    "rep": "wm_input",
+    "auroc": 0.9938677962777444,
+    "n_pos_test": 14825
+  },
+  {
+    "concept": "just[make_wood_sword]",
+    "rep": "wm_input",
+    "auroc": 0.9998790943965377,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[make_wood_sword]",
+    "rep": "wm_input",
+    "auroc": 0.9741547654104261,
+    "n_pos_test": 13566
+  },
+  {
+    "concept": "just[place_furnace]",
+    "rep": "wm_input",
+    "auroc": 0.9989958687170072,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[place_furnace]",
+    "rep": "wm_input",
+    "auroc": 0.9543652196455504,
+    "n_pos_test": 14144
+  },
+  {
+    "concept": "just[place_plant]",
+    "rep": "wm_input",
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[place_plant]",
+    "rep": "wm_input",
+    "auroc": 0.9999986201118998,
+    "n_pos_test": 17074
+  },
+  {
+    "concept": "just[place_stone]",
+    "rep": "wm_input",
+    "auroc": 0.992704542891233,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[place_stone]",
+    "rep": "wm_input",
+    "auroc": 0.9844980936888221,
+    "n_pos_test": 14641
+  },
+  {
+    "concept": "just[place_table]",
+    "rep": "wm_input",
+    "auroc": 0.9996200901098771,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[place_table]",
+    "rep": "wm_input",
+    "auroc": 0.9831006287625746,
+    "n_pos_test": 16143
+  },
+  {
+    "concept": "just[wake_up]",
+    "rep": "wm_input",
+    "auroc": 0.9984487196301518,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[wake_up]",
+    "rep": "wm_input",
+    "auroc": 0.8577335331561832,
+    "n_pos_test": 15129
+  },
+  {
+    "concept": "just[collect_coal]",
+    "rep": "wm_block_1",
+    "auroc": 0.9999659996217458,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "cum[collect_coal]",
+    "rep": "wm_block_1",
+    "auroc": 0.9525580064119277,
+    "n_pos_test": 11108
+  },
+  {
+    "concept": "just[collect_diamond]",
+    "rep": "wm_block_1",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[collect_diamond]",
+    "rep": "wm_block_1",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[collect_drink]",
+    "rep": "wm_block_1",
+    "auroc": 0.9794071117085807,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[collect_drink]",
+    "rep": "wm_block_1",
+    "auroc": 0.9104147002742919,
+    "n_pos_test": 14916
+  },
+  {
+    "concept": "just[collect_iron]",
+    "rep": "wm_block_1",
+    "auroc": 0.9999788713051195,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "cum[collect_iron]",
+    "rep": "wm_block_1",
+    "auroc": 0.9352345264860878,
+    "n_pos_test": 8006
+  },
+  {
+    "concept": "just[collect_sapling]",
+    "rep": "wm_block_1",
+    "auroc": 0.9999980871494701,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[collect_sapling]",
+    "rep": "wm_block_1",
+    "auroc": 0.9999931900565524,
+    "n_pos_test": 17104
+  },
+  {
+    "concept": "just[collect_stone]",
+    "rep": "wm_block_1",
+    "auroc": 0.9987494632783452,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[collect_stone]",
+    "rep": "wm_block_1",
+    "auroc": 0.9842125712798093,
+    "n_pos_test": 14670
+  },
+  {
+    "concept": "just[collect_wood]",
+    "rep": "wm_block_1",
+    "auroc": 0.9998259306017827,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[collect_wood]",
+    "rep": "wm_block_1",
+    "auroc": 0.9977969287089498,
+    "n_pos_test": 16754
+  },
+  {
+    "concept": "just[defeat_skeleton]",
+    "rep": "wm_block_1",
+    "auroc": 0.9764398252350059,
+    "n_pos_test": 26
+  },
+  {
+    "concept": "cum[defeat_skeleton]",
+    "rep": "wm_block_1",
+    "auroc": 0.8430628339673045,
+    "n_pos_test": 10827
+  },
+  {
+    "concept": "just[defeat_zombie]",
+    "rep": "wm_block_1",
+    "auroc": 0.9881456242097577,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[defeat_zombie]",
+    "rep": "wm_block_1",
+    "auroc": 0.9514914543152544,
+    "n_pos_test": 12345
+  },
+  {
+    "concept": "just[eat_cow]",
+    "rep": "wm_block_1",
+    "auroc": 0.9992272083859367,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[eat_cow]",
+    "rep": "wm_block_1",
+    "auroc": 0.972044028928674,
+    "n_pos_test": 16024
+  },
+  {
+    "concept": "just[eat_plant]",
+    "rep": "wm_block_1",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[eat_plant]",
+    "rep": "wm_block_1",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_iron_pickaxe]",
+    "rep": "wm_block_1",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[make_iron_pickaxe]",
+    "rep": "wm_block_1",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_iron_sword]",
+    "rep": "wm_block_1",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[make_iron_sword]",
+    "rep": "wm_block_1",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_stone_pickaxe]",
+    "rep": "wm_block_1",
+    "auroc": 0.9956883832256797,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[make_stone_pickaxe]",
+    "rep": "wm_block_1",
+    "auroc": 0.9822360426242405,
+    "n_pos_test": 11832
+  },
+  {
+    "concept": "just[make_stone_sword]",
+    "rep": "wm_block_1",
+    "auroc": 0.9999911734851493,
+    "n_pos_test": 26
+  },
+  {
+    "concept": "cum[make_stone_sword]",
+    "rep": "wm_block_1",
+    "auroc": 0.9799024023349814,
+    "n_pos_test": 10815
+  },
+  {
+    "concept": "just[make_wood_pickaxe]",
+    "rep": "wm_block_1",
+    "auroc": 1.0,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[make_wood_pickaxe]",
+    "rep": "wm_block_1",
+    "auroc": 0.9921193603570863,
+    "n_pos_test": 14825
+  },
+  {
+    "concept": "just[make_wood_sword]",
+    "rep": "wm_block_1",
+    "auroc": 1.0,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[make_wood_sword]",
+    "rep": "wm_block_1",
+    "auroc": 0.9575940077018495,
+    "n_pos_test": 13566
+  },
+  {
+    "concept": "just[place_furnace]",
+    "rep": "wm_block_1",
+    "auroc": 0.9974015541493164,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[place_furnace]",
+    "rep": "wm_block_1",
+    "auroc": 0.9504225302683782,
+    "n_pos_test": 14144
+  },
+  {
+    "concept": "just[place_plant]",
+    "rep": "wm_block_1",
+    "auroc": 0.9999999999999999,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[place_plant]",
+    "rep": "wm_block_1",
+    "auroc": 0.9999998466791,
+    "n_pos_test": 17074
+  },
+  {
+    "concept": "just[place_stone]",
+    "rep": "wm_block_1",
+    "auroc": 0.9981340884042399,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[place_stone]",
+    "rep": "wm_block_1",
+    "auroc": 0.9807245595988685,
+    "n_pos_test": 14641
+  },
+  {
+    "concept": "just[place_table]",
+    "rep": "wm_block_1",
+    "auroc": 0.9988464194482205,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[place_table]",
+    "rep": "wm_block_1",
+    "auroc": 0.9799385339303017,
+    "n_pos_test": 16143
+  },
+  {
+    "concept": "just[wake_up]",
+    "rep": "wm_block_1",
+    "auroc": 0.9989835732319092,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[wake_up]",
+    "rep": "wm_block_1",
+    "auroc": 0.8818993214720684,
+    "n_pos_test": 15129
+  },
+  {
+    "concept": "just[collect_coal]",
+    "rep": "wm_block_2",
+    "auroc": 0.9999766247399502,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "cum[collect_coal]",
+    "rep": "wm_block_2",
+    "auroc": 0.950349651777734,
+    "n_pos_test": 11108
+  },
+  {
+    "concept": "just[collect_diamond]",
+    "rep": "wm_block_2",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[collect_diamond]",
+    "rep": "wm_block_2",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[collect_drink]",
+    "rep": "wm_block_2",
+    "auroc": 0.9581666612020066,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[collect_drink]",
+    "rep": "wm_block_2",
+    "auroc": 0.9149729297715501,
+    "n_pos_test": 14916
+  },
+  {
+    "concept": "just[collect_iron]",
+    "rep": "wm_block_2",
+    "auroc": 0.9999909448450511,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "cum[collect_iron]",
+    "rep": "wm_block_2",
+    "auroc": 0.9244458719452475,
+    "n_pos_test": 8006
+  },
+  {
+    "concept": "just[collect_sapling]",
+    "rep": "wm_block_2",
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[collect_sapling]",
+    "rep": "wm_block_2",
+    "auroc": 0.9999852174398333,
+    "n_pos_test": 17104
+  },
+  {
+    "concept": "just[collect_stone]",
+    "rep": "wm_block_2",
+    "auroc": 0.999548857005479,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[collect_stone]",
+    "rep": "wm_block_2",
+    "auroc": 0.9798712375784856,
+    "n_pos_test": 14670
+  },
+  {
+    "concept": "just[collect_wood]",
+    "rep": "wm_block_2",
+    "auroc": 0.9999540915872834,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[collect_wood]",
+    "rep": "wm_block_2",
+    "auroc": 0.9979723343696127,
+    "n_pos_test": 16754
+  },
+  {
+    "concept": "just[defeat_skeleton]",
+    "rep": "wm_block_2",
+    "auroc": 0.9793900878238228,
+    "n_pos_test": 26
+  },
+  {
+    "concept": "cum[defeat_skeleton]",
+    "rep": "wm_block_2",
+    "auroc": 0.8393918713605243,
+    "n_pos_test": 10827
+  },
+  {
+    "concept": "just[defeat_zombie]",
+    "rep": "wm_block_2",
+    "auroc": 0.9951086601646671,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[defeat_zombie]",
+    "rep": "wm_block_2",
+    "auroc": 0.953073775152331,
+    "n_pos_test": 12345
+  },
+  {
+    "concept": "just[eat_cow]",
+    "rep": "wm_block_2",
+    "auroc": 0.9996116913424385,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[eat_cow]",
+    "rep": "wm_block_2",
+    "auroc": 0.9717192280713008,
+    "n_pos_test": 16024
+  },
+  {
+    "concept": "just[eat_plant]",
+    "rep": "wm_block_2",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[eat_plant]",
+    "rep": "wm_block_2",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_iron_pickaxe]",
+    "rep": "wm_block_2",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[make_iron_pickaxe]",
+    "rep": "wm_block_2",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_iron_sword]",
+    "rep": "wm_block_2",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[make_iron_sword]",
+    "rep": "wm_block_2",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_stone_pickaxe]",
+    "rep": "wm_block_2",
+    "auroc": 0.9876184465064428,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[make_stone_pickaxe]",
+    "rep": "wm_block_2",
+    "auroc": 0.9767545031820548,
+    "n_pos_test": 11832
+  },
+  {
+    "concept": "just[make_stone_sword]",
+    "rep": "wm_block_2",
+    "auroc": 1.0,
+    "n_pos_test": 26
+  },
+  {
+    "concept": "cum[make_stone_sword]",
+    "rep": "wm_block_2",
+    "auroc": 0.974796043825594,
+    "n_pos_test": 10815
+  },
+  {
+    "concept": "just[make_wood_pickaxe]",
+    "rep": "wm_block_2",
+    "auroc": 0.9999881278159336,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[make_wood_pickaxe]",
+    "rep": "wm_block_2",
+    "auroc": 0.9868043428238866,
+    "n_pos_test": 14825
+  },
+  {
+    "concept": "just[make_wood_sword]",
+    "rep": "wm_block_2",
+    "auroc": 0.9999795075248369,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[make_wood_sword]",
+    "rep": "wm_block_2",
+    "auroc": 0.9489788284411316,
+    "n_pos_test": 13566
+  },
+  {
+    "concept": "just[place_furnace]",
+    "rep": "wm_block_2",
+    "auroc": 0.9992212859438014,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[place_furnace]",
+    "rep": "wm_block_2",
+    "auroc": 0.9441866790786827,
+    "n_pos_test": 14144
+  },
+  {
+    "concept": "just[place_plant]",
+    "rep": "wm_block_2",
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[place_plant]",
+    "rep": "wm_block_2",
+    "auroc": 0.9999996933581999,
+    "n_pos_test": 17074
+  },
+  {
+    "concept": "just[place_stone]",
+    "rep": "wm_block_2",
+    "auroc": 0.994327074713633,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[place_stone]",
+    "rep": "wm_block_2",
+    "auroc": 0.9779480310469043,
+    "n_pos_test": 14641
+  },
+  {
+    "concept": "just[place_table]",
+    "rep": "wm_block_2",
+    "auroc": 0.9982033428112935,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[place_table]",
+    "rep": "wm_block_2",
+    "auroc": 0.9800641722714435,
+    "n_pos_test": 16143
+  },
+  {
+    "concept": "just[wake_up]",
+    "rep": "wm_block_2",
+    "auroc": 0.9974220466244795,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[wake_up]",
+    "rep": "wm_block_2",
+    "auroc": 0.8539620146272213,
+    "n_pos_test": 15129
+  },
+  {
+    "concept": "just[collect_coal]",
+    "rep": "wm_block_3",
+    "auroc": 0.9999914999054365,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "cum[collect_coal]",
+    "rep": "wm_block_3",
+    "auroc": 0.9535719528878294,
+    "n_pos_test": 11108
+  },
+  {
+    "concept": "just[collect_diamond]",
+    "rep": "wm_block_3",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[collect_diamond]",
+    "rep": "wm_block_3",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[collect_drink]",
+    "rep": "wm_block_3",
+    "auroc": 0.9591584969999017,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[collect_drink]",
+    "rep": "wm_block_3",
+    "auroc": 0.919630719430385,
+    "n_pos_test": 14916
+  },
+  {
+    "concept": "just[collect_iron]",
+    "rep": "wm_block_3",
+    "auroc": 0.9999909448450512,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "cum[collect_iron]",
+    "rep": "wm_block_3",
+    "auroc": 0.9312612233946234,
+    "n_pos_test": 8006
+  },
+  {
+    "concept": "just[collect_sapling]",
+    "rep": "wm_block_3",
+    "auroc": 0.9999980871494702,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[collect_sapling]",
+    "rep": "wm_block_3",
+    "auroc": 0.9999868784016498,
+    "n_pos_test": 17104
+  },
+  {
+    "concept": "just[collect_stone]",
+    "rep": "wm_block_3",
+    "auroc": 0.9993826464285502,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[collect_stone]",
+    "rep": "wm_block_3",
+    "auroc": 0.9818956746924807,
+    "n_pos_test": 14670
+  },
+  {
+    "concept": "just[collect_wood]",
+    "rep": "wm_block_3",
+    "auroc": 0.9999521787367535,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[collect_wood]",
+    "rep": "wm_block_3",
+    "auroc": 0.9981767334041418,
+    "n_pos_test": 16754
+  },
+  {
+    "concept": "just[defeat_skeleton]",
+    "rep": "wm_block_3",
+    "auroc": 0.9662694734983891,
+    "n_pos_test": 26
+  },
+  {
+    "concept": "cum[defeat_skeleton]",
+    "rep": "wm_block_3",
+    "auroc": 0.838280577309457,
+    "n_pos_test": 10827
+  },
+  {
+    "concept": "just[defeat_zombie]",
+    "rep": "wm_block_3",
+    "auroc": 0.9888777422271822,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[defeat_zombie]",
+    "rep": "wm_block_3",
+    "auroc": 0.9537904846946196,
+    "n_pos_test": 12345
+  },
+  {
+    "concept": "just[eat_cow]",
+    "rep": "wm_block_3",
+    "auroc": 0.999632732698267,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[eat_cow]",
+    "rep": "wm_block_3",
+    "auroc": 0.9716155079531541,
+    "n_pos_test": 16024
+  },
+  {
+    "concept": "just[eat_plant]",
+    "rep": "wm_block_3",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[eat_plant]",
+    "rep": "wm_block_3",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_iron_pickaxe]",
+    "rep": "wm_block_3",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[make_iron_pickaxe]",
+    "rep": "wm_block_3",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_iron_sword]",
+    "rep": "wm_block_3",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "cum[make_iron_sword]",
+    "rep": "wm_block_3",
+    "auroc": null,
+    "skipped": true,
+    "n_pos_test": 0
+  },
+  {
+    "concept": "just[make_stone_pickaxe]",
+    "rep": "wm_block_3",
+    "auroc": 0.9607978950129512,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[make_stone_pickaxe]",
+    "rep": "wm_block_3",
+    "auroc": 0.9808041751183232,
+    "n_pos_test": 11832
+  },
+  {
+    "concept": "just[make_stone_sword]",
+    "rep": "wm_block_3",
+    "auroc": 0.9999867602277241,
+    "n_pos_test": 26
+  },
+  {
+    "concept": "cum[make_stone_sword]",
+    "rep": "wm_block_3",
+    "auroc": 0.979744443291137,
+    "n_pos_test": 10815
+  },
+  {
+    "concept": "just[make_wood_pickaxe]",
+    "rep": "wm_block_3",
+    "auroc": 0.9999960426053114,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[make_wood_pickaxe]",
+    "rep": "wm_block_3",
+    "auroc": 0.9885850313713199,
+    "n_pos_test": 14825
+  },
+  {
+    "concept": "just[make_wood_sword]",
+    "rep": "wm_block_3",
+    "auroc": 0.9999938522574511,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[make_wood_sword]",
+    "rep": "wm_block_3",
+    "auroc": 0.9560996093742598,
+    "n_pos_test": 13566
+  },
+  {
+    "concept": "just[place_furnace]",
+    "rep": "wm_block_3",
+    "auroc": 0.9992766156267419,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[place_furnace]",
+    "rep": "wm_block_3",
+    "auroc": 0.9467435193837848,
+    "n_pos_test": 14144
+  },
+  {
+    "concept": "just[place_plant]",
+    "rep": "wm_block_3",
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "cum[place_plant]",
+    "rep": "wm_block_3",
+    "auroc": 0.9999998466790999,
+    "n_pos_test": 17074
+  },
+  {
+    "concept": "just[place_stone]",
+    "rep": "wm_block_3",
+    "auroc": 0.988345472641541,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[place_stone]",
+    "rep": "wm_block_3",
+    "auroc": 0.9802627551549623,
+    "n_pos_test": 14641
+  },
+  {
+    "concept": "just[place_table]",
+    "rep": "wm_block_3",
+    "auroc": 0.9976097336079766,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "cum[place_table]",
+    "rep": "wm_block_3",
+    "auroc": 0.9807626610587524,
+    "n_pos_test": 16143
+  },
+  {
+    "concept": "just[wake_up]",
+    "rep": "wm_block_3",
+    "auroc": 0.9961617594019476,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "cum[wake_up]",
+    "rep": "wm_block_3",
+    "auroc": 0.8502395513751484,
+    "n_pos_test": 15129
+  }
+]
