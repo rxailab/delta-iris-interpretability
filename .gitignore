@@ -27,3 +27,14 @@ __pycache__/
 
 # harness-internal
 /.claude/
+
+# paper build artefacts / template-compile placeholders
+paper/fig.eps
+paper/fig.eps.orig-from-template
+paper/empty.eps
+paper/__pycache__/
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out

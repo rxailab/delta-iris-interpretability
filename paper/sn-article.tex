@@ -1,0 +1,322 @@
+%Version 3.1 December 2024
+%% Δ-IRIS interpretability paper — built on the Springer Nature sn-article template.
+%% Compile: tectonic sn-article.tex   (requires sn-jnl.cls + sn-mathphys-num.bst alongside)
+
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%
+\newtheorem{proposition}[theorem]{Proposition}%
+
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
+
+\raggedbottom
+
+% Notation shortcuts
+\newcommand{\deltairis}{$\Delta$-IRIS}
+\newcommand{\code}[2]{(s_{#1},c_{#2})}
+\newcommand{\achname}[1]{\texttt{#1}}
+
+\begin{document}
+
+\title[Auditing Quantized World-Model Representations]{From Codes to Causes: A Causal Interpretability Audit of Quantized Delta Representations in a Transformer World Model}
+
+%% NOTE: replace the initial with the author's full given name before submission (Springer requires it in \fnm{}).
+\author*[1]{\fnm{R.} \sur{Xia}}\email{r.xia2@lancaster.ac.uk}
+
+\affil*[1]{\orgname{Lancaster University}, \orgaddress{\city{Lancaster}, \postcode{LA1 4YW}, \country{United Kingdom}}}
+
+\abstract{World-model agents such as \deltairis{} compress environment dynamics into discrete latent codes, but whether those codes constitute an interpretable---and causally meaningful---vocabulary has not been examined. We present a three-tier interpretability audit of a single fully trained \deltairis{} agent on the Crafter benchmark, progressing from descriptive to informational to interventional evidence. Descriptively, the tokenizer's delta codes form a near-monosemantic event vocabulary: individual codes predict specific achievement unlocks with conditional probabilities up to $0.92$ and lifts up to $708\times$ over base rates. Informationally, linear probes reveal a confound we term the \emph{HUD shortcut}: cumulative agent state is decodable from a convolutional embedding of the current frame alone---Crafter renders the inventory on screen---matching or exceeding every transformer block on 16 of 18 such concepts; only short-horizon reward anticipation genuinely requires depth. Interventionally, sparse-autoencoder features extracted from the world model's residual stream can be causally load-bearing: projecting out a single direction in the 512-dimensional residual stream suppresses sampling of the corresponding event's detector codes in imagined rollouts (wood collection: $1.00\!\to\!0.00$ first-step detector probability), while supervised probe directions with near-perfect decoding accuracy leave rollouts unchanged---a dissociation between decoding and mechanism. Activation patching further shows that next-code prediction is quasi-Markovian, carried almost entirely by the current step's action and latent tokens. The audit provides a transferable methodology for interpreting discrete world-model representations and cautions against equating decodability with mechanism.}
+
+\keywords{world models, interpretability, reinforcement learning, discrete representations, sparse autoencoders, causal analysis}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+Model-based reinforcement learning agents increasingly learn inside their own imagination: a learned \emph{world model} predicts future observations, rewards, and terminations, and the control policy is optimized largely or entirely on imagined trajectories~\cite{worldmodels2018,simple2020,muzero2020,dreamerv3}. A prominent family of such agents tokenizes observations into discrete latent codes and models dynamics autoregressively with a transformer~\cite{iris2023}. The recent \deltairis{} agent~\cite{deltairis2024} refines this recipe with \emph{context-aware tokenization}: instead of encoding each frame in isolation, its tokenizer encodes the \emph{transition} $(x_t, a_t, x_{t+1})$ into a handful of discrete codes, and its decoder reconstructs $x_{t+1}$ given direct access to $(x_t, a_t)$. The codes are thereby pressured to carry only what is \emph{new}---a compressed description of the frame-to-frame delta.
+
+This design suggests an attractive interpretability hypothesis: if the codes describe changes, and meaningful events in an environment are changes, then the learned codebook should constitute an \emph{event vocabulary}---discrete, enumerable, and potentially human-legible. Whether this hypothesis holds, and more importantly whether such codes (or any representation derived from them) are \emph{causally} implicated in the world model's predictions rather than merely correlated with events, has to our knowledge not been tested.
+
+We test it. Using a single fully trained \deltairis{} agent (one training seed, one environment) on Crafter~\cite{crafter2022}---a procedurally generated survival environment with 22 ground-truth achievement signals---we conduct an interpretability audit organised in three tiers of evidentiary strength:
+
+\begin{enumerate}
+\item \textbf{Descriptive.} We characterise codebook utilisation over the agent's entire $10^7$-step replay buffer and measure the statistical association between every (slot, code) pair and every achievement, via lift and exact binomial tests (Section~\ref{sec:descriptive}).
+\item \textbf{Informational.} We train linear probes for 47 concepts on seven representations spanning the tokenizer codebook, the world model's convolutional frame embedding, and every transformer block, with episode-disjoint evaluation; we extract concept activation vectors (CAVs)~\cite{tcav2018}; and we train a TopK sparse autoencoder~\cite{gao2024topk,sae2024} on the world model's residual stream (Sections~\ref{sec:informational}--\ref{sec:sae}).
+\item \textbf{Interventional.} We measure the causal contribution of individual representation directions by projection ablation---both on single-step prediction and \emph{inside multi-step imagination}---with matched-moment and random-direction controls, and we localise causal signal across (layer, position, token-type) cells by activation patching~\cite{vig2020causal,rome2022} (Section~\ref{sec:interventional}).
+\end{enumerate}
+
+\noindent Our principal findings:
+
+\begin{itemize}
+\item \textbf{Delta codes form a near-monosemantic event vocabulary.} Individual codes act as detectors for specific achievements with conditional probability up to $0.92$ and lift up to $708\times$; the strongest associations are corroborated by probes, dictionary features, and visual inspection (Sections~\ref{sec:descriptive}, \ref{sec:sae}).
+\item \textbf{The HUD shortcut.} Probes suggest the transformer maintains episodic state---until a control representation (the CNN embedding of the current frame, with no transformer) matches or exceeds every transformer block on 16 of 18 cumulative-state concepts. Crafter renders the agent's inventory on screen, so ``memory'' probes are answerable by reading the screen. Three complementary experiments (frame-embedding probes, ablation-recovery analysis, and causal tracing) converge on this conclusion. The only probed capability that genuinely requires transformer depth is short-horizon reward anticipation (Section~\ref{sec:informational}).
+\item \textbf{A read--write asymmetry.} Supervised probe (CAV) directions decode concepts with near-perfect held-out AUROC yet are causally inert under single-direction ablation; unsupervised sparse-autoencoder directions are weaker decoders but causally load-bearing---ablating a single direction in the 512-dimensional residual stream suppresses the corresponding event's detector codes in imagined futures with controls intact (Section~\ref{sec:interventional}). To our knowledge this decodability--causality dissociation~\cite{amnesic2021,belinkov2022probing} has not previously been exhibited inside a generative imagination loop; it contrasts instructively with game-playing sequence models in which probe directions \emph{are} causally steerable~\cite{li2023othello,nanda2023othello}.
+\item \textbf{Quasi-Markovian prediction.} Activation patching over all (block, timestep, token-type) cells shows the causal signal for next-code prediction concentrated at the current step's action and latent tokens; patching any cell of the 20-step history restores essentially nothing (Section~\ref{sec:tracing}).
+\end{itemize}
+
+Beyond the specific findings, the audit itself---descriptive association, probing with shortcut controls, dictionary learning, then intervention inside imagination---constitutes a transferable methodology for interrogating discrete world-model representations.
+
+\section{Related work}\label{sec:related}
+
+\textbf{World models with discrete tokens.} Learning behaviour inside a learned simulator dates at least to recurrent world models~\cite{worldmodels2018} and video-prediction-based Atari agents~\cite{simple2020}; MuZero~\cite{muzero2020} couples planning with implicit models, and the Dreamer line~\cite{dreamerv3} optimises actor--critics on imagined latent trajectories. IRIS~\cite{iris2023} introduced VQ-VAE-style discrete tokenization~\cite{vqvae2017,vqgan2021} of frames combined with an autoregressive transformer dynamics model; \deltairis{}~\cite{deltairis2024} made tokenization context-aware, encoding stochastic deltas between consecutive frames conditioned on action. Interpretability of RL networks more broadly includes concept probing in AlphaZero~\cite{mcgrath2022}, feature-level analysis of vision-based policies~\cite{hilton2020,greydanus2018atari}, and---closest in spirit to our interventional tier---causal probing of sequence models trained on board games, where linearly decoded world-state directions are also causally steerable~\cite{li2023othello,nanda2023othello}. Our work is, to our knowledge, the first systematic interpretability study of the discrete \emph{transition} vocabularies learned by IRIS-family world models.
+
+\textbf{Probing and its limits.} Linear probes~\cite{alain2017probes} are a standard tool for asking what a representation encodes, but high probe accuracy does not imply the probed information is used by the model~\cite{belinkov2022probing,hewitt2019control}. Amnesic probing~\cite{amnesic2021} removes probe-identified subspaces and measures behavioural change---iteratively, via nullspace projection~\cite{ravfogel2020inlp}, precisely because removing a single probe direction rarely suffices against redundant encodings; this observation will matter when we interpret our own single-direction results. Concept activation vectors~\cite{tcav2018} aggregate probe directions into concept-level explanations. Our HUD-shortcut analysis adds an environment-specific control that we argue should be standard in RL probing studies: a probe on the \emph{input encoder alone}, which bounds how much of an apparent ``memory'' result is attributable to information rendered in the observation itself. Related cautions about confounded saliency explanations in RL appear in~\cite{atrey2020saliency,greydanus2018atari}.
+
+\textbf{Dictionary learning and causal analysis.} Sparse autoencoders decompose residual streams into overcomplete sets of sparsely active, often monosemantic features~\cite{sae2024,bricken2023monosemanticity,elhage2022superposition}, with TopK activation providing direct sparsity control~\cite{gao2024topk,ksparse2014}. Causal mediation and activation patching localise behaviour-relevant computation in transformers~\cite{vig2020causal,rome2022,olah2020zoomin}. We adapt both tool families from language models to a world model, and extend ablation beyond single-step prediction into the agent's autoregressive imagination loop, where the world model's own sampled codes are fed back recursively.
+
+\section{Background: the \deltairis{} agent}\label{sec:background}
+
+\deltairis{}~\cite{deltairis2024} comprises three modules trained jointly from an experience replay buffer: a tokenizer, a transformer world model, and a CNN--LSTM actor--critic trained on imagined trajectories. We summarise the parts our audit instruments.
+
+\textbf{Delta tokenizer.} The tokenizer encodes a transition $(x_t, a_t, x_{t+1})$, with frames $x \in \mathbb{R}^{3\times 64\times 64}$, by stacking both frames and an action embedding channel-wise and passing them through a convolutional encoder. The resulting latent is reshaped into a $2\times 2$ spatial grid of \emph{slots}, and each slot is vector-quantised~\cite{vqvae2017} against a shared codebook of $C{=}1024$ entries ($d{=}64$, cosine similarity), yielding four discrete codes
+\begin{equation}
+\mathbf{c}_t = \bigl(c^0_t, c^1_t, c^2_t, c^3_t\bigr) \in \{0,\dots,1023\}^4 .
+\end{equation}
+The decoder reconstructs $x_{t+1}$ from $(x_t, a_t, \mathbf{c}_t)$: crucially, it receives $x_t$ and $a_t$ \emph{directly}, so the $4\log_2 1024 = 40$ bits of code need only carry what cannot be inferred from the previous frame and action---the transition's residual novelty. We write $\code{k}{j}$ for code $j$ at slot $k$.
+
+\textbf{Transformer world model.} Each timestep contributes a block of six tokens to the world-model sequence: a frame embedding (CNN over $x_t$), an action embedding, and the four code embeddings. A causal transformer ($L{=}3$ blocks, 8 heads, $d_{\mathrm{model}}{=}512$, context $21$ timesteps $=126$ tokens) processes the sequence. Three small MLP heads read from fixed intra-block positions (Figure~\ref{fig:heads}): \texttt{head\_rewards} and \texttt{head\_ends} read the action position; \texttt{head\_latents} reads positions $1$--$4$ and predicts the four codes of the current transition autoregressively (code $c^0$ from the action position, $c^1$ after conditioning on $c^0$, and so on). During imagination, codes are sampled from \texttt{head\_latents}, decoded to a frame by the tokenizer, and fed back; the actor--critic selects actions from decoded frames.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/heads.png}
+\caption{The \deltairis{} world model's prediction heads and their read positions within one six-token timestep block. \texttt{head\_rewards} and \texttt{head\_ends} read the post-transformer activation at the action position (block mask $[0,1,0,0,0,0]$); \texttt{head\_latents} reads positions 1--4 (mask $[0,1,1,1,1,0]$) and predicts the four latent codes autoregressively within the timestep. The final latent position feeds subsequent attention but carries no prediction head.}\label{fig:heads}
+\end{figure}
+
+\textbf{Crafter.} Crafter~\cite{crafter2022} is a procedurally generated 2D survival environment with 17 actions and 22 boolean \emph{achievements} (e.g.\ \achname{collect\_wood}, \achname{make\_stone\_pickaxe}, \achname{defeat\_zombie}) that fire once per episode at the step where they are first satisfied, each granting $+1$ reward. Achievements provide ground-truth event labels at exact timesteps---ideal supervision for an interpretability audit. Notably for what follows, Crafter renders the agent's inventory and status as a heads-up display (HUD) occupying the lower portion of every frame.
+
+\section{Experimental setup}\label{sec:setup}
+
+\textbf{Agent training.} We trained a single \deltairis{} agent with the public reference implementation and unmodified Crafter hyperparameters (1{,}000 epochs; $10^7$ environment steps collected into the replay buffer; seed 0) on one NVIDIA H200 GPU, requiring approximately 8.7 days of wall-clock time. Final performance, evaluated over 500 fresh episodes, is a mean episodic return of $16.20$ (s.d.\ $1.62$ across episodes; each of the 22 achievements contributes $+1$, plus small health-based reward corrections), with $17.1$ achievements unlocked per episode on average; the single-seed return is within roughly one seed-level standard deviation of the published multi-seed return of $17.8 \pm 1.4$~\cite{deltairis2024}. Achievement coverage is dense: 18 of 22 achievements unlock in at least $73\%$ of evaluation episodes; \achname{collect\_diamond} and \achname{eat\_plant} never unlock and the two iron tools unlock in $\le 2$ of 500 episodes, so these four are excluded from per-achievement statistics throughout.
+
+\textbf{Instrumented rollouts.} The training pipeline discards the environment info dictionary, so we re-rolled the frozen agent with full instrumentation: at every step we record the four codes $\mathbf{c}_t$ emitted by the frozen tokenizer for the observed transition, the action, the reward, and the 22-bit achievement state, from which we derive \emph{just-unlocked} indicators $u^i_t$ (bit $i$ flipped $0\!\to\!1$ at step $t$). Two corpora are used: 500 episodes (294{,}916 steps) for association statistics, and 150 episodes (81{,}919 steps) with full frame storage for activation extraction.
+
+\textbf{Representations probed.} For each timestep we extract seven representations: \textsf{raw\_codes} (mean of the four codebook vectors, $d{=}64$; no transformer); \textsf{frame\_emb} (the world model's CNN embedding of the current frame, $d{=}512$; no transformer); \textsf{wm\_latents\_emb} (the world model's own embedding of the four codes, mean-pooled; no attention); and the four transformer stages (output of blocks 0--2 and the final post-norm state), summarised at each timestep by averaging the four latent-token positions. All probe evaluations use episode-disjoint 80/20 train/test splits.
+
+\section{Descriptive tier: the codebook is an event vocabulary}\label{sec:descriptive}
+
+\subsection{Codebook utilisation}
+
+Re-encoding the agent's entire replay buffer (29{,}136 episodes; 9{,}980{,}073 transitions) through the frozen tokenizer shows no codebook collapse: every one of the 1024 codes is used in at least one slot (per-slot active counts 975/972/931/911). Usage is nonetheless heavily concentrated (Figure~\ref{fig:codebook}): per-slot entropies are $5.97$, $5.96$, $5.34$ and $5.66$ bits of a possible $10$, i.e.\ roughly 40--63 \emph{effective} codes per slot; the single most frequent code per slot absorbs $32$--$47\%$ of assignments. The same code (index 29) dominates every slot, and visual inspection shows it marks transitions with no change in the corresponding spatial quadrant---a shared ``nothing happened here'' symbol---consistent with the sparsity of meaningful change in Crafter: the informative vocabulary lives in the long tail.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/codebook_usage.pdf}
+\caption{Codebook utilisation over the full $10^7$-transition replay buffer. Per-slot code-usage counts, sorted descending (log scale). All 1024 codes are active in the union of slots, but usage is Zipf-like: the head codes encode ``no change in this quadrant'' and the event vocabulary occupies the tail.}\label{fig:codebook}
+\end{figure}
+
+\subsection{Codes as achievement detectors}\label{sec:mi}
+
+For every (slot, code, achievement) cell we count co-occurrences between code assignments and just-unlocked events over the 294{,}916 instrumented steps, and compute the conditional probability $P(u^i \mid c^k{=}j)$, the lift over the achievement's base rate, and an exact binomial $p$-value against independence. Of the 431 cells with co-occurrence support $\ge 5$, 372 deviate from independence at uncorrected $p<0.05$, and 190 survive Bonferroni correction over all tested cells; the per-achievement maxima in Table~\ref{tab:mi} all have $p<10^{-40}$ and survive any correction.
+
+\begin{table}[t]
+\caption{Strongest detector code per achievement (selection). $n_{\mathrm{co}}$: co-occurrences of the code with the just-unlocked event; $n_c$: total occurrences of the code; lift: $P(u \mid c)/P(u)$. All $p$-values shown are below $10^{-40}$ (uncorrected exact binomial tests); the full 431-cell table ships with the code release.}\label{tab:mi}
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+Achievement & Code & $n_{\mathrm{co}}/n_c$ & $P(u \mid c)$ & Lift \\
+\midrule
+\achname{place\_plant}       & $\code{3}{938}$ & $477/519$  & $0.92$ & $543\times$ \\
+\achname{collect\_sapling}   & $\code{2}{707}$ & $419/463$  & $0.90$ & $535\times$ \\
+\achname{collect\_iron}      & $\code{3}{75}$  & $360/410$  & $0.88$ & $708\times$ \\
+\achname{collect\_coal}      & $\code{3}{578}$ & $450/626$  & $0.72$ & $467\times$ \\
+\achname{make\_wood\_pickaxe}& $\code{3}{903}$ & $19/35$    & $0.54$ & $325\times$ \\
+\achname{place\_table}       & $\code{3}{36}$  & $480/1507$ & $0.32$ & $188\times$ \\
+\achname{eat\_cow}           & $\code{2}{648}$ & $251/1127$ & $0.22$ & $134\times$ \\
+\achname{place\_furnace}     & $\code{0}{51}$  & $89/412$   & $0.22$ & $132\times$ \\
+\achname{collect\_wood}      & $\code{3}{940}$ & $474/2471$ & $0.19$ & $113\times$ \\
+\achname{defeat\_zombie}     & $\code{1}{727}$ & $68/365$   & $0.19$ & $113\times$ \\
+\botrule
+\end{tabular}
+\end{table}
+
+Three observations. First, the strongest codes are bona fide event detectors: when $\code{3}{75}$ fires, the agent is collecting iron 88\% of the time, a $708\times$ concentration over chance. Second, slot~3 hosts most of the strongest detectors (11 of 18 per-achievement maxima), indicating slot specialisation beyond pure spatial decomposition. Third, some codes are \emph{polysemantic superclasses}: $\code{3}{36}$ is a shared high-coverage detector for \achname{place\_table}, \achname{make\_wood\_pickaxe} and \achname{make\_wood\_sword}---it co-occurs with $77$--$96\%$ of their unlocks (lifts $152$--$188\times$), three events whose visual signature (a wooden item appears) is nearly identical---while the rare code $\code{3}{903}$ is the single strongest detector for both wooden tools. Section~\ref{sec:sae} shows that dictionary learning resolves exactly this collapse. \achname{defeat\_skeleton} has by far the weakest detector (best $P(u \mid c) = 0.07$), plausibly because combat produces visually heterogeneous transitions.
+
+\section{Informational tier: probes, a shortcut, and concept geometry}\label{sec:informational}
+
+\subsection{Layer-wise probing with an input-encoder control}\label{sec:probes}
+
+We train logistic-regression probes for 47 targets---the action taken, instantaneous reward, reward within the next 5 steps, and just-unlocked plus cumulative indicators for each achievement (39 are measurable; the eight indicators of the four never- or rarely-unlocked achievements have no positive examples)---on all seven representations (Figure~\ref{fig:probes}). We report a single episode-disjoint split per representation; AUROCs carry no cross-validated uncertainty estimate.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/probe_heatmap.pdf}
+\caption{Held-out probe performance (AUROC; accuracy for the 17-way action probe) for the 39 measurable targets (rows; the remaining 8 of 47 are never positive) across seven representations (columns), episode-disjoint splits, $n{=}81{,}919$ steps from 150 episodes. \textsf{frame\_emb} is the input-encoder control: a CNN over the current frame with no transformer. Cumulative-state rows (\textsf{ach\_cum}) are answered by \textsf{frame\_emb} alone; only reward anticipation (\textsf{reward\_in\_next\_5}) improves materially with transformer depth.}\label{fig:probes}
+\end{figure}
+
+\textbf{Events are in the codes.} Just-unlocked indicators are decodable from \textsf{raw\_codes} alone---64 dimensions, no transformer---at AUROC $\ge 0.85$ for all 18 measurable achievements and $\ge 0.95$ for 14 of them; the weakest are the two combat events ($0.85$--$0.86$), matching their weak detector codes in Section~\ref{sec:mi}. The per-sample, held-out view confirms the population-level association analysis.
+
+\textbf{The HUD shortcut.} Cumulative indicators (``has the agent collected wood at any point this episode?'') tell a different story. From \textsf{raw\_codes} most sit near chance (median AUROC $0.61$): delta codes carry little episodic memory, by construction. From any transformer block they look excellent ($0.84$--$1.00$), inviting the conclusion that the transformer maintains episodic state. The control column refutes it: \textsf{frame\_emb}, which sees only the current frame through a CNN, \emph{matches or exceeds every transformer block on 16 of 18 cumulative concepts} (full-precision comparison)---exceeding AUROC $0.999$ on nine of the 18, e.g.\ \achname{collect\_iron} ($1.000$ vs.\ $0.935$ at block 1). (The two exceptions, \achname{collect\_sapling} and \achname{place\_plant}, trail by less than $10^{-3}$, with \textsf{frame\_emb} and every transformer block above $0.999$.) The explanation is in the observation, not the network: Crafter draws the inventory in the HUD, so cumulative state is \emph{written on the screen}, and one attention round suffices to relay it from the frame token to the latent positions where our summary is read. Apparent transformer memory is, for these concepts, screen-reading.
+
+\textbf{What actually needs the transformer.} The single probed target where depth helps monotonically by a non-trivial margin and the final block beats \textsf{frame\_emb} is \textsf{reward\_in\_next\_5} ($0.56$ raw codes; $0.79$ frame; $0.77 \to 0.79 \to 0.81 \to 0.81$ across blocks): short-horizon \emph{anticipation}, which cannot be read off the current frame. We take this as the cleanest positive evidence of what the world model's depth contributes beyond its input encoders.
+
+We argue the input-encoder control should be standard practice when probing RL agents: most pixel-based environments render persistent state into observations (score counters, HUDs, inventories), making ``memory'' probes systematically confoundable~\cite{atrey2020saliency,hewitt2019control}.
+
+\subsection{Concept activation vectors and tech-tree geometry}\label{sec:cavs}
+
+The probe weight vectors are concept activation vectors (CAVs)~\cite{tcav2018}: directions in representation space pointing toward each concept. Probes are trained on per-feature standardised activations, and the CAV direction used later is the weight vector divided element-wise by the training standard deviations and renormalised, mapping it back to raw activation space. At the block-1 output, 35 of 36 measurable concepts yield CAVs with held-out AUROC $\ge 0.85$ (many at $1.0$). Their pairwise geometry recapitulates Crafter's dependency structure: the most aligned pairs are exactly the tech-tree neighbours---$\cos(\mathrm{cum}[\achname{collect\_stone}], \mathrm{cum}[\achname{place\_stone}]) = 0.95$, $\cos(\mathrm{cum}[\achname{collect\_sapling}], \mathrm{cum}[\achname{place\_plant}]) = 0.83$, $\cos(\mathrm{cum}[\achname{make\_stone\_pickaxe}], \mathrm{cum}[\achname{make\_stone\_sword}]) = 0.79$---while event and state directions for the same achievement are weakly \emph{anti}-aligned (e.g.\ $\cos = -0.26$ for \achname{collect\_drink}, $-0.20$ for \achname{collect\_wood}), a clean event-versus-state dichotomy. The geometry thus recapitulates the tech tree's co-occurrence structure---though we note cumulative indicators of adjacent achievements co-occur almost perfectly within episodes, which inflates these alignments. Section~\ref{sec:interventional} will show, moreover, that these directions behave as read-out directions only.
+
+\section{Dictionary learning on the residual stream}\label{sec:sae}
+
+We train a TopK sparse autoencoder~\cite{gao2024topk} ($M{=}2048$ dictionary features, $k{=}16$ active per sample, tied initialisation, unit-norm decoder columns) on the 81{,}919 block-1 summary activations. The SAE reconstructs well---fraction of variance unexplained $0.043$ on episode-disjoint validation---with zero dead features.
+
+Each feature is then labelled by three independent sources: its best-matching achievement (lift of unlock events among the steps whose activation lies in the top quartile of the feature's nonzero activations), its best-matching CAV (cosine between decoder column and CAV direction), and its best-matching code (mean activation conditional on each (slot, code)). The three labelling sources, computed independently, converge on the same identities for the strongest features (Table~\ref{tab:sae}): five features satisfy a strict triple-corroboration criterion (achievement lift $>$ 10, $|\cos|$ to the \emph{same-named} CAV $>$ 0.4, and a detector code from the MI table as top code).
+
+\begin{table}[t]
+\caption{Cross-corroborated SAE features: the feature's top achievement (by lift within its top activation quartile), the most-aligned CAV, and the (slot, code) with the highest conditional mean activation. The first five rows satisfy the strict triple-corroboration criterion ($|\cos| > 0.4$ to the same-named CAV); $f_{372}$ is included as the third member of the $\code{3}{36}$ split.}\label{tab:sae}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Feature & Achievement (lift) & CAV ($\cos$) & Code \\
+\midrule
+$f_{1742}$ & \achname{collect\_coal} ($589\times$) & just[\achname{collect\_coal}] ($+0.58$) & $\code{3}{578}$ \\
+$f_{1820}$ & \achname{collect\_iron} ($624\times$) & just[\achname{collect\_iron}] ($+0.41$) & $\code{3}{75}$ \\
+$f_{872}$  & \achname{make\_stone\_pickaxe} ($522\times$) & just[\achname{make\_stone\_pickaxe}] ($+0.48$) & $\code{3}{616}$ \\
+$f_{677}$  & \achname{place\_table} ($527\times$) & just[\achname{place\_table}] ($+0.45$) & $\code{3}{36}$ \\
+$f_{1451}$ & \achname{make\_wood\_pickaxe} ($548\times$) & just[\achname{make\_wood\_pickaxe}] ($+0.46$) & $\code{3}{36}$ \\
+$f_{372}$  & \achname{make\_wood\_sword} ($444\times$) & just[\achname{make\_wood\_sword}] ($+0.23$) & $\code{3}{36}$ \\
+\botrule
+\end{tabular}
+\end{table}
+
+The last three rows are the noteworthy ones: the SAE assigns \emph{distinct, individually near-monosemantic features} to the single polysemantic code $\code{3}{36}$ identified in Section~\ref{sec:mi}---$f_{677}$, $f_{1451}$ and $f_{372}$ are each the single best feature for \achname{place\_table}, \achname{make\_wood\_pickaxe} and \achname{make\_wood\_sword} respectively, despite sharing the same top code (eight features in total have $\code{3}{36}$ as their top code). The world model's continuous residual stream retains distinctions that the tokenizer's 40-bit bottleneck collapses, and dictionary learning recovers them~\cite{bricken2023monosemanticity,elhage2022superposition}. Conversely, the two highest-density features (firing on $38$--$47\%$ of steps) match no achievement (lift $<3$), and none of the 20 features with density above $5\%$ approaches the detector features' lifts (all $\le 21\times$ vs.\ $\ge 120\times$): the dense features encode background terrain and idle dynamics, the dictionary analogue of the dominant ``no-change'' codes.
+
+\section{Interventional tier: which directions does the model actually use?}\label{sec:interventional}
+
+Decodability does not imply mechanism~\cite{belinkov2022probing,amnesic2021}. We therefore measure the \emph{causal} contribution of representation directions by projection ablation,
+\begin{equation}
+h' \;=\; h - (h^\top \hat d)\,\hat d ,
+\label{eq:ablation}
+\end{equation}
+applied to the block-1 output $h$ of the world model, where $\hat d$ is a unit-normalised candidate direction: the concept's best SAE decoder column, its CAV, or a random direction (specificity control). Effects are always contrasted between \emph{unlock moments} (the 21-step window ends at an achievement unlock) and matched \emph{ordinary moments} from the same episodes.
+
+\subsection{Single-step prediction damage}\label{sec:onestep}
+
+We first ablate at a single timestep and measure the change in the world model's log-likelihood of the four \emph{actually observed} codes at the window's final step ($n{=}80$ moments per cell; $n{=}26$ and $29$ for \achname{collect\_sapling} and \achname{place\_plant}, which have fewer eligible unlock windows; Figure~\ref{fig:onestep}). Ablating the matched SAE direction at the unlock step costs up to $+4.85$ nats ($95\%$ CI $[4.38, 5.38]$; \achname{wake\_up}), with \achname{collect\_coal} ($+2.41$), \achname{defeat\_skeleton} ($+2.20$) and \achname{collect\_sapling} ($+1.73$) behind it---while for these concepts the same direction at ordinary moments, and random directions at unlock moments, cost $\approx 0$ (across all 18 concepts, no control mean exceeds $0.78$ in magnitude and most are below $0.1$). The effect is doubly selective: right direction \emph{and} right moment. A handful of concepts show small \emph{negative} (prediction-improving) unlock effects ($\approx 0.34$ nats at most, e.g.\ \achname{collect\_iron}), an early sign that their best SAE features are not on the causal path---a dissociation Section~\ref{sec:imagination} makes explicit.
+
+Ablating the same directions three steps \emph{before} the target instead (right panel of Figure~\ref{fig:onestep}) eliminates the effect entirely (largest mean $+0.023$ nats, within noise of controls): the model fully recovers within three steps, because the un-ablated frame embeddings of subsequent steps re-inject the relevant information. This is the interventional face of the HUD shortcut.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/ablation_onestep.pdf}
+\caption{Single-step causal ablation. Change in log-likelihood of the observed codes at the target step when the concept's SAE direction is projected out of the block-1 residual stream, at the target step itself (left) or three steps earlier (right); $n{=}80$ moments per bar ($26$--$29$ for two concepts), error bars are bootstrap 95\% CIs. Red: matched direction at unlock moments. Light blue: matched direction at ordinary moments. Grey: random direction at unlock moments. Effects are direction- and moment-selective at gap 0 and vanish entirely at gap 3.}\label{fig:onestep}
+\end{figure}
+
+\subsection{Ablation inside imagination}\label{sec:imagination}
+
+Single-step likelihood damage might not matter for behaviour. The stronger test runs inside the agent's imagination loop: burn the world model in on 8 real steps ending just before an unlock, force the real action at the critical step, then let the agent dream 12 steps (codes sampled from \texttt{head\_latents}, frames decoded by the tokenizer, actions chosen by the actor--critic), with the candidate direction continuously projected out (at every sequence position) during imagination only. For each concept we ablate its highest-lift SAE feature from Section~\ref{sec:sae}. The outcome is whether the achievement's detector codes (top 2 from Section~\ref{sec:mi}) appear among the sampled codes ($n{=}20$ moments per concept and condition).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/imagination.pdf}
+\caption{Concept-direction ablation inside 12-step imagination, for the 15 of 18 concepts whose baseline within-horizon detector probability is at least 0.4. Bars: probability that the concept's detector code is sampled at the first imagined step (left) and within the horizon (right) under no intervention (baseline), SAE-direction ablation, CAV-direction ablation and random-direction ablation; bootstrap 95\% CIs, $n{=}20$ rollouts per bar.}\label{fig:imagination}
+\end{figure}
+
+Figure~\ref{fig:imagination} shows the headline result. For \achname{collect\_wood}, the baseline world model dreams the wood-collection code at the first imagined step in $100\%$ of rollouts; ablating SAE feature $f_{187}$ reduces this to $0\%$ (and to $10\%$ anywhere in the 12-step horizon; Fisher exact $p < 10^{-9}$), while the CAV direction and a random direction leave it at $100\%$. Removing a single direction in the 512-dimensional residual stream suppresses an event class's codes in the model's imagined futures. Suggestive but individually non-significant decreases in the same pattern (Fisher exact $p = 0.09$--$0.32$ at $n{=}20$) appear for \achname{make\_stone\_sword} ($0.75 \to 0.45$ within-horizon), \achname{place\_stone} (first-step $0.95 \to 0.70$), \achname{collect\_coal} ($0.95 \to 0.70$), \achname{make\_stone\_pickaxe} (first-step $0.75 \to 0.55$) and \achname{collect\_iron} ($1.00 \to 0.85$); roughly half the concepts show no effect. \achname{wake\_up} (excluded from the figure by its low baseline) shows a nominal increase ($0.30 \to 0.50$; $p = 0.33$), consistent with sampling noise---though it is notable that \achname{wake\_up}'s large single-step likelihood effect (Section~\ref{sec:onestep}) does not translate into imagination suppression, suggesting likelihood damage and rollout-outcome change can dissociate.
+
+Two caveats temper the headline. First, the outcome metric is coupled to the intervention: the ablated feature is selected partly by its association with the same detector codes used as outcome ($f_{187}$'s top code is $\code{3}{940}$, exactly \achname{collect\_wood}'s detector; $f_{187}$ is also \emph{not} among the five strictly triple-corroborated features, its CAV cosine being $0.25$). The experiment therefore establishes that the feature direction is causally upstream of those codes' \emph{sampling}; whether the model could still express the event through alternative codes is not ruled out. Second, total imagined reward---an outcome independent of the detector codes---shows no SAE-specific signature for \achname{collect\_wood} (baseline $2.77$; SAE $2.29$; CAV $2.21$; random $2.24$): all three interventions depress imagined reward similarly, so the SAE-specific effect is confined to the detector-code channel.
+
+\textbf{Read--write asymmetry.} The CAV column is the second headline: across \emph{all} concepts, ablating the supervised probe direction---a direction that decodes the concept with near-perfect AUROC---changes the detector-code outcome by approximately nothing (max $|\Delta| = 0.10$). Within this experiment, directions that suffice to \emph{read} a concept from the residual stream are not the directions the computation \emph{writes through}. The CAV null does admit deflationary explanations: concepts may be encoded redundantly, in which case removing any single supervised direction need not disrupt behaviour---the same observation that motivates iterative nullspace projection~\cite{ravfogel2020inlp}; logistic-regression weight directions on standardised but unwhitened activations need not align with class-mean differences; and projection ablation ignores the probe's bias term. Our result therefore shows that single probe directions are not causally sufficient to disrupt the computation here---not that no probe-derived subspace is. With that scoping, the practical corollary stands: explanation methods built on individual probe directions (including TCAV-style attribution) can be causally vacuous even at AUROC $1.0$, whereas an unsupervised dictionary direction---weaker as a classifier---can be causally load-bearing. The contrast with board-game sequence models, where probe directions do steer the model's world state~\cite{li2023othello,nanda2023othello}, sharpens the question of when each regime obtains.
+
+\subsection{Causal tracing}\label{sec:tracing}
+
+Finally, we localise where the causal signal lives with activation patching~\cite{vig2020causal,rome2022}. For each unlock window (clean run) we construct a corrupted run from an ordinary window of the same episode, then restore clean activations one cell at a time---each cell being a (transformer block, timestep, token-type) triple with token types \{frame, action, latents\}---and measure the restoration of the clean codes' log-likelihood, $(\ell_{\mathrm{patched}} - \ell_{\mathrm{corrupt}})/(\ell_{\mathrm{clean}} - \ell_{\mathrm{corrupt}})$, over $n{=}24$ window pairs per concept.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/causal_trace.pdf}
+\caption{Causal tracing. Mean restoration of unlock-code prediction when clean activations are patched into a corrupted run, per (block $\times$ timestep) cell, for frame, action and latent token positions (columns) and four concepts (rows). Restoration concentrates entirely at the final (unlock) timestep, dominated by the action and latent tokens; patching any historical cell restores essentially nothing.}\label{fig:trace}
+\end{figure}
+
+The picture (Figure~\ref{fig:trace}) is strikingly concentrated. Patching historical cells restores essentially nothing: mean restoration over the earliest fifteen timesteps is $|{\le}0.04|$ for every (concept, token-type) pair, and the maximum over any single historical cell is $0.20$ (an isolated \achname{defeat\_skeleton} latents cell at the window's first step). At the final timestep, the action token is the largest carrier on average (restoration $0.46$--$0.58$ at the last block; for two of the four concepts the single largest cell instead belongs to the latent positions, which reach $0.54$), and the frame token contributes least as a single cell ($\le 0.23$; its final-block cell is structurally zero, since no later attention layer remains to propagate it to the prediction head's read positions). Next-code prediction is, in causal terms, quasi-Markovian: computed from the current step's action and frame, not from transformer memory of the preceding twenty steps. This is the third complementary line of evidence---after the \textsf{frame\_emb} probe control (Section~\ref{sec:probes}) and the gap-3 ablation recovery (Section~\ref{sec:onestep})---for the same conclusion.
+
+\section{Discussion}\label{sec:discussion}
+
+\textbf{A triangulated picture of the representation.} The three tiers compose into a consistent functional anatomy of \deltairis{} on Crafter. The tokenizer's delta codes constitute the \emph{event vocabulary}: discrete, sparse, and (in the tail) close to monosemantic. The convolutional frame encoder carries \emph{persistent state}, not because the architecture earmarks it for memory but because the environment renders state on screen. The transformer's distinctive contribution is \emph{anticipation}---integrating recent history into predictions about what comes next---while its apparent episodic memory dissolves under controls. And within its residual stream, the directions that causally carry events are the sparse dictionary directions, not the directions that best decode them.
+
+\textbf{Methodological lessons.} Two of our controls did the heaviest lifting and are cheap to adopt. First, the input-encoder probe (\textsf{frame\_emb}) as a shortcut control: without it we would have reported, wrongly but with AUROC $0.98$, that the transformer tracks episodic state. Second, the double contrast in ablation (matched vs.\ ordinary moments $\times$ matched vs.\ random directions): without it, single-direction ablations are uninterpretable. We suggest both as default practice for interpretability studies of RL agents, alongside the broader caution that descriptive and informational evidence---association tables, probe accuracies, concept geometries---should be treated as hypothesis generators for interventions, not as findings about mechanism~\cite{belinkov2022probing,atrey2020saliency}.
+
+\textbf{Why dictionary directions write and probe directions only read.} A linear probe seeks a separator for a label and is free to exploit any correlated signal distributed across many functional directions; nothing constrains it to align with the basis the network computes in. A TopK SAE, in contrast, is trained to \emph{reconstruct} the activation vector from few directions, so its decoder columns must span the signal the downstream computation consumes~\cite{gao2024topk,elhage2022superposition}. Our results are consistent with this folklore distinction in the same model, at the same layer, for the same concepts---but single-direction removal is a weak instrument against redundant codes~\cite{ravfogel2020inlp}, so the asymmetry should be read as ``one SAE direction sufficed where one probe direction did not'', pending multi-direction interventions.
+
+\textbf{Implications for world-model design.} The quasi-Markovian finding is double-edged. It demonstrates economy: when the environment exposes state in observations, the model learns not to duplicate it in attention. But it also suggests the 21-step context is underused on Crafter, and that environments with genuinely hidden state would exercise---and let one audit---the transformer's memory in a way Crafter cannot.
+
+\section{Limitations}\label{sec:limitations}
+
+Our audit covers one agent, one seed, one environment. Crafter's HUD, while the source of our central methodological finding, also limits how much the transformer is required to remember; the audit should be repeated in partially observed environments without on-screen state. Four of 22 achievements unlock too rarely for statistics, and combat achievements have weak detector codes, making their imagination-ablation outcomes unreliable. Imagination horizons are capped at 12 steps by the world model's 21-timestep context window. Per-concept interventional samples are modest ($n{=}20$--$80$); only the \achname{collect\_wood} imagination effect is individually significant, and the graded effects should be read as suggestive. The SAE was trained at a single layer and width; we did not verify feature stability across dictionary sizes or seeds, and the read--write asymmetry rests on single-direction interventions. Finally, our outcome measure inside imagination---detector-code occurrence---both inherits the imperfections of the detectors and shares provenance with the feature-selection statistic, a circularity we flag explicitly in Section~\ref{sec:imagination}.
+
+\section{Conclusion}\label{sec:conclusion}
+
+We presented a causal interpretability audit---to our knowledge the first for the discrete transition vocabulary of an IRIS-family transformer world model. \deltairis{}'s context-aware quantization yields a genuinely interpretable event vocabulary, validated from population statistics through held-out probes to interventions inside the imagination loop. The audit surfaced two findings with reach beyond this agent: an environment-rendered shortcut that masquerades as transformer memory, detectable with a one-line control; and a read--write asymmetry in which perfectly decoding directions are causally inert under single-direction ablation while a sparse dictionary direction, individually ablated, suppresses the corresponding event's codes in the model's imagined futures. Both argue for the same discipline: in world models as in language models, interpretability claims should climb the ladder from description to intervention before they are believed.
+
+\backmatter
+
+\bmhead{Supplementary information}
+Interactive HTML artefacts for every experiment (codebook gallery, association tables, probe heatmaps, CAV traces, SAE feature explorer, ablation and tracing reports) are generated by the released code.
+
+\bmhead{Acknowledgements}
+Experiments were carried out on the High End Computing facility at Lancaster University.
+
+\section*{Declarations}
+
+\begin{itemize}
+\item Funding: Not applicable.
+\item Conflict of interest: The author declares no competing interests.
+\item Ethics approval and consent to participate: Not applicable.
+\item Consent for publication: Not applicable.
+\item Data availability: Result summaries (association tables, probe metrics, ablation effects, tracing grids) are included with the code repository. The trained checkpoint and replay buffer ($\sim$170\,GB) are available from the author on reasonable request.
+\item Materials availability: Not applicable.
+\item Code availability: All analysis code, Slurm pipelines and figure-generation scripts are available at \url{https://github.com/rxailab/delta-iris-interpretability}.
+\item Author contribution: R.X. designed and performed the experiments and wrote the manuscript.
+\end{itemize}
+
+\begin{appendices}
+
+\section{Achievement coverage}\label{secA1}
+
+Of the 22 Crafter achievements, the evaluation coverage over 500 instrumented episodes is: \achname{place\_table} 500, \achname{collect\_wood} 500, \achname{place\_plant} 499, \achname{collect\_sapling} 499, \achname{make\_wood\_pickaxe} 493, \achname{collect\_stone} 492, \achname{eat\_cow} 489, \achname{place\_stone} 489, \achname{defeat\_zombie} 487, \achname{make\_wood\_sword} 485, \achname{collect\_drink} 483, \achname{place\_furnace} 482, \achname{make\_stone\_pickaxe} 478, \achname{wake\_up} 471, \achname{collect\_coal} 454, \achname{make\_stone\_sword} 441, \achname{defeat\_skeleton} 438, \achname{collect\_iron} 366, \achname{make\_iron\_pickaxe} 2, \achname{make\_iron\_sword} 2, \achname{collect\_diamond} 0, \achname{eat\_plant} 0.
+
+\section{Hyperparameters and compute}\label{secA2}
+
+\begin{table}[h]
+\caption{Analysis hyperparameters. The agent itself uses the public \deltairis{} Crafter configuration unchanged.}\label{tab:hyper}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Component & Setting & Value \\
+\midrule
+Probes & model / split & logistic regression, episode-disjoint 80/20 \\
+       & samples & 81{,}919 steps / 150 episodes \\
+SAE    & dictionary / sparsity & $M{=}2048$, TopK $k{=}16$ \\
+       & training & 80 epochs, Adam, lr $5{\times}10^{-4}$, batch 4096 \\
+       & layer & block-1 output, latent-position mean \\
+One-step ablation & window / moments & 21 steps; $n{=}80$ per cell; strength 1.0 \\
+Imagination & burn-in / horizon / moments & 8 real steps / 12 imagined / $n{=}20$ \\
+Causal tracing & window / pairs & 21 steps; $n{=}24$ clean--corrupt pairs \\
+Compute & agent training & $\approx 8.7$ days, 1$\times$ H200 \\
+        & full analysis pipeline & $< 3$ hours, 1$\times$ H200 \\
+\botrule
+\end{tabular}
+\end{table}
+
+\end{appendices}
+
+\bibliography{sn-bibliography}
+
+\end{document}
