@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Δ-IRIS audit overview — Figure 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  body { font-family: 'IBM Plex Sans', sans-serif; color: #1f1a17; }
+  .page { max-width: 1520px; margin: 0 auto; padding: 24px 20px 48px; }
+  #fig svg { width: 100%; height: auto; display: block; }
+  .caption {
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 15px; line-height: 1.55; color: #2a2522;
+    max-width: 1180px; margin: 16px auto 0; padding: 0 12px;
+    text-wrap: pretty;
+  }
+  .caption code { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #1f1a17; }
+</style>
+</head>
+<body>
+<div class="page" data-screen-label="Fig 1 — audit overview">
+  <div id="fig"></div>
+  <p class="caption"><b>Fig.&nbsp;1</b>&ensp;The Δ-IRIS world model (architecture after Micheli et&nbsp;al., 2024, redrawn in slate) with our audit instrumentation overlaid. Blue taps mark representation read-out points for linear probes and CAVs (47 targets, episode-disjoint AUROC); the TopK sparse autoencoder is trained on the block-1 output tap; red marks the projection-ablation intervention <code>h ← h − (hᵀd̂)d̂</code>, applied one-step and sustained during imagination; purple dashes bound the activation-patching grid (block × timestep × token-type); orange marks the imagination-loop outcome — detector-code occurrence among the sampled codes.</p>
+</div>
+<div id="tweaks-root"></div>
+
+<script>
+(function () {
+  const MONO = "'IBM Plex Mono', monospace";
+  const SANS = "'IBM Plex Sans', sans-serif";
+  const FS = 1.18; // global font scale
+
+  const C = {
+    frame: '#f4a261', frameText: '#4a2c0a',
+    action: '#e76f51', actionText: '#ffffff',
+    latent: '#2a9d8f', latentText: '#ffffff',
+    arch: '#46627a', archLN: '#6b8299', head: '#54748e',
+    outFill: '#dcebf7', outStroke: '#a9c4da', outText: '#1d2b36',
+    read: '#1f77b4', sae: '#2e9e3e', abl: '#d62728', patch: '#9467bd', outcome: '#e07b00',
+    ink: '#1f1a17', muted: '#6f6661', faint: '#d9d2cd', wire: '#6b6460'
+  };
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  function txt(x, y, str, o) {
+    o = o || {};
+    return '<text x="' + x + '" y="' + y + '"' +
+      ' font-family="' + (o.mono ? MONO : SANS) + '"' +
+      ' font-size="' + Math.round((o.size || 13) * FS * 10) / 10 + '"' +
+      ' fill="' + (o.fill || C.ink) + '"' +
+      (o.weight ? ' font-weight="' + o.weight + '"' : '') +
+      (o.italic ? ' font-style="italic"' : '') +
+      ' text-anchor="' + (o.anchor || 'middle') + '"' +
+      (o.transform ? ' transform="' + o.transform + '"' : '') +
+      '>' + esc(str) + '</text>';
+  }
+
+  // rich text with sub/superscripts: parts = [["c"],["0","sup"],["t","sub"],…]
+  function rtxt(x, y, parts, o) {
+    o = o || {};
+    const base = Math.round((o.size || 13) * FS * 10) / 10;
+    let out = '<text x="' + x + '" y="' + y + '"' +
+      ' font-family="' + (o.mono ? MONO : SANS) + '"' +
+      ' font-size="' + base + '"' +
+      ' fill="' + (o.fill || C.ink) + '"' +
+      (o.weight ? ' font-weight="' + o.weight + '"' : '') +
+      (o.italic ? ' font-style="italic"' : '') +
+      ' text-anchor="' + (o.anchor || 'middle') + '">';
+    let shift = 0;
+    parts.forEach(function (p) {
+      const m = p[1] || '';
+      const target = m === 'sub' ? 4 : m === 'sup' ? -6 : 0;
+      const dy = target - shift; shift = target;
+      out += '<tspan dy="' + dy + '" font-size="' + (m ? Math.round(base * 0.72) : base) + '">' + esc(p[0]) + '</tspan>';
+    });
+    return out + '</text>';
+  }
+
+  function rect(x, y, w, h, o) {
+    o = o || {};
+    return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '"' +
+      ' rx="' + (o.rx == null ? 8 : o.rx) + '"' +
+      ' fill="' + (o.fill || 'none') + '"' +
+      (o.fillOpacity != null ? ' fill-opacity="' + o.fillOpacity + '"' : '') +
+      (o.stroke ? ' stroke="' + o.stroke + '" stroke-width="' + (o.sw || 1.4) + '"' : '') +
+      (o.dash ? ' stroke-dasharray="' + o.dash + '"' : '') +
+      '></rect>';
+  }
+
+  function line(x1, y1, x2, y2, o) {
+    o = o || {};
+    return '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"' +
+      ' stroke="' + (o.stroke || C.wire) + '" stroke-width="' + (o.sw || 1.4) + '"' +
+      (o.dash ? ' stroke-dasharray="' + o.dash + '"' : '') +
+      (o.marker ? ' marker-end="url(#' + o.marker + ')"' : '') + '></line>';
+  }
+
+  function path(d, o) {
+    o = o || {};
+    return '<path d="' + d + '" fill="none" stroke="' + (o.stroke || C.wire) + '"' +
+      ' stroke-width="' + (o.sw || 1.4) + '"' +
+      (o.dash ? ' stroke-dasharray="' + o.dash + '"' : '') +
+      (o.marker ? ' marker-end="url(#' + o.marker + ')"' : '') + '></path>';
+  }
+
+  function tap(x, y, color) {
+    return '<circle cx="' + x + '" cy="' + y + '" r="6.5" fill="' + (color || C.read) +
+      '" stroke="#1f1a17" stroke-width="1"></circle>';
+  }
+
+  window.renderFigure = function (t) {
+    const W = 1480, H = 960;
+    const x0 = 320, colW = 130, pitch = 144;
+    const cx = function (i) { return x0 + i * pitch + colW / 2; };
+    const cl = function (i) { return x0 + i * pitch; };
+    const gridR = cl(5) + colW;           // 1170
+    const gridMid = (x0 + gridR) / 2;     // 745
+    const railL = 304, railR = 1196;
+    const loopX = 1428;
+
+    const tokY = 188, tokH = 58;
+    const bY = [300, 404, 508], bH = 64;
+    const lnY = 600, lnH = 36;
+    const headY = 680, headH = 56;
+    const outY = 772, outH = 46;
+    const imgY = 880, imgH = 56;
+
+    const S = [];
+    S.push('<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Delta-IRIS world model with audit instrumentation">');
+    S.push('<defs>' +
+      ['arrW|' + C.wire, 'arrG|' + C.sae, 'arrO|' + C.wire].map(function (m, i) {
+        const p = m.split('|');
+        return '<marker id="' + p[0] + '" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">' +
+          '<path d="M0,0 L10,5 L0,10 z" fill="' + p[1] + '"></path></marker>';
+      }).join('') + '</defs>');
+    S.push('<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#ffffff"></rect>');
+
+    // ---------------- title
+    if (t.showTitle) {
+      S.push(txt(W / 2, 42, '\u0394-IRIS world model with audit instrumentation', { size: 23, weight: 600 }));
+      S.push(txt(W / 2, 69, 'architecture (Micheli et al. 2024, redrawn) in slate \u00b7 our measurement and intervention points in color', { size: 13.5, fill: C.muted }));
+    }
+
+    // ================ ARCHITECTURE (slate, dimmable) ================
+    S.push('<g opacity="' + (t.dimArch ? 0.38 : 1) + '">');
+
+    // tokenizer codes
+    S.push(rect(640, 100, 500, 40, { fill: '#ffffff', stroke: '#9a938e', rx: 7, sw: 1.2 }));
+    S.push(rtxt(880, 125, [['tokenizer codes  '], ['c', ''], ['0', 'sup'], ['t', 'sub'], ['..'], ['c', ''], ['3', 'sup'], ['t', 'sub'], ['  (codebook, 1024)']], { size: 12.5, mono: true }));
+    [2, 3, 4, 5].forEach(function (i) {
+      S.push(path('M 890 140 Q ' + ((890 + cx(i)) / 2) + ' ' + (164) + ' ' + cx(i) + ' 182', { stroke: '#9a938e', sw: 1, marker: 'arrW' }));
+    });
+
+    // input tokens
+    S.push(txt(cl(0), 176, 'one timestep block', { size: 12, italic: true, fill: C.muted, anchor: 'start' }));
+    const toks = [
+      { name: [['frame', ''], ['t', 'sub']], sub: [['frame_cnn(x', ''], ['t', 'sub'], [')']], fill: C.frame, tc: C.frameText },
+      { name: [['action', ''], ['t', 'sub']], sub: [['act_emb(a', ''], ['t', 'sub'], [')']], fill: C.action, tc: C.actionText },
+      { name: [['lat', ''], ['0', 'sub']], fill: C.latent, tc: C.latentText },
+      { name: [['lat', ''], ['1', 'sub']], fill: C.latent, tc: C.latentText },
+      { name: [['lat', ''], ['2', 'sub']], fill: C.latent, tc: C.latentText },
+      { name: [['lat', ''], ['3', 'sub']], fill: C.latent, tc: C.latentText }
+    ];
+    toks.forEach(function (tok, i) {
+      S.push(rect(cl(i), tokY, colW, tokH, { fill: tok.fill }));
+      if (tok.sub) {
+        S.push(rtxt(cx(i), tokY + 25, tok.name, { size: 14.5, weight: 600, fill: tok.tc, mono: true }));
+        S.push(rtxt(cx(i), tokY + 44, tok.sub, { size: 10.5, fill: tok.tc, mono: true }));
+      } else {
+        S.push(rtxt(cx(i), tokY + tokH / 2 + 5, tok.name, { size: 14.5, weight: 600, fill: tok.tc, mono: true }));
+      }
+    });
+    S.push('</g>');
+
+    // transformer blocks + LN + heads + outputs + imagination loop (arch group)
+    const arch = [];
+    for (let i = 0; i < 6; i++) {
+      arch.push(line(cx(i), tokY + tokH, cx(i), bY[0] - 4, { marker: 'arrW' }));
+    }
+    bY.forEach(function (yb, i) {
+      arch.push(rect(x0, yb, gridR - x0, bH, { fill: C.arch, rx: 9 }));
+      arch.push(txt(gridMid, yb + 26, 'Transformer block ' + i, { size: 15, weight: 600, fill: '#ffffff' }));
+      arch.push(txt(gridMid, yb + 46, 'causal self-attention (8 heads, d = 512) + MLP', { size: 11, fill: '#dbe4ec' }));
+    });
+    arch.push(line(gridMid, bY[0] + bH, gridMid, bY[1] - 4, { marker: 'arrW', sw: 1.8 }));
+    arch.push(line(gridMid, bY[1] + bH, gridMid, bY[2] - 4, { marker: 'arrW', sw: 1.8 }));
+    arch.push(rect(x0, lnY, gridR - x0, lnH, { fill: C.archLN, rx: 7 }));
+    arch.push(txt(gridMid, lnY + lnH / 2 + 4.5, 'final LayerNorm', { size: 12.5, weight: 600, fill: '#ffffff' }));
+    arch.push(line(gridMid, bY[2] + bH, gridMid, lnY - 4, { marker: 'arrW', sw: 1.8 }));
+
+    // heads
+    const headDefs = [
+      { x: 500, w: 190, name: 'head_rewards', sub: 'reads action pos.' },
+      { x: 745, w: 190, name: 'head_ends', sub: 'reads action pos.' },
+      { x: 1010, w: 270, name: 'head_latents', sub: 'reads pos. 1\u20134, autoregressive' }
+    ];
+    headDefs.forEach(function (h) {
+      arch.push(line(h.x, lnY + lnH, h.x, headY - 4, { marker: 'arrW' }));
+      arch.push(rect(h.x - h.w / 2, headY, h.w, headH, { fill: C.head, rx: 7 }));
+      arch.push(txt(h.x, headY + 24, h.name, { size: 13.5, weight: 600, fill: '#ffffff', mono: true }));
+      arch.push(txt(h.x, headY + 42, h.sub, { size: 10.5, fill: '#dbe4ec' }));
+      arch.push(line(h.x, headY + headH, h.x, outY - 4, { marker: 'arrW' }));
+    });
+
+    // outputs
+    arch.push(rect(425, outY, 150, outH, { fill: C.outFill, stroke: C.outStroke, rx: 7, sw: 1 }));
+    arch.push(rtxt(500, outY + outH / 2 + 5, [['r\u0302', ''], ['t', 'sub']], { size: 14, mono: true, fill: C.outText, weight: 500 }));
+    arch.push(rect(670, outY, 150, outH, { fill: C.outFill, stroke: C.outStroke, rx: 7, sw: 1 }));
+    arch.push(rtxt(745, outY + outH / 2 + 5, [['d\u0302', ''], ['t', 'sub']], { size: 14, mono: true, fill: C.outText, weight: 500 }));
+    arch.push(rect(875, outY, 270, outH, { fill: C.outFill, stroke: C.outStroke, rx: 7, sw: 1 }));
+    arch.push(rtxt(1010, outY + outH / 2 + 5, [['sampled codes  c\u0302', ''], ['0', 'sup'], ['..c\u0302', ''], ['3', 'sup']], { size: 12.5, mono: true, fill: C.outText, weight: 500 }));
+
+    // imagination loop (decoder + actor-critic + return wire)
+    arch.push(rect(595, imgY, 300, imgH, { fill: '#ffffff', stroke: '#9a938e', rx: 7, sw: 1.2 }));
+    arch.push(txt(745, imgY + 23, 'tokenizer decoder', { size: 13, weight: 600, fill: '#33302d' }));
+    arch.push(rtxt(745, imgY + 42, [['x\u0302', ''], ['t+1', 'sub'], ['  from  (x', ''], ['t', 'sub'], [', a', ''], ['t', 'sub'], [', c\u0302)']], { size: 10.5, mono: true, fill: C.muted }));
+    arch.push(rect(960, imgY, 260, imgH, { fill: '#ffffff', stroke: '#9a938e', rx: 7, sw: 1.2 }));
+    arch.push(txt(1090, imgY + 23, 'actor\u2013critic', { size: 13, weight: 600, fill: '#33302d' }));
+    arch.push(rtxt(1090, imgY + 42, [['a', ''], ['t+1', 'sub'], ['  from  x\u0302', ''], ['t+1', 'sub']], { size: 10.5, mono: true, fill: C.muted }));
+    arch.push(path('M 950 ' + (outY + outH) + ' Q 880 ' + (imgY - 14) + ' 800 ' + (imgY - 4), { marker: 'arrW' }));
+    arch.push(line(895, imgY + imgH / 2, 956, imgY + imgH / 2, { marker: 'arrW' }));
+    arch.push(path('M 1220 ' + (imgY + imgH / 2) + ' L ' + loopX + ' ' + (imgY + imgH / 2) + ' L ' + loopX + ' 160 L 1182 160', { marker: 'arrW' }));
+    arch.push(txt(0, 0, 'imagination loop (12 steps)', { size: 12, fill: C.muted, transform: 'translate(1452 534) rotate(90)' }));
+
+    S.push('<g opacity="' + (t.dimArch ? 0.38 : 1) + '">' + arch.join('') + '</g>');
+
+    // ================ AUDIT OVERLAY (ours, full strength) ================
+    const O = [];
+
+    // raw_codes tap
+    O.push(tap(1140, 120));
+    O.push(txt(1154, 124, 'raw_codes tap (codebook vectors)', { size: 11.5, weight: 600, fill: C.read, anchor: 'start' }));
+
+    // frame_emb tap (left rail)
+    O.push(tap(x0, tokY + tokH / 2));
+    O.push(txt(railL, tokY + tokH / 2 - 4, 'frame_emb tap', { size: 11.5, weight: 600, fill: C.read, anchor: 'end' }));
+    O.push(txt(railL, tokY + tokH / 2 + 11, '(input-encoder control)', { size: 10.5, fill: C.read, anchor: 'end' }));
+
+    // wm_latents_emb tap
+    O.push(tap(gridR, tokY + tokH / 2));
+    O.push(txt(1184, tokY + tokH / 2 + 4, 'wm_latents_emb tap (mean of 4)', { size: 11.5, weight: 600, fill: C.read, anchor: 'start' }));
+
+    // sequence note (left rail)
+    O.push(txt(railL, 282, 'sequence = 21 timestep', { size: 11, italic: true, fill: C.muted, anchor: 'end' }));
+    O.push(txt(railL, 297, 'blocks (126 tokens)', { size: 11, italic: true, fill: C.muted, anchor: 'end' }));
+
+    // activation patching rect
+    O.push(rect(306, 288, 1184 - 306, 584 - 288, { stroke: C.patch, dash: '7 5', rx: 10, sw: 1.8 }));
+    O.push(txt(railR, 268, 'activation patching cells', { size: 11, weight: 600, fill: C.patch, anchor: 'start' }));
+    O.push(txt(railR, 283, '(block \u00d7 timestep \u00d7 token-type)', { size: 10.5, fill: C.patch, anchor: 'start' }));
+
+    // block output taps + probe note
+    bY.forEach(function (yb, i) {
+      O.push(tap(gridR, yb + bH / 2));
+      O.push(txt(railR, yb + bH / 2 + 4, 'block-' + i + ' output tap', { size: 11.5, weight: 600, fill: C.read, anchor: 'start' }));
+    });
+    O.push(txt(railR, 372, 'blue taps: linear probes + CAVs', { size: 10.5, fill: C.read, anchor: 'start' }));
+    O.push(txt(railR, 387, '(47 targets, episode-disjoint AUROC)', { size: 10.5, fill: C.read, anchor: 'start' }));
+    O.push(tap(gridR, lnY + lnH / 2));
+    O.push(txt(railR, lnY + lnH / 2 + 4, 'final tap', { size: 11.5, weight: 600, fill: C.read, anchor: 'start' }));
+
+    // SAE
+    O.push(rect(1240, 455, 170, 75, { fill: '#ffffff', stroke: C.sae, rx: 8, sw: 2 }));
+    O.push(txt(1325, 478, 'TopK SAE', { size: 13.5, weight: 600, fill: C.sae }));
+    O.push(txt(1325, 496, '2048 feats, k = 16', { size: 10.5, fill: C.sae }));
+    O.push(txt(1325, 511, 'FVU 0.043', { size: 10.5, fill: C.sae }));
+    O.push(path('M ' + (gridR + 8) + ' ' + (bY[1] + bH / 2 + 8) + ' Q 1228 470 1236 488', { stroke: C.sae, sw: 1.8, marker: 'arrG' }));
+
+    // projection ablation (left rail, block-1)
+    O.push('<circle cx="' + x0 + '" cy="' + (bY[1] + bH / 2) + '" r="7" fill="' + C.abl + '" stroke="#1f1a17" stroke-width="1"></circle>');
+    O.push(txt(railL - 8, bY[1] + 6, 'projection ablation', { size: 11.5, weight: 600, fill: C.abl, anchor: 'end' }));
+    O.push(rtxt(railL - 8, bY[1] + 24, [['h \u2190 h \u2212 (h', ''], ['\u22a4', 'sup'], ['d\u0302) d\u0302']], { size: 11, mono: true, fill: C.abl, anchor: 'end' }));
+    O.push(txt(railL - 8, bY[1] + 41, 'one-step + sustained', { size: 10.5, fill: C.abl, anchor: 'end' }));
+    O.push(txt(railL - 8, bY[1] + 56, 'during imagination', { size: 10.5, fill: C.abl, anchor: 'end' }));
+
+    // imagination outcome highlight
+    O.push(rect(869, outY - 6, 282, outH + 12, { stroke: C.outcome, rx: 9, sw: 2.4 }));
+    O.push(txt(1164, outY + 14, 'outcome: detector codes', { size: 11.5, weight: 600, fill: C.outcome, anchor: 'start' }));
+    O.push(rtxt(1164, outY + 30, [['among sampled c\u0302 ?', '']], { size: 11.5, weight: 600, fill: C.outcome, anchor: 'start' }));
+
+    S.push(O.join(''));
+
+    // ================ legend ================
+    if (t.showLegend) {
+      const L = [];
+      const lx = 40, ly = 748, lw = 372, lh = 188;
+      L.push(rect(lx, ly, lw, lh, { fill: '#ffffff', stroke: C.faint, rx: 8, sw: 1.2 }));
+      const items = [
+        { kind: 'dot', color: C.read, label: 'representation read-out (probes / CAVs; SAE)' },
+        { kind: 'line', color: C.sae, label: 'TopK sparse autoencoder (dictionary features)' },
+        { kind: 'dot', color: C.abl, label: 'projection-ablation intervention (block 1)' },
+        { kind: 'dash', color: C.patch, label: 'activation-patching cells' },
+        { kind: 'line', color: C.outcome, label: 'imagination outcome (detector-code occurrence)' },
+        { kind: 'swatch', color: C.arch, label: '\u0394-IRIS architecture (Micheli et al., redrawn)' }
+      ];
+      items.forEach(function (it, i) {
+        const iy = ly + 34 + i * 28;
+        if (it.kind === 'dot') L.push('<circle cx="' + (lx + 26) + '" cy="' + (iy - 4) + '" r="6" fill="' + it.color + '" stroke="#1f1a17" stroke-width="1"></circle>');
+        if (it.kind === 'line') L.push(line(lx + 14, iy - 4, lx + 38, iy - 4, { stroke: it.color, sw: 2.4 }));
+        if (it.kind === 'dash') L.push(line(lx + 14, iy - 4, lx + 38, iy - 4, { stroke: it.color, sw: 2, dash: '6 4' }));
+        if (it.kind === 'swatch') L.push(rect(lx + 14, iy - 11, 24, 14, { fill: it.color, rx: 3 }));
+        L.push(txt(lx + 50, iy, it.label, { size: 11.5, fill: '#33302d', anchor: 'start' }));
+      });
+      S.push(L.join(''));
+    }
+
+    S.push('</svg>');
+    document.getElementById('fig').innerHTML = S.join('');
+  };
+
+  window.__FIG_DEFAULTS = { showTitle: true, showLegend: true, dimArch: false };
+  document.addEventListener('DOMContentLoaded', function () {
+    window.renderFigure(window.__FIG_DEFAULTS);
+  });
+})();
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "showTitle": false,
+    "showLegend": true,
+    "dimArch": false
+  }/*EDITMODE-END*/;
+
+  function App() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    React.useEffect(() => { window.renderFigure(t); }, [t]);
+    return (
+      <TweaksPanel>
+        <TweakSection label="Figure" />
+        <TweakToggle label="Title inside figure" value={t.showTitle} onChange={(v) => setTweak('showTitle', v)} />
+        <TweakToggle label="Legend" value={t.showLegend} onChange={(v) => setTweak('showLegend', v)} />
+        <TweakToggle label="Dim architecture (emphasize audit)" value={t.dimArch} onChange={(v) => setTweak('dimArch', v)} />
+      </TweaksPanel>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
+</script>
+</body>
+</html>
