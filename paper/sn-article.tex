@@ -95,12 +95,12 @@ Beyond the specific findings, the audit itself---descriptive association, probin
 \end{equation}
 The decoder reconstructs $x_{t+1}$ from $(x_t, a_t, \mathbf{c}_t)$: crucially, it receives $x_t$ and $a_t$ \emph{directly}, so the $4\log_2 1024 = 40$ bits of code need only carry what cannot be inferred from the previous frame and action---the transition's residual novelty. We write $\code{k}{j}$ for code $j$ at slot $k$.
 
-\textbf{Transformer world model.} Each timestep contributes a block of six tokens to the world-model sequence: a frame embedding (CNN over $x_t$), an action embedding, and the four code embeddings. A causal transformer ($L{=}3$ blocks, 8 heads, $d_{\mathrm{model}}{=}512$, context $21$ timesteps $=126$ tokens) processes the sequence. Three small MLP heads read from fixed intra-block positions (Figure~\ref{fig:heads}): \texttt{head\_rewards} and \texttt{head\_ends} read the action position; \texttt{head\_latents} reads positions $1$--$4$ and predicts the four codes of the current transition autoregressively (code $c^0$ from the action position, $c^1$ after conditioning on $c^0$, and so on). During imagination, codes are sampled from \texttt{head\_latents}, decoded to a frame by the tokenizer, and fed back; the actor--critic selects actions from decoded frames.
+\textbf{Transformer world model.} Each timestep contributes a block of six tokens to the world-model sequence: a frame embedding (CNN over $x_t$), an action embedding, and the four code embeddings. A causal transformer ($L{=}3$ blocks, 8 heads, $d_{\mathrm{model}}{=}512$, context $21$ timesteps $=126$ tokens) processes the sequence (Figure~\ref{fig:heads}, grey-blue). Three small MLP heads read from fixed intra-block positions (detailed in Appendix~\ref{secA2}): \texttt{head\_rewards} and \texttt{head\_ends} read the action position; \texttt{head\_latents} reads positions $1$--$4$ (0-indexed within the six-token block) and predicts the four codes of the current transition autoregressively (code $c^0$ from the action position, $c^1$ after conditioning on $c^0$, and so on). During imagination, codes are sampled from \texttt{head\_latents}, decoded to a frame by the tokenizer, and fed back; the actor--critic selects actions from decoded frames.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\textwidth]{figures/heads.png}
-\caption{The \deltairis{} world model's prediction heads and their read positions within one six-token timestep block. \texttt{head\_rewards} and \texttt{head\_ends} read the post-transformer activation at the action position (block mask $[0,1,0,0,0,0]$); \texttt{head\_latents} reads positions 1--4 (mask $[0,1,1,1,1,0]$) and predicts the four latent codes autoregressively within the timestep. The final latent position feeds subsequent attention but carries no prediction head.}\label{fig:heads}
+\includegraphics[width=\textwidth]{figures/audit_overview.pdf}
+\caption{Overview of the audit. Grey-blue components reproduce the \deltairis{} world model of Micheli et al.~\cite{deltairis2024} (redrawn from the reference implementation): per timestep, a frame embedding, an action embedding and four tokenizer codes enter a 3-block causal transformer, and three heads predict reward, termination and the next four codes autoregressively. Coloured elements are our contribution---the audit instrumentation: blue taps mark the seven representation read-out points used for linear probes and CAVs (Section~\ref{sec:informational}), including the \textsf{frame\_emb} input-encoder control behind the HUD-shortcut analysis; green, the TopK sparse autoencoder trained on the block-1 output (Section~\ref{sec:sae}); red, the projection-ablation intervention point (Equation~\ref{eq:ablation}, Sections~\ref{sec:onestep}--\ref{sec:imagination}); purple dashes, the activation-patching cell grid (Section~\ref{sec:tracing}); orange, the imagination-loop outcome (detector-code occurrence among sampled codes). A detailed view of the heads' read positions is given in Appendix~\ref{secA2}.}\label{fig:heads}
 \end{figure}
 
 \textbf{Crafter.} Crafter~\cite{crafter2022} is a procedurally generated 2D survival environment with 17 actions and 22 boolean \emph{achievements} (e.g.\ \achname{collect\_wood}, \achname{make\_stone\_pickaxe}, \achname{defeat\_zombie}) that fire once per episode at the step where they are first satisfied, each granting $+1$ reward. Achievements provide ground-truth event labels at exact timesteps---ideal supervision for an interpretability audit. Notably for what follows, Crafter renders the agent's inventory and status as a heads-up display (HUD) occupying the lower portion of every frame.
@@ -314,6 +314,12 @@ Compute & agent training & $\approx 8.7$ days, 1$\times$ H200 \\
 \botrule
 \end{tabular}
 \end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/heads.png}
+\caption{Detailed view of the \deltairis{} prediction heads (architecture follows Micheli et al.~\cite{deltairis2024}; our redrawing). \texttt{head\_rewards} and \texttt{head\_ends} read the post-transformer activation at the action position (block mask $[0,1,0,0,0,0]$); \texttt{head\_latents} reads positions 1--4 (mask $[0,1,1,1,1,0]$) and predicts the four latent codes autoregressively within the timestep. The final latent position feeds subsequent attention but carries no prediction head.}\label{fig:headsdetail}
+\end{figure}
 
 \end{appendices}
 
