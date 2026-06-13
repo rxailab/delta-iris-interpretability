@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Δ-IRIS single-step causal ablation — Figure 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  body { font-family: 'IBM Plex Sans', sans-serif; color: #1f1a17; }
+  .page { max-width: 1520px; margin: 0 auto; padding: 24px 20px 48px; }
+  #fig svg { width: 100%; height: auto; display: block; }
+    .caption { font-family: 'IBM Plex Serif', serif; font-size: 16px; line-height: 1.56; color: #2b333b; max-width: 1200px; margin: 18px auto 0; padding: 0 12px; text-wrap: pretty; }
+  .caption code { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #1f1a17; }
+  .caption i { font-style: italic; }
+</style>
+</head>
+<body>
+<div class="page" data-screen-label="Fig 4 — single-step ablation">
+  <div id="fig"></div>
+  <p class="caption"><b>Fig.&nbsp;4</b>&ensp;<b>Single-step causal ablation.</b> Change in log-likelihood of the observed codes at the target step when the concept&rsquo;s SAE direction is projected out of the block-1 residual stream, at the target step itself <i>(left)</i> or three steps earlier <i>(right)</i>; <i>n</i>&nbsp;=&nbsp;80 moments per bar (26&ndash;29 for two concepts), error bars are bootstrap 95% CIs. <span style="color:#1B4F72;font-weight:600">Deep&nbsp;blue</span>: matched direction at unlock moments. <span style="color:#5E93B8;font-weight:600">Light&nbsp;blue</span>: matched direction at ordinary moments. <span style="color:#878E97;font-weight:600">Grey</span>: random direction at unlock moments. Effects are direction- and moment-selective at gap&nbsp;0 and vanish entirely at gap&nbsp;3.</p>
+</div>
+<div id="tweaks-root"></div>
+
+<script>
+(function () {
+  const MONO = "'IBM Plex Mono', monospace";
+  const SANS = "'IBM Plex Sans', sans-serif";
+  const FS = 1.2; // global font scale
+
+  // Academic cool palette — the two matched-direction conditions share a blue
+  // hue (deep = unlock, light = ordinary); random control in neutral grey. No orange.
+  const COL = {
+    feat_unlock:   '#1B4F72', // deep blue (primary effect)
+    feat_ordinary: '#7FB1D3', // light blue (matched, ordinary moments)
+    rand_unlock:   '#B7BCC4', // neutral grey (random-direction control)
+    ink: '#222A33', muted: '#6B7480', axis: '#2E3742', faint: '#D7DCE2',
+    grid: '#EBEEF2', band: '#F4F6F8', zero: '#7A828C'
+  };
+  const GRAY = {
+    feat_unlock: '#2b2b2b', feat_ordinary: '#9a9a9a', rand_unlock: '#cfcfcf',
+    ink: '#1a1a1a', muted: '#6b6b6b', axis: '#333333', faint: '#dcdcdc',
+    grid: '#ededed', band: '#f6f6f6', zero: '#8a8a8a'
+  };
+
+  const CONCEPTS = [
+    'wake up', 'collect coal', 'defeat skeleton', 'collect sapling', 'defeat zombie',
+    'make stone pickaxe', 'place plant', 'make stone sword', 'place furnace', 'collect stone',
+    'collect wood', 'make wood sword', 'place table', 'place stone', 'eat cow',
+    'make wood pickaxe', 'collect drink', 'collect iron'
+  ];
+
+  // [mean, ci_lo, ci_hi] digitized from the source figure (gap 0)
+  const G0 = {
+    feat_unlock: [
+      [4.85, 4.40, 5.35], [2.42, 1.95, 2.88], [2.20, 1.50, 2.95], [1.75, 1.35, 2.20], [0.70, 0.45, 0.98],
+      [0.50, 0.25, 0.78], [0.35, 0.12, 0.62], [0.15, 0.00, 0.35], [0.10, -0.05, 0.28], [0.12, -0.02, 0.28],
+      [0.05, -0.10, 0.20], [-0.08, -0.25, 0.08], [0.03, -0.15, 0.20], [-0.10, -0.28, 0.08], [0.02, -0.15, 0.20],
+      [-0.06, -0.22, 0.10], [-0.25, -0.42, -0.05], [-0.30, -0.50, -0.08]
+    ],
+    feat_ordinary: [
+      [0.12, -0.05, 0.30], [0.05, -0.10, 0.20], [-0.30, -0.55, -0.05], [-0.10, -0.25, 0.05], [0.45, 0.20, 0.72],
+      [-0.05, -0.20, 0.10], [0.10, -0.05, 0.28], [0.02, -0.12, 0.18], [0.70, 0.42, 1.00], [0.08, -0.08, 0.24],
+      [0.05, -0.12, 0.22], [0.00, -0.18, 0.18], [0.06, -0.10, 0.22], [0.12, -0.05, 0.30], [0.05, -0.12, 0.22],
+      [-0.04, -0.20, 0.12], [-0.10, -0.28, 0.08], [0.15, -0.05, 0.35]
+    ],
+    rand_unlock: CONCEPTS.map(function (_, i) {
+      const m = [0.02, -0.01, 0.0, 0.01, -0.02, 0.0, 0.01, -0.01, 0.0, 0.0, 0.01, -0.01, 0.0, 0.0, -0.01, 0.0, 0.01, 0.0][i];
+      return [m, m - 0.11, m + 0.11];
+    })
+  };
+
+  // gap 3: effects vanish
+  const G3 = {};
+  ['feat_unlock', 'feat_ordinary', 'rand_unlock'].forEach(function (k, ki) {
+    G3[k] = CONCEPTS.map(function (_, i) {
+      const j = [0.01, -0.008, 0.006, -0.004, 0.012, -0.006, 0.004, -0.002, 0.008, 0.0, -0.006, 0.004, -0.002, 0.006, -0.004, 0.002, -0.008, 0.005][(i + ki) % 18];
+      return [j, j - 0.05, j + 0.05];
+    });
+  });
+
+  const SERIES = [
+    { key: 'feat_unlock',   label: 'matched direction \u00b7 unlock moments' },
+    { key: 'feat_ordinary', label: 'matched direction \u00b7 ordinary moments' },
+    { key: 'rand_unlock',   label: 'random direction \u00b7 unlock moments' }
+  ];
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  function txt(x, y, str, o) {
+    o = o || {};
+    return '<text x="' + x + '" y="' + y + '"' +
+      ' font-family="' + (o.mono ? MONO : SANS) + '"' +
+      ' font-size="' + Math.round((o.size || 14) * FS * 10) / 10 + '"' +
+      ' fill="' + (o.fill || COL.ink) + '"' +
+      (o.weight ? ' font-weight="' + o.weight + '"' : '') +
+      (o.italic ? ' font-style="italic"' : '') +
+      ' text-anchor="' + (o.anchor || 'middle') + '"' +
+      (o.transform ? ' transform="' + o.transform + '"' : '') +
+      '>' + esc(str) + '</text>';
+  }
+  function rect(x, y, w, h, o) {
+    o = o || {};
+    return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '"' +
+      (o.rx ? ' rx="' + o.rx + '"' : '') +
+      ' fill="' + (o.fill || 'none') + '"' +
+      (o.stroke ? ' stroke="' + o.stroke + '" stroke-width="' + (o.sw || 1) + '"' : '') + '></rect>';
+  }
+  function line(x1, y1, x2, y2, o) {
+    o = o || {};
+    return '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"' +
+      ' stroke="' + (o.stroke || COL.axis) + '" stroke-width="' + (o.sw || 1) + '"' +
+      (o.dash ? ' stroke-dasharray="' + o.dash + '"' : '') +
+      (o.cap ? ' stroke-linecap="' + o.cap + '"' : '') + '></line>';
+  }
+
+  window.renderFigure = function (t) {
+    const C = t.palette === 'grayscale' ? GRAY : COL;
+    const W = 1480;
+
+    // x domain (gap 0)
+    const xmin0 = -0.7, xmax0 = 5.5;
+    const ticks0 = [0, 1, 2, 3, 4, 5];
+
+    // geometry
+    const gutterR = 250;                 // concept labels right-edge
+    const topY = t.showTitle ? 196 : 168;
+    const rowH = 33;
+    const N = CONCEPTS.length;
+
+    // Modes for the gap-3 (null) panel:
+    //  'zoom'    -> own expanded axis (±0.1) so the ~0 bars + CIs are visible
+    //  'compact' -> identical pixels-per-unit as gap 0, axis truncated at 2
+    //  'equal'   -> identical full-width 0-5 axis
+    const mode = t.nullPanel || 'zoom';
+    const p0x = 280;
+    let panelW0, pxu, xmin3, xmax3, ticks3, pxu3, gapPx, note3;
+    if (mode === 'equal') {
+      panelW0 = 525; pxu = panelW0 / (xmax0 - xmin0);
+      xmin3 = xmin0; xmax3 = xmax0; ticks3 = ticks0; pxu3 = pxu; gapPx = 70; note3 = '';
+    } else if (mode === 'compact') {
+      panelW0 = 650; pxu = panelW0 / (xmax0 - xmin0);
+      xmin3 = -0.6; xmax3 = 2.3; ticks3 = [0, 1, 2]; pxu3 = pxu; gapPx = 95;
+      note3 = 'identical scale to gap 0 \u00b7 axis truncated (all |\u0394| < 0.1)';
+    } else { // zoom
+      panelW0 = 650; pxu = panelW0 / (xmax0 - xmin0);
+      xmin3 = -0.18; xmax3 = 0.18; ticks3 = [-0.1, 0, 0.1];
+      pxu3 = 340 / (xmax3 - xmin3); gapPx = 110;
+      note3 = 'expanded \u00d7' + Math.round(pxu3 / pxu) + ' scale \u00b7 effects \u2248 0, CIs cross 0';
+    }
+    const p1x = p0x + panelW0;
+    const q0x = p1x + gapPx;
+    const q1x = q0x + (xmax3 - xmin3) * pxu3;
+
+    const plotH = N * rowH;
+    const botY = topY + plotH;
+    const axisY = botY + 12;
+    const H = axisY + 80;
+
+    const sx0 = function (v) { return p0x + (v - xmin0) * pxu; };
+    const sx3 = function (v) { return q0x + (v - xmin3) * pxu3; };
+
+    const tb = 7.2, gapb = 1.7;           // bar thickness + gap
+    const groupH = 3 * tb + 2 * gapb;
+
+    const S = [];
+    S.push('<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Single-step causal ablation, gap 0 versus gap 3">');
+    S.push('<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#ffffff"></rect>');
+
+    if (t.showTitle) {
+      S.push(txt(W / 2, 44, 'Single-step causal ablation \u2014 project out the concept SAE direction at block 1', { size: 23, weight: 600, fill: C.ink }));
+      S.push(txt(W / 2, 71, 'effect is direction- and moment-selective at gap 0, and vanishes at gap 3', { size: 14.5, fill: C.muted }));
+    }
+
+    // ---- zebra banding (behind both panels)
+    if (t.zebra) {
+      for (let i = 0; i < N; i++) {
+        if (i % 2 === 1) continue;
+        S.push(rect(78, topY + i * rowH, q1x - 78, rowH, { fill: C.band }));
+      }
+    }
+
+    // ---- inset frame around the zoomed null panel
+    if (mode === 'zoom') {
+      S.push(rect(q0x - 18, topY - 46, (q1x - q0x) + 36, (axisY + 76) - (topY - 46), { stroke: C.faint, sw: 1.4, rx: 10 }));
+    }
+
+    // ---- panel frames: gridlines + zero + ticks, for each panel
+    function panel(sx, x0, x1, tag, sub, pticks, note) {
+      const g = [];
+      // header
+      g.push(txt(x1, topY - 30, tag, { size: 17, weight: 600, fill: C.ink, anchor: 'end' }));
+      g.push(txt(x1, topY - 12, sub, { size: 12.5, italic: true, fill: C.muted, anchor: 'end' }));
+      // vertical gridlines at integer ticks
+      pticks.forEach(function (tk) {
+        if (tk === 0) return;
+        g.push(line(sx(tk), topY, sx(tk), botY, { stroke: C.grid, sw: 1 }));
+      });
+      // zero line (emphasized)
+      g.push(line(sx(0), topY, sx(0), botY, { stroke: C.zero, sw: 1.6 }));
+      // axis + tick labels
+      g.push(line(x0, axisY, x1, axisY, { stroke: C.axis, sw: 1.2 }));
+      pticks.forEach(function (tk) {
+        g.push(line(sx(tk), axisY, sx(tk), axisY + 5, { stroke: C.axis, sw: 1.2 }));
+        g.push(txt(sx(tk), axisY + 22, String(tk), { size: 13, fill: C.axis }));
+      });
+      g.push(txt((x0 + x1) / 2, axisY + 48, '\u0394 log P(codes at T)', { size: 14.5, fill: C.axis }));
+      if (note) g.push(txt((x0 + x1) / 2, axisY + 67, note, { size: 11.5, italic: true, fill: C.muted }));
+      return g.join('');
+    }
+    S.push(panel(sx0, p0x, p1x, 'gap 0', 'ablate at target step T', ticks0, ''));
+    S.push(panel(sx3, q0x, q1x, 'gap 3', 'ablate three steps before T', ticks3, note3));
+
+    // ---- concept labels (shared, left gutter)
+    for (let i = 0; i < N; i++) {
+      const yc = topY + i * rowH + rowH / 2;
+      S.push(txt(gutterR, yc + 4.5, CONCEPTS[i], { size: 14, fill: C.ink, anchor: 'end' }));
+    }
+
+    // ---- bars + error bars for one panel
+    function drawBars(data, sx) {
+      const g = [];
+      for (let i = 0; i < N; i++) {
+        const yc = topY + i * rowH + rowH / 2;
+        const gStart = yc - groupH / 2;
+        SERIES.forEach(function (s, j) {
+          const d = data[s.key][i];
+          const by = gStart + j * (tb + gapb);
+          const cy = by + tb / 2;
+          const x0v = sx(0), xv = sx(d[0]);
+          const bx = Math.min(x0v, xv), bw = Math.abs(xv - x0v);
+          g.push(rect(bx, by, Math.max(bw, 0.6), tb, { fill: C[s.key] }));
+          // error bar (lighter grey so the bars read as the primary mark)
+          if (t.showCI) {
+            const xl = sx(d[1]), xh = sx(d[2]);
+            g.push(line(xl, cy, xh, cy, { stroke: C.muted, sw: 1, cap: 'round' }));
+            g.push(line(xl, cy - 2.6, xl, cy + 2.6, { stroke: C.muted, sw: 1 }));
+            g.push(line(xh, cy - 2.6, xh, cy + 2.6, { stroke: C.muted, sw: 1 }));
+          }
+          // value annotation for prominent unlock bars (placed past the CI cap)
+          if (t.annotate && s.key === 'feat_unlock' && d[0] >= 1.0) {
+            g.push(txt(sx(d[2]) + 6, cy + 3.6, d[0].toFixed(1), { size: 11, weight: 600, fill: C[s.key], anchor: 'start', mono: true }));
+          }
+        });
+      }
+      return g.join('');
+    }
+    S.push(drawBars(G0, sx0));
+    S.push(drawBars(G3, sx3));
+
+    // ---- legend (own row, well above the panel headers)
+    const lgY = topY - 64;
+    let lx = 78;
+    const lg = [];
+    SERIES.forEach(function (s) {
+      lg.push(rect(lx, lgY - 9, 16, 11, { fill: C[s.key], rx: 2, stroke: 'rgba(0,0,0,0.16)', sw: 0.8 }));
+      lg.push(txt(lx + 23, lgY, s.label, { size: 13, fill: C.ink, anchor: 'start' }));
+      lx += 30 + s.label.length * 7.0 * FS + 26;
+    });
+    S.push(lg.join(''));
+
+    S.push('</svg>');
+    document.getElementById('fig').innerHTML = S.join('');
+  };
+
+  window.__FIG_DEFAULTS = { showTitle: false, showCI: true, zebra: true, annotate: true, palette: 'color', nullPanel: 'zoom' };
+  document.addEventListener('DOMContentLoaded', function () {
+    window.renderFigure(window.__FIG_DEFAULTS);
+  });
+})();
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "showTitle": false,
+    "showCI": true,
+    "zebra": true,
+    "annotate": true,
+    "palette": "color",
+    "nullPanel": "zoom"
+  }/*EDITMODE-END*/;
+
+  function App() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    React.useEffect(() => { window.renderFigure(t); }, [t]);
+    return (
+      <TweaksPanel>
+        <TweakSection label="Figure" />
+        <TweakToggle label="Title inside figure" value={t.showTitle} onChange={(v) => setTweak('showTitle', v)} />
+        <TweakToggle label="95% CI error bars" value={t.showCI} onChange={(v) => setTweak('showCI', v)} />
+        <TweakToggle label="Zebra row banding" value={t.zebra} onChange={(v) => setTweak('zebra', v)} />
+        <TweakToggle label="Annotate large bars" value={t.annotate} onChange={(v) => setTweak('annotate', v)} />
+        <TweakSection label="Palette" />
+        <TweakRadio label="Colors" value={t.palette} options={['color', 'grayscale']} onChange={(v) => setTweak('palette', v)} />
+        <TweakSection label="gap 3 panel" />
+        <TweakRadio label="Scale" value={t.nullPanel} options={['zoom', 'compact', 'equal']} onChange={(v) => setTweak('nullPanel', v)} />
+      </TweaksPanel>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
+</script>
+</body>
+</html>
