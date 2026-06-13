@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Δ-IRIS concept-direction ablation in imagination — Figure 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  body { font-family: 'IBM Plex Sans', sans-serif; color: #222a33; }
+  .page { max-width: 1520px; margin: 0 auto; padding: 24px 20px 48px; }
+  #fig svg { width: 100%; height: auto; display: block; }
+  .caption { font-family: 'IBM Plex Serif', serif; font-size: 16px; line-height: 1.56; color: #2b333b; max-width: 1200px; margin: 18px auto 0; padding: 0 12px; text-wrap: pretty; }
+  .caption code { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #1f1a17; }
+  .caption i { font-style: italic; }
+</style>
+</head>
+<body>
+<div class="page" data-screen-label="Fig 5 — imagination ablation">
+  <div id="fig"></div>
+  <p class="caption" id="cap"></p>
+</div>
+<div id="tweaks-root"></div>
+
+<script>
+(function () {
+  const MONO = "'IBM Plex Mono', monospace";
+  const SANS = "'IBM Plex Sans', sans-serif";
+  const FS = 1.2; // global font scale
+
+  const COL = {
+    baseline: '#0B7D66', // deep teal (no intervention / reference)
+    sae:      '#1B4F8A', // strong blue (matched SAE direction)
+    cav:      '#B23A8E', // magenta-purple (CAV direction)
+    random:   '#7C828B', // mid-dark grey (random direction)
+    ink: '#222A33', muted: '#6B7480', axis: '#2E3742', faint: '#D7DCE2',
+    grid: '#EBEEF2', band: '#F4F6F8', zero: '#3A4754', ciband: '#0B7D66'
+  };
+  const GRAY = {
+    baseline: '#2b2b2b', sae: '#5f5f5f', cav: '#9a9a9a', random: '#cccccc',
+    ink: '#1a1a1a', muted: '#6b6b6b', axis: '#333333', faint: '#dcdcdc',
+    grid: '#ededed', band: '#f6f6f6', zero: '#444444', ciband: '#888888'
+  };
+
+  const CONCEPTS = [
+    'make wood pickaxe', 'collect iron', 'collect sapling', 'collect coal', 'eat cow',
+    'make wood sword', 'place furnace', 'make stone pickaxe', 'collect drink', 'collect wood',
+    'place table', 'place plant', 'place stone', 'make stone sword', 'collect stone'
+  ];
+
+  // [mean, ci_lo, ci_hi] digitized from the source figure (bounded to [0,1])
+  const PF = {
+    baseline: [[.80,.60,.95],[.90,.75,1],[.05,0,.15],[.95,.85,1],[.70,.50,.90],[.90,.75,1],[.45,.25,.65],[.75,.55,.92],[.30,.10,.50],[1,1,1],[.95,.85,1],[.95,.85,1],[.90,.75,1],[.75,.55,.92],[.95,.85,1]],
+    sae:      [[.80,.60,.95],[.75,.55,.90],[.05,0,.15],[.70,.50,.90],[.70,.50,.90],[.75,.55,.92],[.45,.25,.65],[.55,.35,.75],[.30,.10,.50],[1,1,1],[.85,.70,.97],[.85,.70,.97],[.70,.50,.90],[.45,.25,.65],[.85,.70,.97]],
+    cav:      [[.80,.60,.95],[.85,.70,.97],[.10,0,.20],[.90,.78,.99],[.65,.45,.85],[.90,.75,1],[.45,.25,.65],[.75,.55,.92],[.25,.10,.45],[1,1,1],[.95,.85,1],[.95,.85,1],[1,.90,1],[.85,.70,.97],[.95,.85,1]],
+    random:   [[.80,.60,.95],[.85,.70,.97],[.10,0,.20],[.90,.78,.99],[.65,.45,.85],[.90,.75,1],[.45,.25,.65],[.75,.55,.92],[.25,.10,.45],[1,1,1],[.95,.85,1],[.95,.85,1],[.90,.75,1],[.85,.70,.97],[.95,.85,1]]
+  };
+  const PW = {
+    baseline: [[.80,.60,.95],[1,1,1],[.60,.40,.80],[1,.95,1],[.90,.75,1],[.90,.75,1],[.45,.25,.65],[.80,.60,.95],[.70,.50,.85],[1,1,1],[1,.95,1],[1,.95,1],[1,.95,1],[.80,.60,.95],[1,.95,1]],
+    sae:      [[.80,.60,.95],[.85,.70,1],[.45,.25,.65],[.90,.75,1],[.75,.55,.92],[.75,.55,.92],[.45,.25,.65],[.70,.50,.90],[.60,.40,.78],[1,1,1],[.90,.75,1],[.90,.78,1],[.85,.70,.97],[.45,.25,.65],[.90,.78,1]],
+    cav:      [[.80,.60,.95],[1,.95,1],[.50,.30,.70],[1,.95,1],[.75,.55,.92],[.90,.75,1],[.45,.25,.65],[.80,.60,.95],[.60,.40,.75],[1,1,1],[1,.95,1],[1,.95,1],[1,.95,1],[.90,.78,1],[1,.95,1]],
+    random:   [[.80,.60,.95],[1,.95,1],[.50,.30,.70],[1,.95,1],[.75,.55,.92],[.90,.75,1],[.45,.25,.65],[.80,.60,.95],[.60,.40,.78],[1,1,1],[1,.95,1],[1,.95,1],[1,.95,1],[.80,.60,.95],[1,.95,1]]
+  };
+
+  const SERIES = [
+    { key: 'baseline', label: 'baseline (no intervention)' },
+    { key: 'sae',      label: 'SAE-direction ablation' },
+    { key: 'cav',      label: 'CAV-direction ablation' },
+    { key: 'random',   label: 'random-direction ablation' }
+  ];
+  const ABLATIONS = ['sae', 'cav', 'random'];
+
+  function clamp01(v) { return Math.max(0, Math.min(1, v)); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function txt(x, y, str, o) {
+    o = o || {};
+    return '<text x="' + x + '" y="' + y + '"' +
+      ' font-family="' + (o.mono ? MONO : SANS) + '"' +
+      ' font-size="' + Math.round((o.size || 14) * FS * 10) / 10 + '"' +
+      ' fill="' + (o.fill || COL.ink) + '"' +
+      (o.weight ? ' font-weight="' + o.weight + '"' : '') +
+      (o.italic ? ' font-style="italic"' : '') +
+      ' text-anchor="' + (o.anchor || 'middle') + '"' + '>' + esc(str) + '</text>';
+  }
+  function rect(x, y, w, h, o) {
+    o = o || {};
+    return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '"' +
+      (o.rx ? ' rx="' + o.rx + '"' : '') +
+      ' fill="' + (o.fill || 'none') + '"' +
+      (o.fillOpacity != null ? ' fill-opacity="' + o.fillOpacity + '"' : '') +
+      (o.stroke ? ' stroke="' + o.stroke + '" stroke-width="' + (o.sw || 1) + '"' : '') + '></rect>';
+  }
+  function line(x1, y1, x2, y2, o) {
+    o = o || {};
+    return '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"' +
+      ' stroke="' + (o.stroke || COL.axis) + '" stroke-width="' + (o.sw || 1) + '"' +
+      (o.dash ? ' stroke-dasharray="' + o.dash + '"' : '') +
+      (o.cap ? ' stroke-linecap="' + o.cap + '"' : '') + '></line>';
+  }
+  function circ(cx, cy, r, fill, stroke) {
+    return '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + fill + '"' +
+      (stroke ? ' stroke="' + stroke + '" stroke-width="1.4"' : '') + '></circle>';
+  }
+  function fmtP(tk) { return tk === 0 ? '0' : tk === 1 ? '1' : String(tk); }
+  function fmtD(tk) { return tk === 0 ? '0' : (tk > 0 ? '+' + tk : String(tk)); }
+
+  window.renderFigure = function (t) {
+    const C = t.palette === 'grayscale' ? GRAY : COL;
+    const view = t.view || 'effect';
+    const W = 1480;
+
+    // ---- shared layout
+    const gutterR = 240;
+    const topY = t.showTitle ? 206 : 178;
+    const rowH = 40;
+    const N = CONCEPTS.length;
+    const panelW = 505;
+    const p0x = 270, p1x = p0x + panelW;
+    const q0x = p1x + 85, q1x = q0x + panelW;
+    const plotH = N * rowH;
+    const botY = topY + plotH;
+    const axisY = botY + 12;
+    const H = axisY + 94;
+
+    // ---- per-view scale
+    let xmin, xmax, ticks, fmt, axL, axR;
+    if (view === 'bars') {
+      xmin = 0; xmax = 1.0; ticks = [0, 0.25, 0.5, 0.75, 1]; fmt = fmtP;
+      axL = 'P(achievement on first step)'; axR = 'P(achievement within horizon)';
+    } else {
+      xmin = -0.45; xmax = 0.12; ticks = [-0.4, -0.3, -0.2, -0.1, 0, 0.1]; fmt = fmtD;
+      axL = '\u0394 P(first step) vs baseline'; axR = '\u0394 P(within horizon) vs baseline';
+    }
+    const sx0 = function (v) { return p0x + (v - xmin) / (xmax - xmin) * panelW; };
+    const sx3 = function (v) { return q0x + (v - xmin) / (xmax - xmin) * panelW; };
+
+    // ---- ordering
+    let order = CONCEPTS.map(function (_, i) { return i; });
+    if (t.sort === 'effect') {
+      order.sort(function (a, b) { return (PW.baseline[b][0] - PW.sae[b][0]) - (PW.baseline[a][0] - PW.sae[a][0]); });
+    } else if (t.sort === 'baseline') {
+      order.sort(function (a, b) { return PW.baseline[b][0] - PW.baseline[a][0] || PF.baseline[b][0] - PF.baseline[a][0]; });
+    }
+
+    const S = [];
+    S.push('<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Concept-direction ablation inside imagination">');
+    S.push('<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#ffffff"></rect>');
+
+    if (t.showTitle) {
+      S.push(txt(W / 2, 46, 'Concept-direction ablation inside 12-step imagination', { size: 23, weight: 600, fill: C.ink }));
+      S.push(txt(W / 2, 74, view === 'bars' ? 'achievement probability under each ablation' : 'change in achievement probability relative to the no-intervention baseline', { size: 14.5, fill: C.muted }));
+    }
+
+    // zebra
+    if (t.zebra) {
+      for (let i = 0; i < N; i++) {
+        if (i % 2 === 1) continue;
+        S.push(rect(78, topY + i * rowH, q1x - 78, rowH, { fill: C.band }));
+      }
+    }
+
+    // panel frame
+    function panel(sx, x0, x1, tag, axisTitle, note) {
+      const g = [];
+      g.push(txt(x1, topY - 30, tag, { size: 17, weight: 600, fill: C.ink, anchor: 'end' }));
+      ticks.forEach(function (tk) {
+        if (tk === 0) return;
+        g.push(line(sx(tk), topY, sx(tk), botY, { stroke: C.grid, sw: 1 }));
+      });
+      // emphasized zero / baseline line
+      g.push(line(sx(0), topY, sx(0), botY, { stroke: C.zero, sw: 1.8 }));
+      if (view !== 'bars') g.push(txt(sx(0), topY - 9, 'baseline', { size: 11.5, italic: true, fill: C.baseline }));
+      // bottom axis + ticks
+      g.push(line(x0, axisY, x1, axisY, { stroke: C.axis, sw: 1.2 }));
+      ticks.forEach(function (tk) {
+        g.push(line(sx(tk), axisY, sx(tk), axisY + 5, { stroke: C.axis, sw: 1.2 }));
+        g.push(txt(sx(tk), axisY + 24, fmt(tk), { size: 13, fill: C.axis }));
+      });
+      g.push(txt((x0 + x1) / 2, axisY + 52, axisTitle, { size: 14.5, fill: C.axis }));
+      if (note) g.push(txt((x0 + x1) / 2, axisY + 72, note, { size: 11.5, italic: true, fill: C.muted }));
+      return g.join('');
+    }
+    const noteL = view === 'bars' ? '' : 'left of 0 = ablation lowers achievement';
+    const noteR = view === 'bars' ? '' : (t.showCI ? 'shaded band = baseline 95% CI (about 0)' : '');
+    S.push(panel(sx0, p0x, p1x, view === 'bars' ? 'first imagined step' : 'first imagined step', axL, noteL));
+    S.push(panel(sx3, q0x, q1x, 'within horizon', axR, noteR));
+
+    // concept labels
+    for (let i = 0; i < N; i++) {
+      const yc = topY + i * rowH + rowH / 2;
+      S.push(txt(gutterR, yc + 5, CONCEPTS[order[i]], { size: 14, fill: C.ink, anchor: 'end' }));
+    }
+
+    // ---- marks
+    function drawBars(data, sx) {
+      const g = [];
+      const tb = 6.0, gapb = 1.4, groupH = 4 * tb + 3 * gapb;
+      for (let i = 0; i < N; i++) {
+        const ci = order[i], yc = topY + i * rowH + rowH / 2, gStart = yc - groupH / 2;
+        SERIES.forEach(function (s, j) {
+          const d = data[s.key][ci];
+          const by = gStart + j * (tb + gapb), cy = by + tb / 2;
+          g.push(rect(sx(0), by, Math.max(sx(d[0]) - sx(0), 0.6), tb, { fill: C[s.key] }));
+          if (t.showCI) {
+            const xl = sx(clamp01(d[1])), xh = sx(clamp01(d[2]));
+            if (xh > xl) {
+              g.push(line(xl, cy, xh, cy, { stroke: C.muted, sw: 1, cap: 'round' }));
+              g.push(line(xl, cy - 2.3, xl, cy + 2.3, { stroke: C.muted, sw: 1 }));
+              g.push(line(xh, cy - 2.3, xh, cy + 2.3, { stroke: C.muted, sw: 1 }));
+            }
+          }
+        });
+      }
+      return g.join('');
+    }
+    function drawEffect(data, sx) {
+      const g = [];
+      const laneH = 9, groupH = 3 * laneH;
+      for (let i = 0; i < N; i++) {
+        const ci = order[i], yc = topY + i * rowH + rowH / 2, gStart = yc - groupH / 2;
+        const b = data.baseline[ci], bm = b[0];
+        // baseline 95% CI band (mirrored about 0)
+        if (t.showCI) {
+          const lo = sx(-(bm - clamp01(b[1]))), hi = sx(clamp01(b[2]) - bm);
+          g.push(rect(lo, gStart - 2, Math.max(hi - lo, 0.6), groupH + 4, { fill: C.ciband, fillOpacity: 0.10, rx: 2 }));
+        }
+        ABLATIONS.forEach(function (key, j) {
+          const delta = data[key][ci][0] - bm;
+          const ly = gStart + j * laneH + laneH / 2;
+          g.push(line(sx(0), ly, sx(delta), ly, { stroke: C[key], sw: 2, cap: 'round' }));
+          g.push(circ(sx(delta), ly, 4.3, C[key], '#ffffff'));
+        });
+      }
+      return g.join('');
+    }
+    if (view === 'bars') { S.push(drawBars(PF, sx0)); S.push(drawBars(PW, sx3)); }
+    else { S.push(drawEffect(PF, sx0)); S.push(drawEffect(PW, sx3)); }
+
+    // ---- legend
+    const lgY = topY - 66;
+    let lx = 78;
+    const legItems = view === 'bars' ? SERIES : (
+      [{ key: 'baseline', label: 'baseline (0 line)', line: true }].concat(
+        ABLATIONS.map(function (k) { return { key: k, label: SERIES.filter(function (s) { return s.key === k; })[0].label, dot: true }; })
+      )
+    );
+    legItems.forEach(function (s) {
+      if (s.line) {
+        S.push(line(lx + 8, lgY - 9, lx + 8, lgY + 3, { stroke: C.baseline, sw: 2.4 }));
+      } else if (s.dot) {
+        S.push(line(lx, lgY - 3, lx + 16, lgY - 3, { stroke: C[s.key], sw: 2 }));
+        S.push(circ(lx + 8, lgY - 3, 4.3, C[s.key], '#ffffff'));
+      } else {
+        S.push(rect(lx, lgY - 9, 16, 11, { fill: C[s.key], rx: 2, stroke: 'rgba(0,0,0,0.16)', sw: 0.8 }));
+      }
+      S.push(txt(lx + 23, lgY, s.label, { size: 13, fill: C.ink, anchor: 'start' }));
+      lx += 30 + s.label.length * 7.0 * FS + 24;
+    });
+
+    S.push('</svg>');
+    document.getElementById('fig').innerHTML = S.join('');
+
+    // ---- caption matched to view
+    const capBars = '<b>Fig.&nbsp;5</b>&ensp;<b>Concept-direction ablation inside 12-step imagination,</b> for the 15 of 18 concepts whose baseline within-horizon detector probability is at least 0.4. Bars: probability that the concept&rsquo;s detector code is sampled at the first imagined step <i>(left)</i> and within the horizon <i>(right)</i> under no intervention (<span style="color:' + COL.baseline + ';font-weight:600">baseline</span>), <span style="color:' + COL.sae + ';font-weight:600">SAE-direction</span>, <span style="color:' + COL.cav + ';font-weight:600">CAV-direction</span> and <span style="color:#7C828B;font-weight:600">random-direction</span> ablation; bootstrap 95% CIs clipped at 1, <i>n</i>&nbsp;=&nbsp;20 rollouts per bar.';
+    const capEff = '<b>Fig.&nbsp;5</b>&ensp;<b>Concept-direction ablation inside 12-step imagination,</b> for the 15 of 18 concepts whose baseline within-horizon detector probability is at least 0.4. Each point is the <b>change</b> in the probability that the concept&rsquo;s detector code is sampled \u2014 at the first imagined step <i>(left)</i> and within the horizon <i>(right)</i> \u2014 relative to the no-intervention <span style="color:' + COL.baseline + ';font-weight:600">baseline</span> (the 0 line), under <span style="color:' + COL.sae + ';font-weight:600">SAE-direction</span>, <span style="color:' + COL.cav + ';font-weight:600">CAV-direction</span> and <span style="color:#7C828B;font-weight:600">random-direction</span> ablation; <i>n</i>&nbsp;=&nbsp;20 rollouts per condition. Ablating the matched SAE direction selectively lowers achievement (points fall left of 0); CAV and random directions leave it within baseline noise.';
+    document.getElementById('cap').innerHTML = view === 'bars' ? capBars : capEff;
+  };
+
+  window.__FIG_DEFAULTS = { showTitle: false, view: 'effect', showCI: true, zebra: true, sort: 'effect', palette: 'color' };
+  document.addEventListener('DOMContentLoaded', function () {
+    window.renderFigure(window.__FIG_DEFAULTS);
+  });
+})();
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "showTitle": false,
+    "view": "effect",
+    "showCI": true,
+    "zebra": true,
+    "sort": "effect",
+    "palette": "color"
+  }/*EDITMODE-END*/;
+
+  function App() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    React.useEffect(() => { window.renderFigure(t); }, [t]);
+    return (
+      <TweaksPanel>
+        <TweakSection label="View" />
+        <TweakRadio label="Plot" value={t.view} options={['effect', 'bars']} onChange={(v) => setTweak('view', v)} />
+        <TweakToggle label={t.view === 'bars' ? '95% CI error bars' : 'Baseline 95% CI band'} value={t.showCI} onChange={(v) => setTweak('showCI', v)} />
+        <TweakSection label="Order" />
+        <TweakRadio label="Concepts" value={t.sort} options={['effect', 'baseline', 'fixed']} onChange={(v) => setTweak('sort', v)} />
+        <TweakSection label="Style" />
+        <TweakToggle label="Title inside figure" value={t.showTitle} onChange={(v) => setTweak('showTitle', v)} />
+        <TweakToggle label="Zebra row banding" value={t.zebra} onChange={(v) => setTweak('zebra', v)} />
+        <TweakRadio label="Palette" value={t.palette} options={['color', 'grayscale']} onChange={(v) => setTweak('palette', v)} />
+      </TweaksPanel>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
+</script>
+</body>
+</html>
