@@ -1,0 +1,569 @@
+[
+  {
+    "step": 1,
+    "total": 1.5923409461975098,
+    "commitment_loss": 0.060924120247364044,
+    "reconstruction_loss": 0.725333571434021,
+    "perceptual_loss": 0.8060832023620605
+  },
+  {
+    "step": 500,
+    "total": 0.5282104015350342,
+    "commitment_loss": 0.16762730479240417,
+    "reconstruction_loss": 0.14365346729755402,
+    "perceptual_loss": 0.216929629445076
+  },
+  {
+    "step": 1000,
+    "total": 0.5236791372299194,
+    "commitment_loss": 0.21707367897033691,
+    "reconstruction_loss": 0.11632443964481354,
+    "perceptual_loss": 0.19028106331825256
+  },
+  {
+    "step": 1500,
+    "total": 0.4528953731060028,
+    "commitment_loss": 0.1582050621509552,
+    "reconstruction_loss": 0.11212059110403061,
+    "perceptual_loss": 0.1825697124004364
+  },
+  {
+    "step": 2000,
+    "total": 0.4160032868385315,
+    "commitment_loss": 0.13610970973968506,
+    "reconstruction_loss": 0.10678788274526596,
+    "perceptual_loss": 0.17310567200183868
+  },
+  {
+    "step": 2500,
+    "total": 0.37158024311065674,
+    "commitment_loss": 0.1198291927576065,
+    "reconstruction_loss": 0.09243088960647583,
+    "perceptual_loss": 0.1593201458454132
+  },
+  {
+    "step": 3000,
+    "total": 0.37163928151130676,
+    "commitment_loss": 0.12350170314311981,
+    "reconstruction_loss": 0.09317877143621445,
+    "perceptual_loss": 0.1549588143825531
+  },
+  {
+    "step": 3500,
+    "total": 0.33736974000930786,
+    "commitment_loss": 0.09892414510250092,
+    "reconstruction_loss": 0.08496266603469849,
+    "perceptual_loss": 0.15348294377326965
+  },
+  {
+    "step": 4000,
+    "total": 0.36129164695739746,
+    "commitment_loss": 0.10194332897663116,
+    "reconstruction_loss": 0.09440319240093231,
+    "perceptual_loss": 0.1649451106786728
+  },
+  {
+    "step": 4500,
+    "total": 0.30162450671195984,
+    "commitment_loss": 0.07645407319068909,
+    "reconstruction_loss": 0.08035936951637268,
+    "perceptual_loss": 0.14481106400489807
+  },
+  {
+    "step": 5000,
+    "total": 0.291881263256073,
+    "commitment_loss": 0.07588908821344376,
+    "reconstruction_loss": 0.07536838203668594,
+    "perceptual_loss": 0.1406238079071045
+  },
+  {
+    "step": 5500,
+    "total": 0.2631129324436188,
+    "commitment_loss": 0.06517485529184341,
+    "reconstruction_loss": 0.0704289898276329,
+    "perceptual_loss": 0.12750908732414246
+  },
+  {
+    "step": 6000,
+    "total": 0.3035985827445984,
+    "commitment_loss": 0.0861668512225151,
+    "reconstruction_loss": 0.07855992019176483,
+    "perceptual_loss": 0.13887180387973785
+  },
+  {
+    "step": 6500,
+    "total": 0.29736143350601196,
+    "commitment_loss": 0.09614600986242294,
+    "reconstruction_loss": 0.07283233106136322,
+    "perceptual_loss": 0.1283831000328064
+  },
+  {
+    "step": 7000,
+    "total": 0.2657071352005005,
+    "commitment_loss": 0.07472412288188934,
+    "reconstruction_loss": 0.0692267045378685,
+    "perceptual_loss": 0.12175632268190384
+  },
+  {
+    "step": 7500,
+    "total": 0.2504887580871582,
+    "commitment_loss": 0.07629053294658661,
+    "reconstruction_loss": 0.06391273438930511,
+    "perceptual_loss": 0.11028549075126648
+  },
+  {
+    "step": 8000,
+    "total": 0.26362723112106323,
+    "commitment_loss": 0.08624070882797241,
+    "reconstruction_loss": 0.06349600851535797,
+    "perceptual_loss": 0.11389052867889404
+  },
+  {
+    "step": 8500,
+    "total": 0.2360953688621521,
+    "commitment_loss": 0.0817960798740387,
+    "reconstruction_loss": 0.060282617807388306,
+    "perceptual_loss": 0.0940166786313057
+  },
+  {
+    "step": 9000,
+    "total": 0.2545129656791687,
+    "commitment_loss": 0.08347749710083008,
+    "reconstruction_loss": 0.05983179807662964,
+    "perceptual_loss": 0.11120368540287018
+  },
+  {
+    "step": 9500,
+    "total": 0.24550946056842804,
+    "commitment_loss": 0.08040249347686768,
+    "reconstruction_loss": 0.05730842798948288,
+    "perceptual_loss": 0.10779853165149689
+  },
+  {
+    "step": 10000,
+    "total": 0.23850968480110168,
+    "commitment_loss": 0.09851580858230591,
+    "reconstruction_loss": 0.05587978661060333,
+    "perceptual_loss": 0.08411408215761185
+  },
+  {
+    "step": 10500,
+    "total": 0.20393261313438416,
+    "commitment_loss": 0.07308629155158997,
+    "reconstruction_loss": 0.04882248491048813,
+    "perceptual_loss": 0.08202384412288666
+  },
+  {
+    "step": 11000,
+    "total": 0.22215531766414642,
+    "commitment_loss": 0.07797442376613617,
+    "reconstruction_loss": 0.05410432070493698,
+    "perceptual_loss": 0.09007658064365387
+  },
+  {
+    "step": 11500,
+    "total": 0.2285694181919098,
+    "commitment_loss": 0.08044395595788956,
+    "reconstruction_loss": 0.05745100975036621,
+    "perceptual_loss": 0.09067446738481522
+  },
+  {
+    "step": 12000,
+    "total": 0.22115561366081238,
+    "commitment_loss": 0.07854997366666794,
+    "reconstruction_loss": 0.05318017303943634,
+    "perceptual_loss": 0.0894254669547081
+  },
+  {
+    "step": 12500,
+    "total": 0.2184874713420868,
+    "commitment_loss": 0.0859144926071167,
+    "reconstruction_loss": 0.05123823136091232,
+    "perceptual_loss": 0.08133474737405777
+  },
+  {
+    "step": 13000,
+    "total": 0.21941372752189636,
+    "commitment_loss": 0.08301626145839691,
+    "reconstruction_loss": 0.051142603158950806,
+    "perceptual_loss": 0.08525486290454865
+  },
+  {
+    "step": 13500,
+    "total": 0.21240024268627167,
+    "commitment_loss": 0.07026642560958862,
+    "reconstruction_loss": 0.052208803594112396,
+    "perceptual_loss": 0.08992501348257065
+  },
+  {
+    "step": 14000,
+    "total": 0.1983589231967926,
+    "commitment_loss": 0.0748087465763092,
+    "reconstruction_loss": 0.04716222733259201,
+    "perceptual_loss": 0.07638794183731079
+  },
+  {
+    "step": 14500,
+    "total": 0.19047407805919647,
+    "commitment_loss": 0.06804906576871872,
+    "reconstruction_loss": 0.04534522816538811,
+    "perceptual_loss": 0.07707978785037994
+  },
+  {
+    "step": 15000,
+    "total": 0.20869217813014984,
+    "commitment_loss": 0.07471032440662384,
+    "reconstruction_loss": 0.049813538789749146,
+    "perceptual_loss": 0.08416831493377686
+  },
+  {
+    "step": 15500,
+    "total": 0.17943134903907776,
+    "commitment_loss": 0.06245595961809158,
+    "reconstruction_loss": 0.04321222007274628,
+    "perceptual_loss": 0.0737631767988205
+  },
+  {
+    "step": 16000,
+    "total": 0.21287651360034943,
+    "commitment_loss": 0.07718733698129654,
+    "reconstruction_loss": 0.04934917390346527,
+    "perceptual_loss": 0.08633999526500702
+  },
+  {
+    "step": 16500,
+    "total": 0.18808870017528534,
+    "commitment_loss": 0.06781967729330063,
+    "reconstruction_loss": 0.044868987053632736,
+    "perceptual_loss": 0.07540003955364227
+  },
+  {
+    "step": 17000,
+    "total": 0.21424193680286407,
+    "commitment_loss": 0.07876092195510864,
+    "reconstruction_loss": 0.05034629628062248,
+    "perceptual_loss": 0.08513471484184265
+  },
+  {
+    "step": 17500,
+    "total": 0.1888875961303711,
+    "commitment_loss": 0.07222221791744232,
+    "reconstruction_loss": 0.0449715256690979,
+    "perceptual_loss": 0.07169385999441147
+  },
+  {
+    "step": 18000,
+    "total": 0.20040100812911987,
+    "commitment_loss": 0.07199874520301819,
+    "reconstruction_loss": 0.047401390969753265,
+    "perceptual_loss": 0.08100086450576782
+  },
+  {
+    "step": 18500,
+    "total": 0.19718581438064575,
+    "commitment_loss": 0.07765193283557892,
+    "reconstruction_loss": 0.046364910900592804,
+    "perceptual_loss": 0.07316896319389343
+  },
+  {
+    "step": 19000,
+    "total": 0.20255827903747559,
+    "commitment_loss": 0.08316835016012192,
+    "reconstruction_loss": 0.04470248147845268,
+    "perceptual_loss": 0.07468745112419128
+  },
+  {
+    "step": 19500,
+    "total": 0.20031404495239258,
+    "commitment_loss": 0.07832978665828705,
+    "reconstruction_loss": 0.04495749995112419,
+    "perceptual_loss": 0.07702675461769104
+  },
+  {
+    "step": 20000,
+    "total": 0.19966194033622742,
+    "commitment_loss": 0.0766059160232544,
+    "reconstruction_loss": 0.04754943400621414,
+    "perceptual_loss": 0.07550658285617828
+  },
+  {
+    "step": 20500,
+    "total": 0.20478475093841553,
+    "commitment_loss": 0.08750417083501816,
+    "reconstruction_loss": 0.042402684688568115,
+    "perceptual_loss": 0.07487788796424866
+  },
+  {
+    "step": 21000,
+    "total": 0.18743380904197693,
+    "commitment_loss": 0.07494758069515228,
+    "reconstruction_loss": 0.04112071543931961,
+    "perceptual_loss": 0.07136552035808563
+  },
+  {
+    "step": 21500,
+    "total": 0.17456570267677307,
+    "commitment_loss": 0.064081110060215,
+    "reconstruction_loss": 0.04210220277309418,
+    "perceptual_loss": 0.0683823898434639
+  },
+  {
+    "step": 22000,
+    "total": 0.20351098477840424,
+    "commitment_loss": 0.08330254256725311,
+    "reconstruction_loss": 0.04418852552771568,
+    "perceptual_loss": 0.07601991295814514
+  },
+  {
+    "step": 22500,
+    "total": 0.15261021256446838,
+    "commitment_loss": 0.054609403014183044,
+    "reconstruction_loss": 0.037421874701976776,
+    "perceptual_loss": 0.060578931123018265
+  },
+  {
+    "step": 23000,
+    "total": 0.19716468453407288,
+    "commitment_loss": 0.07176453620195389,
+    "reconstruction_loss": 0.047141145914793015,
+    "perceptual_loss": 0.07825901359319687
+  },
+  {
+    "step": 23500,
+    "total": 0.17315256595611572,
+    "commitment_loss": 0.06663533300161362,
+    "reconstruction_loss": 0.04307239502668381,
+    "perceptual_loss": 0.0634448379278183
+  },
+  {
+    "step": 24000,
+    "total": 0.17940762639045715,
+    "commitment_loss": 0.07293308526277542,
+    "reconstruction_loss": 0.03924180194735527,
+    "perceptual_loss": 0.06723274290561676
+  },
+  {
+    "step": 24500,
+    "total": 0.17049570381641388,
+    "commitment_loss": 0.062418028712272644,
+    "reconstruction_loss": 0.040155962109565735,
+    "perceptual_loss": 0.0679217129945755
+  },
+  {
+    "step": 25000,
+    "total": 0.1847602128982544,
+    "commitment_loss": 0.0765453428030014,
+    "reconstruction_loss": 0.0385407954454422,
+    "perceptual_loss": 0.0696740671992302
+  },
+  {
+    "step": 25500,
+    "total": 0.16627183556556702,
+    "commitment_loss": 0.059583671391010284,
+    "reconstruction_loss": 0.040161021053791046,
+    "perceptual_loss": 0.06652713567018509
+  },
+  {
+    "step": 26000,
+    "total": 0.17254871129989624,
+    "commitment_loss": 0.0709151104092598,
+    "reconstruction_loss": 0.03894859179854393,
+    "perceptual_loss": 0.06268502026796341
+  },
+  {
+    "step": 26500,
+    "total": 0.17330816388130188,
+    "commitment_loss": 0.07015360891819,
+    "reconstruction_loss": 0.038938090205192566,
+    "perceptual_loss": 0.06421645730733871
+  },
+  {
+    "step": 27000,
+    "total": 0.19226104021072388,
+    "commitment_loss": 0.08109813928604126,
+    "reconstruction_loss": 0.041337545961141586,
+    "perceptual_loss": 0.06982535868883133
+  },
+  {
+    "step": 27500,
+    "total": 0.17449675500392914,
+    "commitment_loss": 0.06210099905729294,
+    "reconstruction_loss": 0.04144692048430443,
+    "perceptual_loss": 0.07094883918762207
+  },
+  {
+    "step": 28000,
+    "total": 0.15885421633720398,
+    "commitment_loss": 0.059467218816280365,
+    "reconstruction_loss": 0.03710046038031578,
+    "perceptual_loss": 0.062286533415317535
+  },
+  {
+    "step": 28500,
+    "total": 0.1942797303199768,
+    "commitment_loss": 0.0857611745595932,
+    "reconstruction_loss": 0.04225495457649231,
+    "perceptual_loss": 0.0662636011838913
+  },
+  {
+    "step": 29000,
+    "total": 0.1851481795310974,
+    "commitment_loss": 0.07392191141843796,
+    "reconstruction_loss": 0.041791122406721115,
+    "perceptual_loss": 0.06943514943122864
+  },
+  {
+    "step": 29500,
+    "total": 0.15449005365371704,
+    "commitment_loss": 0.056130990386009216,
+    "reconstruction_loss": 0.03607232868671417,
+    "perceptual_loss": 0.06228674203157425
+  },
+  {
+    "step": 30000,
+    "total": 0.16165636479854584,
+    "commitment_loss": 0.06286699324846268,
+    "reconstruction_loss": 0.038532406091690063,
+    "perceptual_loss": 0.0602569617331028
+  },
+  {
+    "step": 30500,
+    "total": 0.18097633123397827,
+    "commitment_loss": 0.07114815711975098,
+    "reconstruction_loss": 0.04047602042555809,
+    "perceptual_loss": 0.0693521499633789
+  },
+  {
+    "step": 31000,
+    "total": 0.1681629717350006,
+    "commitment_loss": 0.06376953423023224,
+    "reconstruction_loss": 0.03886554390192032,
+    "perceptual_loss": 0.06552790105342865
+  },
+  {
+    "step": 31500,
+    "total": 0.17510375380516052,
+    "commitment_loss": 0.06632585823535919,
+    "reconstruction_loss": 0.04051540046930313,
+    "perceptual_loss": 0.0682624876499176
+  },
+  {
+    "step": 32000,
+    "total": 0.17085620760917664,
+    "commitment_loss": 0.06446453183889389,
+    "reconstruction_loss": 0.03908565640449524,
+    "perceptual_loss": 0.06730601191520691
+  },
+  {
+    "step": 32500,
+    "total": 0.16608959436416626,
+    "commitment_loss": 0.06853784620761871,
+    "reconstruction_loss": 0.037616826593875885,
+    "perceptual_loss": 0.05993492901325226
+  },
+  {
+    "step": 33000,
+    "total": 0.18274462223052979,
+    "commitment_loss": 0.07181358337402344,
+    "reconstruction_loss": 0.040964752435684204,
+    "perceptual_loss": 0.06996627897024155
+  },
+  {
+    "step": 33500,
+    "total": 0.17659476399421692,
+    "commitment_loss": 0.06885324418544769,
+    "reconstruction_loss": 0.040184587240219116,
+    "perceptual_loss": 0.06755693256855011
+  },
+  {
+    "step": 34000,
+    "total": 0.17058846354484558,
+    "commitment_loss": 0.0700874924659729,
+    "reconstruction_loss": 0.03868119418621063,
+    "perceptual_loss": 0.06181977316737175
+  },
+  {
+    "step": 34500,
+    "total": 0.17788434028625488,
+    "commitment_loss": 0.07466724514961243,
+    "reconstruction_loss": 0.038739677518606186,
+    "perceptual_loss": 0.06447741389274597
+  },
+  {
+    "step": 35000,
+    "total": 0.16122956573963165,
+    "commitment_loss": 0.07232068479061127,
+    "reconstruction_loss": 0.03463689237833023,
+    "perceptual_loss": 0.054271988570690155
+  },
+  {
+    "step": 35500,
+    "total": 0.15217311680316925,
+    "commitment_loss": 0.060094043612480164,
+    "reconstruction_loss": 0.03566364198923111,
+    "perceptual_loss": 0.05641543120145798
+  },
+  {
+    "step": 36000,
+    "total": 0.18238213658332825,
+    "commitment_loss": 0.07075122743844986,
+    "reconstruction_loss": 0.04070378839969635,
+    "perceptual_loss": 0.07092712819576263
+  },
+  {
+    "step": 36500,
+    "total": 0.17462581396102905,
+    "commitment_loss": 0.0713142454624176,
+    "reconstruction_loss": 0.038370974361896515,
+    "perceptual_loss": 0.06494059413671494
+  },
+  {
+    "step": 37000,
+    "total": 0.17946144938468933,
+    "commitment_loss": 0.07542635500431061,
+    "reconstruction_loss": 0.03722739964723587,
+    "perceptual_loss": 0.06680768728256226
+  },
+  {
+    "step": 37500,
+    "total": 0.1505482792854309,
+    "commitment_loss": 0.06263656169176102,
+    "reconstruction_loss": 0.03339248150587082,
+    "perceptual_loss": 0.054519232362508774
+  },
+  {
+    "step": 38000,
+    "total": 0.18198126554489136,
+    "commitment_loss": 0.06460777670145035,
+    "reconstruction_loss": 0.04386276751756668,
+    "perceptual_loss": 0.07351072132587433
+  },
+  {
+    "step": 38500,
+    "total": 0.15296706557273865,
+    "commitment_loss": 0.059505805373191833,
+    "reconstruction_loss": 0.03540860861539841,
+    "perceptual_loss": 0.058052655309438705
+  },
+  {
+    "step": 39000,
+    "total": 0.1686348170042038,
+    "commitment_loss": 0.07100878655910492,
+    "reconstruction_loss": 0.037347253412008286,
+    "perceptual_loss": 0.060278769582509995
+  },
+  {
+    "step": 39500,
+    "total": 0.1446906328201294,
+    "commitment_loss": 0.057658422738313675,
+    "reconstruction_loss": 0.03362573683261871,
+    "perceptual_loss": 0.053406476974487305
+  },
+  {
+    "step": 40000,
+    "total": 0.16497133672237396,
+    "commitment_loss": 0.06789779663085938,
+    "reconstruction_loss": 0.03662137687206268,
+    "perceptual_loss": 0.0604521669447422
+  }
+]

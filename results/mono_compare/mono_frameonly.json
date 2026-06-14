@@ -1,0 +1,231 @@
+{
+  "kind": "frameonly",
+  "K_slots": 4,
+  "codebook": 1024,
+  "n_steps": 81919,
+  "per_slot": [
+    {
+      "slot": 0,
+      "active": 69,
+      "entropy_bits": 4.423714587772841,
+      "max_share": 0.16239211904442194
+    },
+    {
+      "slot": 1,
+      "active": 69,
+      "entropy_bits": 4.387881949961679,
+      "max_share": 0.16366166579181876
+    },
+    {
+      "slot": 2,
+      "active": 70,
+      "entropy_bits": 4.160560464368022,
+      "max_share": 0.3011999658198953
+    },
+    {
+      "slot": 3,
+      "active": 61,
+      "entropy_bits": 4.931629563034496,
+      "max_share": 0.12151027234219168
+    }
+  ],
+  "per_achievement": [
+    {
+      "achievement": "collect_iron",
+      "slot": 3,
+      "code": 125,
+      "n_co": 1,
+      "n_code": 7,
+      "p_a_given_c": 0.14285714285714285,
+      "lift": 113.61858529819693
+    },
+    {
+      "achievement": "make_wood_pickaxe",
+      "slot": 1,
+      "code": 992,
+      "n_co": 1,
+      "n_code": 11,
+      "p_a_given_c": 0.09090909090909091,
+      "lift": 50.31879606879607
+    },
+    {
+      "achievement": "collect_sapling",
+      "slot": 2,
+      "code": 151,
+      "n_co": 131,
+      "n_code": 1739,
+      "p_a_given_c": 0.07533064979873491,
+      "lift": 41.1400766724171
+    },
+    {
+      "achievement": "make_wood_sword",
+      "slot": 2,
+      "code": 172,
+      "n_co": 1,
+      "n_code": 15,
+      "p_a_given_c": 0.06666666666666667,
+      "lift": 38.45962441314554
+    },
+    {
+      "achievement": "eat_cow",
+      "slot": 2,
+      "code": 172,
+      "n_co": 1,
+      "n_code": 15,
+      "p_a_given_c": 0.06666666666666667,
+      "lift": 36.65279642058166
+    },
+    {
+      "achievement": "make_stone_pickaxe",
+      "slot": 2,
+      "code": 638,
+      "n_co": 15,
+      "n_code": 246,
+      "p_a_given_c": 0.06097560975609756,
+      "lift": 35.93569047201263
+    },
+    {
+      "achievement": "make_stone_sword",
+      "slot": 0,
+      "code": 66,
+      "n_co": 1,
+      "n_code": 18,
+      "p_a_given_c": 0.05555555555555555,
+      "lift": 34.740882103477524
+    },
+    {
+      "achievement": "collect_coal",
+      "slot": 0,
+      "code": 66,
+      "n_co": 1,
+      "n_code": 18,
+      "p_a_given_c": 0.05555555555555555,
+      "lift": 32.7414068745004
+    },
+    {
+      "achievement": "place_stone",
+      "slot": 1,
+      "code": 191,
+      "n_co": 2,
+      "n_code": 35,
+      "p_a_given_c": 0.05714285714285714,
+      "lift": 32.28334975369458
+    },
+    {
+      "achievement": "collect_stone",
+      "slot": 0,
+      "code": 66,
+      "n_co": 1,
+      "n_code": 18,
+      "p_a_given_c": 0.05555555555555555,
+      "lift": 30.95956160241874
+    },
+    {
+      "achievement": "defeat_zombie",
+      "slot": 2,
+      "code": 339,
+      "n_co": 4,
+      "n_code": 79,
+      "p_a_given_c": 0.05063291139240506,
+      "lift": 30.49851079672375
+    },
+    {
+      "achievement": "place_furnace",
+      "slot": 0,
+      "code": 188,
+      "n_co": 1,
+      "n_code": 19,
+      "p_a_given_c": 0.05263157894736842,
+      "lift": 30.36286137879911
+    },
+    {
+      "achievement": "place_plant",
+      "slot": 2,
+      "code": 151,
+      "n_co": 84,
+      "n_code": 1739,
+      "p_a_given_c": 0.048303622771707876,
+      "lift": 26.379896492236917
+    },
+    {
+      "achievement": "place_table",
+      "slot": 1,
+      "code": 550,
+      "n_co": 1,
+      "n_code": 28,
+      "p_a_given_c": 0.03571428571428571,
+      "lift": 19.768098455598455
+    },
+    {
+      "achievement": "collect_drink",
+      "slot": 2,
+      "code": 710,
+      "n_co": 18,
+      "n_code": 558,
+      "p_a_given_c": 0.03225806451612903,
+      "lift": 18.35103046594982
+    },
+    {
+      "achievement": "collect_wood",
+      "slot": 2,
+      "code": 532,
+      "n_co": 108,
+      "n_code": 4352,
+      "p_a_given_c": 0.024816176470588234,
+      "lift": 13.552775735294116
+    },
+    {
+      "achievement": "wake_up",
+      "slot": 0,
+      "code": 148,
+      "n_co": 1,
+      "n_code": 55,
+      "p_a_given_c": 0.01818181818181818,
+      "lift": 10.793017127799736
+    },
+    {
+      "achievement": "defeat_skeleton",
+      "slot": 0,
+      "code": 306,
+      "n_co": 1,
+      "n_code": 73,
+      "p_a_given_c": 0.0136986301369863,
+      "lift": 8.437429189411885
+    }
+  ],
+  "monosemanticity": {
+    "n_achievements": 18,
+    "mean_best_p": 0.05574735769973401,
+    "median_best_p": 0.05555555555555555,
+    "mean_best_lift": 33.61079940672528,
+    "median_best_lift": 31.621455678056662,
+    "n_strong_detectors_p50": 0,
+    "n_strong_detectors_p30": 0,
+    "usage_weighted_code_purity": 0.007397551239639155,
+    "total_active_codes": 77
+  },
+  "achievement_base_rate": {
+    "collect_coal": 0.0016967980566169022,
+    "collect_diamond": 0.0,
+    "collect_drink": 0.0017578339579340568,
+    "collect_iron": 0.0012573395671333879,
+    "collect_sapling": 0.0018310770395146426,
+    "collect_stone": 0.0017944554987243497,
+    "collect_wood": 0.0018310770395146426,
+    "defeat_skeleton": 0.0016235549750363164,
+    "defeat_zombie": 0.0016601765158266093,
+    "eat_cow": 0.0018188698592512115,
+    "eat_plant": 0.0,
+    "make_iron_pickaxe": 0.0,
+    "make_iron_sword": 0.0,
+    "make_stone_pickaxe": 0.0016967980566169022,
+    "make_stone_sword": 0.0015991406145094544,
+    "make_wood_pickaxe": 0.0018066626789877806,
+    "make_wood_sword": 0.0017334195974071948,
+    "place_furnace": 0.0017334195974071948,
+    "place_plant": 0.0018310770395146426,
+    "place_stone": 0.0017700411381974877,
+    "place_table": 0.0018066626789877806,
+    "wake_up": 0.001684590876353471
+  }
+}
