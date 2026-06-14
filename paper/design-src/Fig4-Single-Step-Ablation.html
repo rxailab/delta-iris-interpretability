@@ -19,7 +19,7 @@
 <body>
 <div class="page" data-screen-label="Fig 4 — single-step ablation">
   <div id="fig"></div>
-  <p class="caption"><b>Fig.&nbsp;4</b>&ensp;<b>Single-step causal ablation.</b> Change in log-likelihood of the observed codes at the target step when the concept&rsquo;s SAE direction is projected out of the block-1 residual stream, at the target step itself <i>(left)</i> or three steps earlier <i>(right)</i>; <i>n</i>&nbsp;=&nbsp;80 moments per bar (26&ndash;29 for two concepts), error bars are bootstrap 95% CIs. <span style="color:#1B4F72;font-weight:600">Deep&nbsp;blue</span>: matched direction at unlock moments. <span style="color:#5E93B8;font-weight:600">Light&nbsp;blue</span>: matched direction at ordinary moments. <span style="color:#878E97;font-weight:600">Grey</span>: random direction at unlock moments. Effects are direction- and moment-selective at gap&nbsp;0 and vanish entirely at gap&nbsp;3.</p>
+  <p class="caption"><b>Fig.&nbsp;4</b>&ensp;<b>Single-step causal ablation.</b> Change in log-likelihood of the observed codes at the target step when the concept&rsquo;s SAE direction is projected out of the block-1 residual stream, at the target step itself <i>(left)</i> or three steps earlier <i>(right)</i>; <i>n</i>&nbsp;=&nbsp;80 moments per bar (26&ndash;29 for two concepts), error bars are bootstrap 95% CIs. <span style="color:#1B4F8A;font-weight:600">Blue</span>: matched direction at unlock moments. <span style="color:#B23A8E;font-weight:600">Magenta</span>: matched direction at ordinary moments. <span style="color:#7C828B;font-weight:600">Grey</span>: random direction at unlock moments. Markers show the mean change; whiskers are bootstrap 95% CIs. Effects are direction- and moment-selective at gap&nbsp;0 and vanish entirely at gap&nbsp;3.</p>
 </div>
 <div id="tweaks-root"></div>
 
@@ -29,19 +29,19 @@
   const SANS = "'IBM Plex Sans', sans-serif";
   const FS = 1.2; // global font scale
 
-  // Academic cool palette — the two matched-direction conditions share a blue
-  // hue (deep = unlock, light = ordinary); random control in neutral grey. No orange.
+  // High-contrast academic palette, matched to Fig. 5. matched·unlock is the
+  // primary effect (strong blue); matched·ordinary magenta-purple; random dark grey.
   const COL = {
-    feat_unlock:   '#1B4F72', // deep blue (primary effect)
-    feat_ordinary: '#7FB1D3', // light blue (matched, ordinary moments)
-    rand_unlock:   '#B7BCC4', // neutral grey (random-direction control)
+    feat_unlock:   '#1B4F8A', // strong blue (primary effect)
+    feat_ordinary: '#B23A8E', // magenta-purple (matched, ordinary moments)
+    rand_unlock:   '#7C828B', // dark grey (random-direction control)
     ink: '#222A33', muted: '#6B7480', axis: '#2E3742', faint: '#D7DCE2',
-    grid: '#EBEEF2', band: '#F4F6F8', zero: '#7A828C'
+    grid: '#EBEEF2', band: '#F4F6F8', zero: '#3A4754'
   };
   const GRAY = {
-    feat_unlock: '#2b2b2b', feat_ordinary: '#9a9a9a', rand_unlock: '#cfcfcf',
+    feat_unlock: '#1f1f1f', feat_ordinary: '#6f6f6f', rand_unlock: '#abafb5',
     ink: '#1a1a1a', muted: '#6b6b6b', axis: '#333333', faint: '#dcdcdc',
-    grid: '#ededed', band: '#f6f6f6', zero: '#8a8a8a'
+    grid: '#ededed', band: '#f6f6f6', zero: '#444444'
   };
 
   const CONCEPTS = [
@@ -246,15 +246,52 @@
       }
       return g.join('');
     }
-    S.push(drawBars(G0, sx0));
-    S.push(drawBars(G3, sx3));
+
+    // ---- lollipop marks (Fig. 5 style): dot at mean, stem from 0, CI whisker
+    function drawDots(data, sx) {
+      const g = [];
+      const laneH = 9, gH = 3 * laneH;
+      for (let i = 0; i < N; i++) {
+        const yc = topY + i * rowH + rowH / 2;
+        const gStart = yc - gH / 2;
+        SERIES.forEach(function (s, j) {
+          const d = data[s.key][i];
+          const ly = gStart + j * laneH + laneH / 2;
+          if (t.showCI) {
+            const xl = sx(d[1]), xh = sx(d[2]);
+            g.push(line(xl, ly, xh, ly, { stroke: C.muted, sw: 1, cap: 'round' }));
+            g.push(line(xl, ly - 2.4, xl, ly + 2.4, { stroke: C.muted, sw: 1 }));
+            g.push(line(xh, ly - 2.4, xh, ly + 2.4, { stroke: C.muted, sw: 1 }));
+          }
+          g.push(line(sx(0), ly, sx(d[0]), ly, { stroke: C[s.key], sw: 2.2, cap: 'round' }));
+          g.push('<circle cx="' + sx(d[0]) + '" cy="' + ly + '" r="4.2" fill="' + C[s.key] + '" stroke="#ffffff" stroke-width="1.3"></circle>');
+          if (t.annotate && s.key === 'feat_unlock' && d[0] >= 1.0) {
+            g.push(txt(sx(d[2]) + 7, ly + 3.6, d[0].toFixed(1), { size: 11, weight: 600, fill: C[s.key], anchor: 'start', mono: true }));
+          }
+        });
+      }
+      return g.join('');
+    }
+
+    if ((t.view || 'lollipop') === 'bars') {
+      S.push(drawBars(G0, sx0));
+      S.push(drawBars(G3, sx3));
+    } else {
+      S.push(drawDots(G0, sx0));
+      S.push(drawDots(G3, sx3));
+    }
 
     // ---- legend (own row, well above the panel headers)
     const lgY = topY - 64;
     let lx = 78;
     const lg = [];
     SERIES.forEach(function (s) {
-      lg.push(rect(lx, lgY - 9, 16, 11, { fill: C[s.key], rx: 2, stroke: 'rgba(0,0,0,0.16)', sw: 0.8 }));
+      if ((t.view || 'lollipop') === 'bars') {
+        lg.push(rect(lx, lgY - 9, 16, 11, { fill: C[s.key], rx: 2, stroke: 'rgba(0,0,0,0.16)', sw: 0.8 }));
+      } else {
+        lg.push(line(lx, lgY - 3.5, lx + 16, lgY - 3.5, { stroke: C[s.key], sw: 2.2 }));
+        lg.push('<circle cx="' + (lx + 8) + '" cy="' + (lgY - 3.5) + '" r="4.2" fill="' + C[s.key] + '" stroke="#ffffff" stroke-width="1.3"></circle>');
+      }
       lg.push(txt(lx + 23, lgY, s.label, { size: 13, fill: C.ink, anchor: 'start' }));
       lx += 30 + s.label.length * 7.0 * FS + 26;
     });
@@ -264,7 +301,7 @@
     document.getElementById('fig').innerHTML = S.join('');
   };
 
-  window.__FIG_DEFAULTS = { showTitle: false, showCI: true, zebra: true, annotate: true, palette: 'color', nullPanel: 'zoom' };
+  window.__FIG_DEFAULTS = { showTitle: false, view: 'lollipop', showCI: true, zebra: true, annotate: true, palette: 'color', nullPanel: 'zoom' };
   document.addEventListener('DOMContentLoaded', function () {
     window.renderFigure(window.__FIG_DEFAULTS);
   });
@@ -278,6 +315,7 @@
 <script type="text/babel">
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     "showTitle": false,
+    "view": "lollipop",
     "showCI": true,
     "zebra": true,
     "annotate": true,
@@ -290,11 +328,13 @@
     React.useEffect(() => { window.renderFigure(t); }, [t]);
     return (
       <TweaksPanel>
+        <TweakSection label="View" />
+        <TweakRadio label="Mark" value={t.view} options={['lollipop', 'bars']} onChange={(v) => setTweak('view', v)} />
         <TweakSection label="Figure" />
         <TweakToggle label="Title inside figure" value={t.showTitle} onChange={(v) => setTweak('showTitle', v)} />
-        <TweakToggle label="95% CI error bars" value={t.showCI} onChange={(v) => setTweak('showCI', v)} />
+        <TweakToggle label={t.view === 'bars' ? '95% CI error bars' : '95% CI whiskers'} value={t.showCI} onChange={(v) => setTweak('showCI', v)} />
         <TweakToggle label="Zebra row banding" value={t.zebra} onChange={(v) => setTweak('zebra', v)} />
-        <TweakToggle label="Annotate large bars" value={t.annotate} onChange={(v) => setTweak('annotate', v)} />
+        <TweakToggle label={t.view === 'bars' ? 'Annotate large bars' : 'Annotate large effects'} value={t.annotate} onChange={(v) => setTweak('annotate', v)} />
         <TweakSection label="Palette" />
         <TweakRadio label="Colors" value={t.palette} options={['color', 'grayscale']} onChange={(v) => setTweak('palette', v)} />
         <TweakSection label="gap 3 panel" />

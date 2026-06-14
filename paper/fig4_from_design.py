@@ -34,7 +34,7 @@ SRC = HERE / "design-src" / "Fig4-Single-Step-Ablation.html"
 OUT = HERE / "figures"
 RESULTS = HERE.parent / "results"
 
-TWEAKS = ('{ showTitle: false, showCI: true, zebra: true, '
+TWEAKS = ('{ showTitle: false, view: "lollipop", showCI: true, zebra: true, '
           'annotate: true, palette: "color", nullPanel: "zoom" }')
 
 
