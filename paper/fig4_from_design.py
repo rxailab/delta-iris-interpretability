@@ -35,7 +35,7 @@ OUT = HERE / "figures"
 RESULTS = HERE.parent / "results"
 
 TWEAKS = ('{ showTitle: false, view: "lollipop", showCI: true, zebra: true, '
-          'annotate: true, palette: "color", nullPanel: "compact" }')
+          'annotate: true, palette: "color", nullPanel: "zoom" }')
 
 
 def load(path: Path) -> dict:
