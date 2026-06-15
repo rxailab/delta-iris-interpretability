@@ -82,8 +82,6 @@ for ax, (G, tag, sub) in zip(axes, [(G0, "gap 0", "ablate at step $T$"),
     ax.set_title(tag, fontsize=12, fontweight="bold", pad=16)
     ax.text(0.5, 1.004, sub, transform=ax.transAxes, ha="center", va="bottom",
             fontsize=8.5, style="italic", color="#666")
-    ax.set_xlabel("$\\Delta\\log P$(realised codes at $T$)\nbaseline $-$ ablated  (positive $\\Rightarrow$ ablation lowers likelihood)",
-                  fontsize=9)
     ax.grid(axis="x", alpha=0.25)
     for s in ("top", "right"):
         ax.spines[s].set_visible(False)
@@ -101,13 +99,18 @@ for ci, c in enumerate(concepts):
     axes[1].text(xhi * 0.995, ci, f"n={n}", ha="right", va="center", fontsize=6.6,
                  color="#888")
 
-# legend (shared, above)
+# legend placed in the empty interior of the gap-3 panel (everything there sits at ~0)
 handles = [Line2D([0], [0], color=col, marker=mk, ms=5, lw=1.6, label=lab)
            for (mt, cond, lab, col, mk) in CONDS]
-axes[0].legend(handles=handles, loc="lower right", fontsize=8.2, frameon=True,
+axes[1].legend(handles=handles, loc="center", fontsize=8.2, frameon=True,
                framealpha=0.95)
 
-fig.tight_layout()
+# single shared x-axis label (the per-panel labels collided/truncated)
+fig.tight_layout(rect=[0, 0.055, 1, 1])
+fig.text(0.5, 0.018,
+         "$\\Delta\\log P$(realised codes at $T$) $=$ baseline $-$ ablated   "
+         "(positive $\\Rightarrow$ ablation lowers the likelihood of the realised codes)",
+         ha="center", va="bottom", fontsize=9.5)
 fig.savefig(OUT / "ablation_onestep.pdf", facecolor="white", bbox_inches="tight")
 fig.savefig(OUT / "ablation_onestep.png", dpi=200, facecolor="white", bbox_inches="tight")
 print("wrote", OUT / "ablation_onestep.pdf")
