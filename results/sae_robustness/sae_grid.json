@@ -1,0 +1,479 @@
+{
+  "run": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/delta-iris-full-21531393/hydra",
+  "layer_headline": "wm_block_1",
+  "other_layers": [
+    "frame_emb",
+    "wm_input",
+    "wm_block_2",
+    "wm_block_3"
+  ],
+  "N": 81919,
+  "D": 512,
+  "epochs": 60,
+  "default": {
+    "M": 2048,
+    "k": 16,
+    "seed": 0
+  },
+  "target_achs": [
+    "collect_coal",
+    "collect_iron",
+    "make_stone_pickaxe",
+    "place_table",
+    "collect_wood"
+  ],
+  "grid": [
+    {
+      "config": "wm_block_1_M1024_k16_s0",
+      "layer": "wm_block_1",
+      "axis": "width",
+      "M": 1024,
+      "k": 16,
+      "seed": 0,
+      "D": 512,
+      "val_fvu": 0.04446679149191659,
+      "val_mse": 0.2411344349384308,
+      "norm_var": 5.422798156738281,
+      "n_dead": 0,
+      "n_alive": 1024,
+      "n_train": 72359,
+      "n_val": 9560,
+      "median_density": 0.011163466610014439,
+      "mean_density": 0.015625,
+      "headline_features": {
+        "collect_coal": {
+          "feature": 182,
+          "lift": 264.8973754794074,
+          "p": 0.44947735191637633
+        },
+        "collect_iron": {
+          "feature": 832,
+          "lift": 564.7996341635007,
+          "p": 0.7101449275362319
+        },
+        "make_stone_pickaxe": {
+          "feature": 907,
+          "lift": 236.1349950342756,
+          "p": 0.4006734006734007
+        },
+        "place_table": {
+          "feature": 556,
+          "lift": 229.50280158206985,
+          "p": 0.4146341463414634
+        },
+        "collect_wood": {
+          "feature": 214,
+          "lift": 131.20496919917863,
+          "p": 0.2402464065708419
+        }
+      }
+    },
+    {
+      "config": "wm_block_1_M2048_k16_s0",
+      "layer": "wm_block_1",
+      "axis": "width",
+      "M": 2048,
+      "k": 16,
+      "seed": 0,
+      "D": 512,
+      "val_fvu": 0.043999908616732114,
+      "val_mse": 0.2386026233434677,
+      "norm_var": 5.422798156738281,
+      "n_dead": 0,
+      "n_alive": 2048,
+      "n_train": 72359,
+      "n_val": 9560,
+      "median_density": 0.005029358435422182,
+      "mean_density": 0.0078125,
+      "headline_features": {
+        "collect_coal": {
+          "feature": 1923,
+          "lift": 401.98120347652514,
+          "p": 0.6820809248554913
+        },
+        "collect_iron": {
+          "feature": 1872,
+          "lift": 728.2540648029009,
+          "p": 0.9156626506024096
+        },
+        "make_stone_pickaxe": {
+          "feature": 567,
+          "lift": 301.3194136420187,
+          "p": 0.5112781954887218
+        },
+        "place_table": {
+          "feature": 1625,
+          "lift": 278.3348262548263,
+          "p": 0.5028571428571429
+        },
+        "collect_wood": {
+          "feature": 177,
+          "lift": 229.02086021505377,
+          "p": 0.41935483870967744
+        }
+      }
+    },
+    {
+      "config": "wm_block_1_M4096_k16_s0",
+      "layer": "wm_block_1",
+      "axis": "width",
+      "M": 4096,
+      "k": 16,
+      "seed": 0,
+      "D": 512,
+      "val_fvu": 0.044078879741817754,
+      "val_mse": 0.2390308678150177,
+      "norm_var": 5.422798156738281,
+      "n_dead": 0,
+      "n_alive": 4096,
+      "n_train": 72359,
+      "n_val": 9560,
+      "median_density": 0.0020385992247611284,
+      "mean_density": 0.00390625,
+      "headline_features": {
+        "collect_coal": {
+          "feature": 1504,
+          "lift": 589.3453237410072,
+          "p": 1.0
+        },
+        "collect_iron": {
+          "feature": 3609,
+          "lift": 734.8158505698607,
+          "p": 0.9239130434782609
+        },
+        "make_stone_pickaxe": {
+          "feature": 3505,
+          "lift": 488.5362552063612,
+          "p": 0.8289473684210527
+        },
+        "place_table": {
+          "feature": 3315,
+          "lift": 540.0065919578115,
+          "p": 0.975609756097561
+        },
+        "collect_wood": {
+          "feature": 2109,
+          "lift": 190.6291194968553,
+          "p": 0.3490566037735849
+        }
+      }
+    },
+    {
+      "config": "wm_block_1_M2048_k8_s0",
+      "layer": "wm_block_1",
+      "axis": "sparsity",
+      "M": 2048,
+      "k": 8,
+      "seed": 0,
+      "D": 512,
+      "val_fvu": 0.05427640169666435,
+      "val_mse": 0.294329971075058,
+      "norm_var": 5.422798156738281,
+      "n_dead": 28,
+      "n_alive": 2020,
+      "n_train": 72359,
+      "n_val": 9560,
+      "median_density": 0.0020630136132240295,
+      "mean_density": 0.00390625,
+      "headline_features": {
+        "collect_coal": {
+          "feature": 1150,
+          "lift": 589.3453237410072,
+          "p": 1.0
+        },
+        "collect_iron": {
+          "feature": 1872,
+          "lift": 734.150858849888,
+          "p": 0.9230769230769231
+        },
+        "make_stone_pickaxe": {
+          "feature": 1868,
+          "lift": 508.98005232177894,
+          "p": 0.8636363636363636
+        },
+        "place_table": {
+          "feature": 684,
+          "lift": 443.8027148770392,
+          "p": 0.8018018018018018
+        },
+        "collect_wood": {
+          "feature": 1391,
+          "lift": 180.13602094240838,
+          "p": 0.3298429319371728
+        }
+      }
+    },
+    {
+      "config": "wm_block_1_M2048_k32_s0",
+      "layer": "wm_block_1",
+      "axis": "sparsity",
+      "M": 2048,
+      "k": 32,
+      "seed": 0,
+      "D": 512,
+      "val_fvu": 0.03628591437170167,
+      "val_mse": 0.19677118957042694,
+      "norm_var": 5.422798156738281,
+      "n_dead": 0,
+      "n_alive": 2048,
+      "n_train": 72359,
+      "n_val": 9560,
+      "median_density": 0.011517474427819252,
+      "mean_density": 0.015625,
+      "headline_features": {
+        "collect_coal": {
+          "feature": 1923,
+          "lift": 266.60859883521755,
+          "p": 0.4523809523809524
+        },
+        "collect_iron": {
+          "feature": 1872,
+          "lift": 315.46612789499375,
+          "p": 0.39664804469273746
+        },
+        "make_stone_pickaxe": {
+          "feature": 1771,
+          "lift": 241.83480525924085,
+          "p": 0.4103448275862069
+        },
+        "place_table": {
+          "feature": 684,
+          "lift": 258.9993880673126,
+          "p": 0.4679245283018868
+        },
+        "collect_wood": {
+          "feature": 177,
+          "lift": 163.19169625246548,
+          "p": 0.2988165680473373
+        }
+      }
+    },
+    {
+      "config": "wm_block_1_M2048_k16_s1",
+      "layer": "wm_block_1",
+      "axis": "seed",
+      "M": 2048,
+      "k": 16,
+      "seed": 1,
+      "D": 512,
+      "val_fvu": 0.04394543478035305,
+      "val_mse": 0.23830722272396088,
+      "norm_var": 5.422798156738281,
+      "n_dead": 0,
+      "n_alive": 2048,
+      "n_train": 72359,
+      "n_val": 9560,
+      "median_density": 0.004785215016454458,
+      "mean_density": 0.0078125,
+      "headline_features": {
+        "collect_coal": {
+          "feature": 1293,
+          "lift": 589.3453237410072,
+          "p": 1.0
+        },
+        "collect_iron": {
+          "feature": 207,
+          "lift": 653.7883001480994,
+          "p": 0.8220338983050848
+        },
+        "make_stone_pickaxe": {
+          "feature": 982,
+          "lift": 255.3829736211031,
+          "p": 0.43333333333333335
+        },
+        "place_table": {
+          "feature": 1672,
+          "lift": 351.551588750913,
+          "p": 0.6351351351351351
+        },
+        "collect_wood": {
+          "feature": 1553,
+          "lift": 200.24644444444442,
+          "p": 0.36666666666666664
+        }
+      }
+    }
+  ],
+  "other_layers_results": [
+    {
+      "config": "frame_emb_M2048_k16_s0",
+      "layer": "frame_emb",
+      "axis": "layer",
+      "M": 2048,
+      "k": 16,
+      "seed": 0,
+      "D": 512,
+      "val_fvu": 0.2674866494044995,
+      "val_mse": 0.3745408356189728,
+      "norm_var": 1.4002225399017334,
+      "n_dead": 0,
+      "n_alive": 2048,
+      "n_train": 72359,
+      "n_val": 9560,
+      "median_density": 0.005120912566781044,
+      "mean_density": 0.007812345400452614,
+      "headline_features": {
+        "collect_coal": {
+          "feature": 170,
+          "lift": 217.6044272274488,
+          "p": 0.36923076923076925
+        },
+        "collect_iron": {
+          "feature": 132,
+          "lift": 126.46591649799306,
+          "p": 0.15901060070671377
+        },
+        "make_stone_pickaxe": {
+          "feature": 1444,
+          "lift": 54.47729883320235,
+          "p": 0.09243697478991597
+        },
+        "place_table": {
+          "feature": 938,
+          "lift": 95.75739435372464,
+          "p": 0.17300131061598953
+        },
+        "collect_wood": {
+          "feature": 139,
+          "lift": 90.65260458839407,
+          "p": 0.1659919028340081
+        }
+      }
+    },
+    {
+      "config": "wm_input_M2048_k16_s0",
+      "layer": "wm_input",
+      "axis": "layer",
+      "M": 2048,
+      "k": 16,
+      "seed": 0,
+      "D": 512,
+      "val_fvu": 0.047501175341402704,
+      "val_mse": 0.08667255192995071,
+      "norm_var": 1.824640154838562,
+      "n_dead": 0,
+      "n_alive": 2048,
+      "n_train": 72359,
+      "n_val": 9560,
+      "median_density": 0.00401005893945694,
+      "mean_density": 0.0078125,
+      "headline_features": {
+        "collect_coal": {
+          "feature": 1024,
+          "lift": 234.17694983086375,
+          "p": 0.3973509933774834
+        },
+        "collect_iron": {
+          "feature": 83,
+          "lift": 132.55501618122977,
+          "p": 0.16666666666666666
+        },
+        "make_stone_pickaxe": {
+          "feature": 215,
+          "lift": 130.9656274980016,
+          "p": 0.2222222222222222
+        },
+        "place_table": {
+          "feature": 936,
+          "lift": 205.95600251414206,
+          "p": 0.37209302325581395
+        },
+        "collect_wood": {
+          "feature": 1441,
+          "lift": 150.15161394971614,
+          "p": 0.2749391727493917
+        }
+      }
+    },
+    {
+      "config": "wm_block_2_M2048_k16_s0",
+      "layer": "wm_block_2",
+      "axis": "layer",
+      "M": 2048,
+      "k": 16,
+      "seed": 0,
+      "D": 512,
+      "val_fvu": 0.026533413094464813,
+      "val_mse": 0.4263366758823395,
+      "norm_var": 16.067916870117188,
+      "n_dead": 0,
+      "n_alive": 2048,
+      "n_train": 72359,
+      "n_val": 9560,
+      "median_density": 0.004766903817653656,
+      "mean_density": 0.0078125,
+      "headline_features": {
+        "collect_coal": {
+          "feature": 1183,
+          "lift": 554.677951756242,
+          "p": 0.9411764705882353
+        },
+        "collect_iron": {
+          "feature": 1641,
+          "lift": 718.8560492905153,
+          "p": 0.9038461538461539
+        },
+        "make_stone_pickaxe": {
+          "feature": 353,
+          "lift": 414.24997393389634,
+          "p": 0.7028985507246377
+        },
+        "place_table": {
+          "feature": 310,
+          "lift": 303.67491324008836,
+          "p": 0.5486381322957199
+        },
+        "collect_wood": {
+          "feature": 448,
+          "lift": 125.35841650033265,
+          "p": 0.22954091816367264
+        }
+      }
+    },
+    {
+      "config": "wm_block_3_M2048_k16_s0",
+      "layer": "wm_block_3",
+      "axis": "layer",
+      "M": 2048,
+      "k": 16,
+      "seed": 0,
+      "D": 512,
+      "val_fvu": 0.21356190486022408,
+      "val_mse": 0.04438929259777069,
+      "norm_var": 0.20785211026668549,
+      "n_dead": 0,
+      "n_alive": 2048,
+      "n_train": 72359,
+      "n_val": 9560,
+      "median_density": 0.005596992559731007,
+      "mean_density": 0.0078125,
+      "headline_features": {
+        "collect_coal": {
+          "feature": 216,
+          "lift": 574.7935873523403,
+          "p": 0.9753086419753086
+        },
+        "collect_iron": {
+          "feature": 1641,
+          "lift": 612.277931884728,
+          "p": 0.7698412698412699
+        },
+        "make_stone_pickaxe": {
+          "feature": 737,
+          "lift": 362.02641315519014,
+          "p": 0.6142857142857143
+        },
+        "place_table": {
+          "feature": 1046,
+          "lift": 532.487512829285,
+          "p": 0.9620253164556962
+        },
+        "collect_wood": {
+          "feature": 515,
+          "lift": 146.88924137931033,
+          "p": 0.2689655172413793
+        }
+      }
+    }
+  ]
+}

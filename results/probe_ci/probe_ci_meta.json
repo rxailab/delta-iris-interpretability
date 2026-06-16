@@ -1,0 +1,43 @@
+{
+  "run": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/delta-iris-full-21531393/hydra",
+  "rollouts": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/analysis-21531393/rollouts_probe.npz",
+  "obs": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/analysis-21531393/rollouts_probe_obs.npz",
+  "n_samples": 81919,
+  "n_episodes": 150,
+  "n_boot": 1000,
+  "n_folds": 5,
+  "achievements": [
+    "collect_coal",
+    "collect_diamond",
+    "collect_drink",
+    "collect_iron",
+    "collect_sapling",
+    "collect_stone",
+    "collect_wood",
+    "defeat_skeleton",
+    "defeat_zombie",
+    "eat_cow",
+    "eat_plant",
+    "make_iron_pickaxe",
+    "make_iron_sword",
+    "make_stone_pickaxe",
+    "make_stone_sword",
+    "make_wood_pickaxe",
+    "make_wood_sword",
+    "place_furnace",
+    "place_plant",
+    "place_stone",
+    "place_table",
+    "wake_up"
+  ],
+  "representations": [
+    "raw_codes",
+    "frame_emb",
+    "wm_latents_emb",
+    "wm_input",
+    "wm_block_1",
+    "wm_block_2",
+    "wm_block_3"
+  ],
+  "primary_test_episodes": 30
+}

@@ -1,0 +1,442 @@
+[
+  {
+    "concept": "collect_iron",
+    "rank": 0,
+    "basis": "none",
+    "auroc": 0.9999728345351536,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "collect_iron",
+    "rank": 1,
+    "basis": "cav",
+    "achieved_rank": 1,
+    "auroc": 0.9998581359058022,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "collect_iron",
+    "rank": 2,
+    "basis": "cav",
+    "achieved_rank": 2,
+    "auroc": 0.9999456690703072,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "collect_iron",
+    "rank": 4,
+    "basis": "cav",
+    "achieved_rank": 4,
+    "auroc": 0.9998430439808876,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "collect_iron",
+    "rank": 8,
+    "basis": "cav",
+    "achieved_rank": 8,
+    "auroc": 0.9999245403754268,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "collect_iron",
+    "rank": 12,
+    "basis": "cav",
+    "achieved_rank": 12,
+    "auroc": 0.999870209445734,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "collect_iron",
+    "rank": 16,
+    "basis": "cav",
+    "achieved_rank": 16,
+    "auroc": 0.999915485220478,
+    "n_pos_test": 19
+  },
+  {
+    "concept": "collect_coal",
+    "rank": 0,
+    "basis": "none",
+    "auroc": 0.9999574995271823,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "collect_coal",
+    "rank": 1,
+    "basis": "cav",
+    "achieved_rank": 1,
+    "auroc": 0.9988716124466884,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "collect_coal",
+    "rank": 2,
+    "basis": "cav",
+    "achieved_rank": 2,
+    "auroc": 0.9989226130140698,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "collect_coal",
+    "rank": 4,
+    "basis": "cav",
+    "achieved_rank": 4,
+    "auroc": 0.9989651134868877,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "collect_coal",
+    "rank": 8,
+    "basis": "cav",
+    "achieved_rank": 8,
+    "auroc": 0.999011864006987,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "collect_coal",
+    "rank": 12,
+    "basis": "cav",
+    "achieved_rank": 12,
+    "auroc": 0.9989204879904289,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "collect_coal",
+    "rank": 16,
+    "basis": "cav",
+    "achieved_rank": 16,
+    "auroc": 0.9990394893143186,
+    "n_pos_test": 27
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "rank": 0,
+    "basis": "none",
+    "auroc": 0.9999980213026556,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "rank": 1,
+    "basis": "cav",
+    "achieved_rank": 1,
+    "auroc": 0.9998773207646479,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "rank": 2,
+    "basis": "cav",
+    "achieved_rank": 2,
+    "auroc": 0.9998199385416606,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "rank": 4,
+    "basis": "cav",
+    "achieved_rank": 4,
+    "auroc": 0.9998773207646479,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "rank": 8,
+    "basis": "cav",
+    "achieved_rank": 8,
+    "auroc": 0.9998357681204155,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "rank": 12,
+    "basis": "cav",
+    "achieved_rank": 12,
+    "auroc": 0.9998060876602497,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "make_wood_pickaxe",
+    "rank": 16,
+    "basis": "cav",
+    "achieved_rank": 16,
+    "auroc": 0.9998100450549385,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_plant",
+    "rank": 0,
+    "basis": "none",
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "place_plant",
+    "rank": 1,
+    "basis": "cav",
+    "achieved_rank": 1,
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "place_plant",
+    "rank": 2,
+    "basis": "cav",
+    "achieved_rank": 2,
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "place_plant",
+    "rank": 4,
+    "basis": "cav",
+    "achieved_rank": 4,
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "place_plant",
+    "rank": 8,
+    "basis": "cav",
+    "achieved_rank": 8,
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "place_plant",
+    "rank": 12,
+    "basis": "cav",
+    "achieved_rank": 12,
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "place_plant",
+    "rank": 16,
+    "basis": "cav",
+    "achieved_rank": 16,
+    "auroc": 1.0,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "place_table",
+    "rank": 0,
+    "basis": "none",
+    "auroc": 0.9988404833561872,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_table",
+    "rank": 1,
+    "basis": "cav",
+    "achieved_rank": 1,
+    "auroc": 0.998610954464238,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_table",
+    "rank": 2,
+    "basis": "cav",
+    "achieved_rank": 2,
+    "auroc": 0.9987178041208351,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_table",
+    "rank": 4,
+    "basis": "cav",
+    "achieved_rank": 4,
+    "auroc": 0.9986861449633248,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_table",
+    "rank": 8,
+    "basis": "cav",
+    "achieved_rank": 8,
+    "auroc": 0.9989057803685522,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_table",
+    "rank": 12,
+    "basis": "cav",
+    "achieved_rank": 12,
+    "auroc": 0.9986168905562712,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_table",
+    "rank": 16,
+    "basis": "cav",
+    "achieved_rank": 16,
+    "auroc": 0.9987692502517892,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "rank": 0,
+    "basis": "none",
+    "auroc": 0.9939198826191021,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "rank": 1,
+    "basis": "cav",
+    "achieved_rank": 1,
+    "auroc": 0.9996905636250367,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "rank": 2,
+    "basis": "cav",
+    "achieved_rank": 2,
+    "auroc": 0.999606544476868,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "rank": 4,
+    "basis": "cav",
+    "achieved_rank": 4,
+    "auroc": 0.9995942489917702,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "rank": 8,
+    "basis": "cav",
+    "achieved_rank": 8,
+    "auroc": 0.9997397455654283,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "rank": 12,
+    "basis": "cav",
+    "achieved_rank": 12,
+    "auroc": 0.9998135184760155,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "make_stone_pickaxe",
+    "rank": 16,
+    "basis": "cav",
+    "achieved_rank": 16,
+    "auroc": 0.9997848290107872,
+    "n_pos_test": 28
+  },
+  {
+    "concept": "collect_sapling",
+    "rank": 0,
+    "basis": "none",
+    "auroc": 0.9999980871494701,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "collect_sapling",
+    "rank": 1,
+    "basis": "cav",
+    "achieved_rank": 1,
+    "auroc": 0.9999789586441715,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "collect_sapling",
+    "rank": 2,
+    "basis": "cav",
+    "achieved_rank": 2,
+    "auroc": 0.9999713072420521,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "collect_sapling",
+    "rank": 4,
+    "basis": "cav",
+    "achieved_rank": 4,
+    "auroc": 0.9999904357473507,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "collect_sapling",
+    "rank": 8,
+    "basis": "cav",
+    "achieved_rank": 8,
+    "auroc": 0.9999961742989403,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "collect_sapling",
+    "rank": 12,
+    "basis": "cav",
+    "achieved_rank": 12,
+    "auroc": 0.9999808714947014,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "collect_sapling",
+    "rank": 16,
+    "basis": "cav",
+    "achieved_rank": 16,
+    "auroc": 0.9999770457936417,
+    "n_pos_test": 30
+  },
+  {
+    "concept": "place_stone",
+    "rank": 0,
+    "basis": "none",
+    "auroc": 0.9973722899266496,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_stone",
+    "rank": 1,
+    "basis": "cav",
+    "achieved_rank": 1,
+    "auroc": 0.9966144488437483,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_stone",
+    "rank": 2,
+    "basis": "cav",
+    "achieved_rank": 2,
+    "auroc": 0.9973505242558613,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_stone",
+    "rank": 4,
+    "basis": "cav",
+    "achieved_rank": 4,
+    "auroc": 0.9965669601074829,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_stone",
+    "rank": 8,
+    "basis": "cav",
+    "achieved_rank": 8,
+    "auroc": 0.9965135352791843,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_stone",
+    "rank": 12,
+    "basis": "cav",
+    "achieved_rank": 12,
+    "auroc": 0.996005010061676,
+    "n_pos_test": 29
+  },
+  {
+    "concept": "place_stone",
+    "rank": 16,
+    "basis": "cav",
+    "achieved_rank": 16,
+    "auroc": 0.9960722857713853,
+    "n_pos_test": 29
+  }
+]

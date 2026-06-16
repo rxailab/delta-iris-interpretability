@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "run": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/delta-iris-full-21531393/hydra",
+    "iris_src": "/mmfs1/storage/users/xiar3/exp/ExpWM/iris/src",
+    "frameonly_ckpt": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/baselines/frameonly_tokenizer.pt",
+    "iris_ckpt": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/baselines/iris_tokenizer.pt",
+    "obs": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/analysis-21531393/rollouts_probe_obs.npz",
+    "rollouts": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/analysis-21531393/rollouts_probe.npz",
+    "common_batch": {
+      "n_total_transitions": 81919,
+      "n_sampled": 8192,
+      "seed": 0
+    },
+    "lpips_available": true,
+    "lpips_reason": null,
+    "note": "All three tokenizers reconstruct the SAME target frame x_{t+1} on the SAME held-out transition batch (matched protocol). Common-batch MSE/L1 reported both raw and clamped-to-[0,1]; PSNR computed from the clamped MSE. Codebook perplexity is exp(entropy) of the token histogram over all slots on the batch.",
+    "elapsed_min": 0.28
+  },
+  "tokenizers": {
+    "deltairis": {
+      "description": "Delta-IRIS delta tokenizer: reconstructs x_{t+1} from the transition (x_t, a_t, x_{t+1}); 4 codes, codebook 1024.",
+      "train_log": {
+        "available": false,
+        "reason": "trained run keeps no standalone tokenizer log here; see common_batch metrics for matched recon"
+      },
+      "common_batch": {
+        "n_frames": 8192,
+        "mse": 0.00021370874613542887,
+        "l1": 0.0060248477578473585,
+        "mse_clamped": 0.00021370874613542887,
+        "l1_clamped": 0.0060248477578473585,
+        "psnr_clamped": 36.701777037571844,
+        "lpips": 0.047753079794347286,
+        "codebook_size": 1024,
+        "tokens_per_frame": 4,
+        "codebook_perplexity": 80.66613229920515,
+        "codes_used": 1015,
+        "codebook_usage_fraction": 0.9912109375,
+        "codebook_entropy_bits": 6.333891179547154
+      }
+    },
+    "frameonly": {
+      "description": "Frame-only ablation: reconstructs x_{t+1} from x_{t+1} alone; 4 codes, codebook 1024 (same backbone as Delta-IRIS, no delta/action).",
+      "train_log": {
+        "available": true,
+        "n_entries": 81,
+        "final_step": 40000,
+        "final": {
+          "step": 40000,
+          "l1": 0.07359306514263153,
+          "l2": 0.01491816621273756,
+          "commit": 7.731461664661765e-05,
+          "cb_entropy": 5.685947895050049
+        },
+        "min_over_steps": {
+          "l1": 0.05634889006614685,
+          "l2": 0.011638740077614784,
+          "commit": 4.342616375652142e-05,
+          "cb_entropy": 4.29061222076416
+        }
+      },
+      "common_batch": {
+        "n_frames": 8192,
+        "mse": 0.014535421427960197,
+        "l1": 0.0720878834836185,
+        "mse_clamped": 0.014461439684964716,
+        "l1_clamped": 0.07048815737167995,
+        "psnr_clamped": 18.39788469412713,
+        "lpips": 0.46660818438977003,
+        "codebook_size": 1024,
+        "tokens_per_frame": 4,
+        "codebook_perplexity": 48.461735077678135,
+        "codes_used": 73,
+        "codebook_usage_fraction": 0.0712890625,
+        "codebook_entropy_bits": 5.598774153476671
+      }
+    },
+    "iris": {
+      "description": "Original IRIS frame tokenizer: reconstructs x_{t+1} from x_{t+1} alone; 16 codes, codebook 512.",
+      "train_log": {
+        "available": true,
+        "n_entries": 81,
+        "final_step": 40000,
+        "final": {
+          "step": 40000,
+          "total": 0.16497133672237396,
+          "commitment_loss": 0.06789779663085938,
+          "reconstruction_loss": 0.03662137687206268,
+          "perceptual_loss": 0.0604521669447422
+        },
+        "min_over_steps": {
+          "total": 0.1446906328201294,
+          "commitment_loss": 0.054609403014183044,
+          "reconstruction_loss": 0.03339248150587082,
+          "perceptual_loss": 0.053406476974487305
+        }
+      },
+      "common_batch": {
+        "n_frames": 8192,
+        "mse": 0.005628086985476936,
+        "l1": 0.022264601507534582,
+        "mse_clamped": 0.005596750318848838,
+        "l1_clamped": 0.021881368903753657,
+        "psnr_clamped": 22.52064067323196,
+        "lpips": 0.07979747164063156,
+        "codebook_size": 512,
+        "tokens_per_frame": 16,
+        "codebook_perplexity": 109.15400543121059,
+        "codes_used": 143,
+        "codebook_usage_fraction": 0.279296875,
+        "codebook_entropy_bits": 6.770221261099481
+      }
+    }
+  },
+  "table": [
+    {
+      "tokenizer": "deltairis",
+      "codebook_size": 1024,
+      "tokens_per_frame": 4,
+      "common_mse": 0.000214,
+      "common_mse_clamped": 0.000214,
+      "common_l1_clamped": 0.006025,
+      "common_psnr": 36.702,
+      "common_lpips": 0.04775,
+      "codebook_perplexity": 80.67,
+      "codes_used": 1015,
+      "codebook_usage_fraction": 0.9912
+    },
+    {
+      "tokenizer": "frameonly",
+      "codebook_size": 1024,
+      "tokens_per_frame": 4,
+      "common_mse": 0.014535,
+      "common_mse_clamped": 0.014461,
+      "common_l1_clamped": 0.070488,
+      "common_psnr": 18.398,
+      "common_lpips": 0.46661,
+      "codebook_perplexity": 48.46,
+      "codes_used": 73,
+      "codebook_usage_fraction": 0.0713
+    },
+    {
+      "tokenizer": "iris",
+      "codebook_size": 512,
+      "tokens_per_frame": 16,
+      "common_mse": 0.005628,
+      "common_mse_clamped": 0.005597,
+      "common_l1_clamped": 0.021881,
+      "common_psnr": 22.521,
+      "common_lpips": 0.0798,
+      "codebook_perplexity": 109.15,
+      "codes_used": 143,
+      "codebook_usage_fraction": 0.2793
+    }
+  ]
+}

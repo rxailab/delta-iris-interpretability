@@ -1,0 +1,149 @@
+{
+  "headline": {
+    "n_concepts": 12,
+    "n_paired": 12,
+    "mean_induce_gain": 0.041666666666666664,
+    "mean_suppress_drop": 0.06666666666666667,
+    "mean_asymmetry": -0.024999999999999998,
+    "note": "positive mean_asymmetry => SAE features are easier to ACTIVATE (induce) than to SUPPRESS, consistent with the cited asymmetry",
+    "alphas": [
+      2.0,
+      4.0,
+      8.0
+    ]
+  },
+  "comparison": [
+    {
+      "concept": "collect_coal",
+      "induce_baseline": 0.05,
+      "induce_best_alpha": 2.0,
+      "induce_p_within": 0.0,
+      "induce_gain": -0.05,
+      "suppress_baseline": 0.95,
+      "suppress_p_within": 0.7,
+      "suppress_drop": 0.25,
+      "asymmetry_gain_minus_drop": -0.3
+    },
+    {
+      "concept": "collect_iron",
+      "induce_baseline": 0.05,
+      "induce_best_alpha": 8.0,
+      "induce_p_within": 0.1,
+      "induce_gain": 0.05,
+      "suppress_baseline": 1.0,
+      "suppress_p_within": 0.85,
+      "suppress_drop": 0.15000000000000002,
+      "asymmetry_gain_minus_drop": -0.10000000000000002
+    },
+    {
+      "concept": "collect_sapling",
+      "induce_baseline": 0.0,
+      "induce_best_alpha": 8.0,
+      "induce_p_within": 0.25,
+      "induce_gain": 0.25,
+      "suppress_baseline": 0.6,
+      "suppress_p_within": 0.4,
+      "suppress_drop": 0.19999999999999996,
+      "asymmetry_gain_minus_drop": 0.050000000000000044
+    },
+    {
+      "concept": "collect_stone",
+      "induce_baseline": 0.15,
+      "induce_best_alpha": 8.0,
+      "induce_p_within": 0.35,
+      "induce_gain": 0.19999999999999998,
+      "suppress_baseline": 1.0,
+      "suppress_p_within": 1.0,
+      "suppress_drop": 0.0,
+      "asymmetry_gain_minus_drop": 0.19999999999999998
+    },
+    {
+      "concept": "defeat_skeleton",
+      "induce_baseline": 0.05,
+      "induce_best_alpha": 2.0,
+      "induce_p_within": 0.05,
+      "induce_gain": 0.0,
+      "suppress_baseline": 0.0,
+      "suppress_p_within": 0.0,
+      "suppress_drop": 0.0,
+      "asymmetry_gain_minus_drop": 0.0
+    },
+    {
+      "concept": "defeat_zombie",
+      "induce_baseline": 0.0,
+      "induce_best_alpha": 2.0,
+      "induce_p_within": 0.0,
+      "induce_gain": 0.0,
+      "suppress_baseline": 0.15,
+      "suppress_p_within": 0.15,
+      "suppress_drop": 0.0,
+      "asymmetry_gain_minus_drop": 0.0
+    },
+    {
+      "concept": "eat_cow",
+      "induce_baseline": 0.15,
+      "induce_best_alpha": 2.0,
+      "induce_p_within": 0.1,
+      "induce_gain": -0.04999999999999999,
+      "suppress_baseline": 0.75,
+      "suppress_p_within": 0.75,
+      "suppress_drop": 0.0,
+      "asymmetry_gain_minus_drop": -0.04999999999999999
+    },
+    {
+      "concept": "make_stone_pickaxe",
+      "induce_baseline": 0.1,
+      "induce_best_alpha": 2.0,
+      "induce_p_within": 0.15,
+      "induce_gain": 0.04999999999999999,
+      "suppress_baseline": 0.8,
+      "suppress_p_within": 0.7,
+      "suppress_drop": 0.10000000000000009,
+      "asymmetry_gain_minus_drop": -0.0500000000000001
+    },
+    {
+      "concept": "make_stone_sword",
+      "induce_baseline": 0.1,
+      "induce_best_alpha": 2.0,
+      "induce_p_within": 0.1,
+      "induce_gain": 0.0,
+      "suppress_baseline": 0.75,
+      "suppress_p_within": 0.45,
+      "suppress_drop": 0.3,
+      "asymmetry_gain_minus_drop": -0.3
+    },
+    {
+      "concept": "make_wood_sword",
+      "induce_baseline": 0.0,
+      "induce_best_alpha": 2.0,
+      "induce_p_within": 0.0,
+      "induce_gain": 0.0,
+      "suppress_baseline": 0.9,
+      "suppress_p_within": 0.9,
+      "suppress_drop": 0.0,
+      "asymmetry_gain_minus_drop": 0.0
+    },
+    {
+      "concept": "place_stone",
+      "induce_baseline": 0.05,
+      "induce_best_alpha": 8.0,
+      "induce_p_within": 0.1,
+      "induce_gain": 0.05,
+      "suppress_baseline": 1.0,
+      "suppress_p_within": 1.0,
+      "suppress_drop": 0.0,
+      "asymmetry_gain_minus_drop": 0.05
+    },
+    {
+      "concept": "wake_up",
+      "induce_baseline": 0.0,
+      "induce_best_alpha": 2.0,
+      "induce_p_within": 0.0,
+      "induce_gain": 0.0,
+      "suppress_baseline": 0.3,
+      "suppress_p_within": 0.5,
+      "suppress_drop": -0.2,
+      "asymmetry_gain_minus_drop": 0.2
+    }
+  ]
+}

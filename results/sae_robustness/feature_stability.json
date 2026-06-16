@@ -1,0 +1,297 @@
+{
+  "run": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/delta-iris-full-21531393/hydra",
+  "reference_config": "wm_block_1_M2048_k16_s0",
+  "layer": "wm_block_1",
+  "target_achs": [
+    "collect_coal",
+    "collect_iron",
+    "make_stone_pickaxe",
+    "place_table",
+    "collect_wood"
+  ],
+  "note": "Cosine matching is computed only WITHIN the same activation space (wm_block_1). 'collect_wood' reference feature is expected to be f187. Other-layer SAEs report their own re-derived headline features in sae_grid.json (other_layers_results) but are not cosine-matched to block-1 because the spaces differ.",
+  "reference_detectors": {
+    "collect_coal": {
+      "feature": 1923,
+      "lift": 401.98120347652514,
+      "p": 0.6820809248554913
+    },
+    "collect_iron": {
+      "feature": 1872,
+      "lift": 728.2540648029009,
+      "p": 0.9156626506024096
+    },
+    "make_stone_pickaxe": {
+      "feature": 567,
+      "lift": 301.3194136420187,
+      "p": 0.5112781954887218
+    },
+    "place_table": {
+      "feature": 1625,
+      "lift": 278.3348262548263,
+      "p": 0.5028571428571429
+    },
+    "collect_wood": {
+      "feature": 177,
+      "lift": 229.02086021505377,
+      "p": 0.41935483870967744
+    }
+  },
+  "matches": [
+    {
+      "config": "wm_block_1_M1024_k16_s0",
+      "layer": "wm_block_1",
+      "M": 1024,
+      "k": 16,
+      "seed": 0,
+      "mean_match_cosine": 0.6306041657924653,
+      "min_match_cosine": 0.4139416515827179,
+      "per_ach": {
+        "collect_coal": {
+          "ref_feature": 1923,
+          "matched_feature": 182,
+          "match_cosine": 0.8898458480834961,
+          "own_headline_feature": 182,
+          "own_lift": 264.8973754794074,
+          "match_is_own_headline": true
+        },
+        "collect_iron": {
+          "ref_feature": 1872,
+          "matched_feature": 832,
+          "match_cosine": 0.7548350095748901,
+          "own_headline_feature": 832,
+          "own_lift": 564.7996341635007,
+          "match_is_own_headline": true
+        },
+        "make_stone_pickaxe": {
+          "ref_feature": 567,
+          "matched_feature": 739,
+          "match_cosine": 0.5138084292411804,
+          "own_headline_feature": 907,
+          "own_lift": 236.1349950342756,
+          "match_is_own_headline": false
+        },
+        "place_table": {
+          "ref_feature": 1625,
+          "matched_feature": 346,
+          "match_cosine": 0.5805898904800415,
+          "own_headline_feature": 556,
+          "own_lift": 229.50280158206985,
+          "match_is_own_headline": false
+        },
+        "collect_wood": {
+          "ref_feature": 177,
+          "matched_feature": 506,
+          "match_cosine": 0.4139416515827179,
+          "own_headline_feature": 214,
+          "own_lift": 131.20496919917863,
+          "match_is_own_headline": false
+        }
+      }
+    },
+    {
+      "config": "wm_block_1_M4096_k16_s0",
+      "layer": "wm_block_1",
+      "M": 4096,
+      "k": 16,
+      "seed": 0,
+      "mean_match_cosine": 0.6557311177253723,
+      "min_match_cosine": 0.47074007987976074,
+      "per_ach": {
+        "collect_coal": {
+          "ref_feature": 1923,
+          "matched_feature": 1492,
+          "match_cosine": 0.8081893920898438,
+          "own_headline_feature": 1504,
+          "own_lift": 589.3453237410072,
+          "match_is_own_headline": false
+        },
+        "collect_iron": {
+          "ref_feature": 1872,
+          "matched_feature": 3609,
+          "match_cosine": 0.7328734993934631,
+          "own_headline_feature": 3609,
+          "own_lift": 734.8158505698607,
+          "match_is_own_headline": true
+        },
+        "make_stone_pickaxe": {
+          "ref_feature": 567,
+          "matched_feature": 213,
+          "match_cosine": 0.615511417388916,
+          "own_headline_feature": 3505,
+          "own_lift": 488.5362552063612,
+          "match_is_own_headline": false
+        },
+        "place_table": {
+          "ref_feature": 1625,
+          "matched_feature": 4092,
+          "match_cosine": 0.6513411998748779,
+          "own_headline_feature": 3315,
+          "own_lift": 540.0065919578115,
+          "match_is_own_headline": false
+        },
+        "collect_wood": {
+          "ref_feature": 177,
+          "matched_feature": 281,
+          "match_cosine": 0.47074007987976074,
+          "own_headline_feature": 2109,
+          "own_lift": 190.6291194968553,
+          "match_is_own_headline": false
+        }
+      }
+    },
+    {
+      "config": "wm_block_1_M2048_k8_s0",
+      "layer": "wm_block_1",
+      "M": 2048,
+      "k": 8,
+      "seed": 0,
+      "mean_match_cosine": 0.7820475339889527,
+      "min_match_cosine": 0.5894706845283508,
+      "per_ach": {
+        "collect_coal": {
+          "ref_feature": 1923,
+          "matched_feature": 1923,
+          "match_cosine": 0.8927847146987915,
+          "own_headline_feature": 1150,
+          "own_lift": 589.3453237410072,
+          "match_is_own_headline": false
+        },
+        "collect_iron": {
+          "ref_feature": 1872,
+          "matched_feature": 1872,
+          "match_cosine": 0.8371804356575012,
+          "own_headline_feature": 1872,
+          "own_lift": 734.150858849888,
+          "match_is_own_headline": true
+        },
+        "make_stone_pickaxe": {
+          "ref_feature": 567,
+          "matched_feature": 567,
+          "match_cosine": 0.5894706845283508,
+          "own_headline_feature": 1868,
+          "own_lift": 508.98005232177894,
+          "match_is_own_headline": false
+        },
+        "place_table": {
+          "ref_feature": 1625,
+          "matched_feature": 1625,
+          "match_cosine": 0.9199180603027344,
+          "own_headline_feature": 684,
+          "own_lift": 443.8027148770392,
+          "match_is_own_headline": false
+        },
+        "collect_wood": {
+          "ref_feature": 177,
+          "matched_feature": 1391,
+          "match_cosine": 0.6708837747573853,
+          "own_headline_feature": 1391,
+          "own_lift": 180.13602094240838,
+          "match_is_own_headline": true
+        }
+      }
+    },
+    {
+      "config": "wm_block_1_M2048_k32_s0",
+      "layer": "wm_block_1",
+      "M": 2048,
+      "k": 32,
+      "seed": 0,
+      "mean_match_cosine": 0.7578771591186524,
+      "min_match_cosine": 0.5246302485466003,
+      "per_ach": {
+        "collect_coal": {
+          "ref_feature": 1923,
+          "matched_feature": 1923,
+          "match_cosine": 0.8528765439987183,
+          "own_headline_feature": 1923,
+          "own_lift": 266.60859883521755,
+          "match_is_own_headline": true
+        },
+        "collect_iron": {
+          "ref_feature": 1872,
+          "matched_feature": 1872,
+          "match_cosine": 0.5246302485466003,
+          "own_headline_feature": 1872,
+          "own_lift": 315.46612789499375,
+          "match_is_own_headline": true
+        },
+        "make_stone_pickaxe": {
+          "ref_feature": 567,
+          "matched_feature": 567,
+          "match_cosine": 0.8048104643821716,
+          "own_headline_feature": 1771,
+          "own_lift": 241.83480525924085,
+          "match_is_own_headline": false
+        },
+        "place_table": {
+          "ref_feature": 1625,
+          "matched_feature": 1625,
+          "match_cosine": 0.8218189477920532,
+          "own_headline_feature": 684,
+          "own_lift": 258.9993880673126,
+          "match_is_own_headline": false
+        },
+        "collect_wood": {
+          "ref_feature": 177,
+          "matched_feature": 177,
+          "match_cosine": 0.7852495908737183,
+          "own_headline_feature": 177,
+          "own_lift": 163.19169625246548,
+          "match_is_own_headline": true
+        }
+      }
+    },
+    {
+      "config": "wm_block_1_M2048_k16_s1",
+      "layer": "wm_block_1",
+      "M": 2048,
+      "k": 16,
+      "seed": 1,
+      "mean_match_cosine": 0.6200532913208008,
+      "min_match_cosine": 0.4373328685760498,
+      "per_ach": {
+        "collect_coal": {
+          "ref_feature": 1923,
+          "matched_feature": 1575,
+          "match_cosine": 0.725104808807373,
+          "own_headline_feature": 1293,
+          "own_lift": 589.3453237410072,
+          "match_is_own_headline": false
+        },
+        "collect_iron": {
+          "ref_feature": 1872,
+          "matched_feature": 207,
+          "match_cosine": 0.7155752778053284,
+          "own_headline_feature": 207,
+          "own_lift": 653.7883001480994,
+          "match_is_own_headline": true
+        },
+        "make_stone_pickaxe": {
+          "ref_feature": 567,
+          "matched_feature": 122,
+          "match_cosine": 0.4373328685760498,
+          "own_headline_feature": 982,
+          "own_lift": 255.3829736211031,
+          "match_is_own_headline": false
+        },
+        "place_table": {
+          "ref_feature": 1625,
+          "matched_feature": 1248,
+          "match_cosine": 0.6934522390365601,
+          "own_headline_feature": 1672,
+          "own_lift": 351.551588750913,
+          "match_is_own_headline": false
+        },
+        "collect_wood": {
+          "ref_feature": 177,
+          "matched_feature": 978,
+          "match_cosine": 0.5288012623786926,
+          "own_headline_feature": 1553,
+          "own_lift": 200.24644444444442,
+          "match_is_own_headline": false
+        }
+      }
+    }
+  ]
+}

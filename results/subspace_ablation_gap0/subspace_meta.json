@@ -1,0 +1,32 @@
+{
+  "run": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/delta-iris-full-21531393/hydra",
+  "rollouts": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/analysis-21531393/rollouts_probe.npz",
+  "obs": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/analysis-21531393/rollouts_probe_obs.npz",
+  "sae": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/analysis-21531393/sae/sae.pt",
+  "cavs": "/mmfs1/scratch/hpc/11/xiar3/expwm-runs/analysis-21531393/cavs/cavs.npz",
+  "ranks": [
+    1,
+    2,
+    4,
+    8,
+    12,
+    16
+  ],
+  "concepts": [
+    "collect_iron",
+    "collect_coal",
+    "make_wood_pickaxe",
+    "place_plant",
+    "place_table",
+    "make_stone_pickaxe",
+    "collect_sapling",
+    "place_stone"
+  ],
+  "window": 21,
+  "gap": 0,
+  "target_block": 1,
+  "strength": 1.0,
+  "n_trials_per_set": 40,
+  "seed": 42,
+  "embed_dim": 512
+}
