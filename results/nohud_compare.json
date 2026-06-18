@@ -1,0 +1,135 @@
+{
+  "behaviour_return": {
+    "hud": 16.2,
+    "nohud": 9.65
+  },
+  "frame_emb_cum_auroc_mean": {
+    "hud": 0.9841524854849716,
+    "nohud": 0.9096055572414639
+  },
+  "n_concepts": 17,
+  "n_hud_dependent_drop_gt_0.10": 6,
+  "hud_dependent_concepts": [
+    "collect_drink",
+    "collect_sapling",
+    "defeat_skeleton",
+    "eat_cow",
+    "place_furnace",
+    "place_plant"
+  ],
+  "block_beats_frame_emb_count": 1,
+  "trace_restoration": {
+    "hud": {
+      "history": 0.030278402420152718,
+      "final": 0.28372647923727834
+    },
+    "nohud": {
+      "history": 0.14894251926733112,
+      "final": 0.2857473038688854
+    }
+  },
+  "per_concept_frame_emb_auroc": [
+    {
+      "concept": "collect_coal",
+      "hud": 0.9999872932284934,
+      "nohud": 0.9998423438942712,
+      "nohud_best_block": 0.9812154036262744
+    },
+    {
+      "concept": "collect_drink",
+      "hud": 0.965231384994816,
+      "nohud": 0.8629872684942425,
+      "nohud_best_block": 0.7747271850158357
+    },
+    {
+      "concept": "collect_iron",
+      "hud": 0.9999942635615882,
+      "nohud": 0.9970300085713397,
+      "nohud_best_block": 0.9513465441512817
+    },
+    {
+      "concept": "collect_sapling",
+      "hud": 0.999333539071137,
+      "nohud": 0.7269711923020854,
+      "nohud_best_block": 0.661409690102154
+    },
+    {
+      "concept": "collect_stone",
+      "hud": 0.9986086582488838,
+      "nohud": 0.9909703672965966,
+      "nohud_best_block": 0.9749657816052442
+    },
+    {
+      "concept": "collect_wood",
+      "hud": 0.9996401760756541,
+      "nohud": 0.9996663246945698,
+      "nohud_best_block": 0.9973450267589559
+    },
+    {
+      "concept": "defeat_skeleton",
+      "hud": 0.8519117915084177,
+      "nohud": 0.6809999419201207,
+      "nohud_best_block": 0.7545985712349718
+    },
+    {
+      "concept": "defeat_zombie",
+      "hud": 0.972551471547918,
+      "nohud": 0.8834563217765778,
+      "nohud_best_block": 0.8495843875580689
+    },
+    {
+      "concept": "eat_cow",
+      "hud": 0.9842283536985025,
+      "nohud": 0.8281906893340192,
+      "nohud_best_block": 0.750482770124689
+    },
+    {
+      "concept": "make_stone_pickaxe",
+      "hud": 0.9999424433775079,
+      "nohud": 0.9990880053306003,
+      "nohud_best_block": 0.9264349800813639
+    },
+    {
+      "concept": "make_stone_sword",
+      "hud": 0.9999872741678207,
+      "nohud": 0.9973858980999443,
+      "nohud_best_block": 0.9535259869973284
+    },
+    {
+      "concept": "make_wood_pickaxe",
+      "hud": 0.9999683626856594,
+      "nohud": 0.9993431172500392,
+      "nohud_best_block": 0.9891760843405012
+    },
+    {
+      "concept": "make_wood_sword",
+      "hud": 0.9997515336807163,
+      "nohud": 0.9997182180562895,
+      "nohud_best_block": 0.9472215827051136
+    },
+    {
+      "concept": "place_furnace",
+      "hud": 0.9657733703849434,
+      "nohud": 0.8549191585337368,
+      "nohud_best_block": 0.8273312025341697
+    },
+    {
+      "concept": "place_plant",
+      "hud": 0.9999929472385986,
+      "nohud": 0.6593405868776789,
+      "nohud_best_block": 0.6071409893470673
+    },
+    {
+      "concept": "place_stone",
+      "hud": 0.9974791101608501,
+      "nohud": 0.9870929963327834,
+      "nohud_best_block": 0.97089647596121
+    },
+    {
+      "concept": "place_table",
+      "hud": 0.9962102796130112,
+      "nohud": 0.9962920343399914,
+      "nohud_best_block": 0.9905173806950442
+    }
+  ]
+}

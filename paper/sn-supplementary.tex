@@ -28,7 +28,7 @@
 \begin{document}
 \maketitle
 
-This document collects the displays deferred from the main text: codebook utilisation (Fig.~\ref{sfig:codebook}), the prediction-head read positions (Fig.~\ref{sfig:heads}), single-step ablation (Fig.~\ref{sfig:onestep}) and decoded-frame filmstrips (Fig.~\ref{sfig:film}); and Tables~\ref{stab:mi}--\ref{stab:logit}: detector codes, cross-corroborated dictionary features, matched-protocol reconstruction, HUD-shortcut margins, the sparse-autoencoder robustness sweep, the empirical random-direction null, steering, and direct logit attribution. All re-use the single frozen agent and the saved rollout corpora described in Methods.
+This document collects the displays deferred from the main text: codebook utilisation (Fig.~\ref{sfig:codebook}), the prediction-head read positions (Fig.~\ref{sfig:heads}), single-step ablation (Fig.~\ref{sfig:onestep}), decoded-frame filmstrips (Fig.~\ref{sfig:film}) and the partially observed (no-HUD) control (Fig.~\ref{sfig:nohud}); and Tables~\ref{stab:mi}--\ref{stab:logit}: detector codes, cross-corroborated dictionary features, matched-protocol reconstruction, HUD-shortcut margins, the sparse-autoencoder robustness sweep, the empirical random-direction null, steering, and direct logit attribution. All re-use the single frozen agent and the saved rollout corpora described in Methods.
 
 % ---------------- Supplementary Figures ----------------
 \begin{figure}[h]
@@ -54,6 +54,12 @@ This document collects the displays deferred from the main text: codebook utilis
 \includegraphics[width=\textwidth]{figures/filmstrip_headline.pdf}\\[6pt]
 \includegraphics[width=\textwidth]{figures/filmstrip_grid.pdf}
 \caption{\textbf{Imagined trajectories under ablation (decoded frames).} Top: paired trajectories for \achname{collect\_wood} from a shared burn-in and sampling seed---no intervention; matched SAE feature ablated (wood never appears, dream degrades); off-target SAE feature ablated (the \achname{collect\_iron} feature, a magnitude-comparable control); random unit direction. Only the matched direction erases the event. Bottom: baseline vs matched-SAE ablation for four concepts, ranging from clean erasure (\achname{collect\_wood}) through partial suppression (\achname{collect\_coal}) to none (\achname{collect\_iron}, \achname{place\_stone})---honest negatives whose best SAE features are not causally load-bearing.}\label{sfig:film}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/nohud_compare.pdf}
+\caption{\textbf{Partially observed (no-HUD) control: with-HUD vs no-HUD.} A second agent (identical code, hyperparameters and seed) was trained on a Crafter variant that zeroes the on-screen inventory/vitals region; mean return falls from $16.2$ to $9.7$. \textbf{(A)} input-encoder (\textsf{frame\_emb}) held-out AUROC for each cumulative-state concept, with HUD ($x$) vs no-HUD ($y$). World-persistent achievements (blue; placed objects, gathered materials, tools) stay near $1.0$ because they leave visible marks in the scene, so the input-encoder shortcut survives; only the six genuinely HUD-only concepts (magenta) drop below the diagonal. A transformer block out-reads \textsf{frame\_emb} on only $1$ of $17$ concepts, so the hidden state is not made linearly decodable from the blocks. \textbf{(B)} causal-tracing restoration mass on history cells (steps $1$ to $T{-}1$) vs the final unlock step: with state hidden, mean historical restoration rises $\approx\!5\times$ ($0.03\to0.15$) while the final-step mass is unchanged---next-code prediction de-Markovianises.}\label{sfig:nohud}
 \end{figure}
 
 \clearpage
