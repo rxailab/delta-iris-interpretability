@@ -1,0 +1,499 @@
+{
+  "focus": "collect_wood",
+  "feat": 187,
+  "horizon": 12,
+  "burn_in": 8,
+  "wood_tree_depth": {
+    "collect_wood": 0,
+    "place_table": 1,
+    "make_wood_pickaxe": 1,
+    "make_wood_sword": 1,
+    "collect_stone": 2,
+    "place_stone": 3,
+    "make_stone_pickaxe": 3,
+    "make_stone_sword": 3,
+    "place_furnace": 3,
+    "collect_coal": 4,
+    "collect_iron": 4,
+    "make_iron_pickaxe": 5,
+    "make_iron_sword": 5
+  },
+  "return": {
+    "baseline": {
+      "n": 40,
+      "mean": 2.561901053786278,
+      "lo": 2.2857653091847894,
+      "hi": 2.8426441580057142
+    },
+    "sae": {
+      "n": 40,
+      "mean": 2.539804312586784,
+      "lo": 2.2606166832149026,
+      "hi": 2.8429361756891014
+    },
+    "cav": {
+      "n": 40,
+      "mean": 2.6051431745290756,
+      "lo": 2.3513294243067504,
+      "hi": 2.866096528246999
+    },
+    "random": {
+      "n": 40,
+      "mean": 2.5784723103046416,
+      "lo": 2.3142294178158047,
+      "hi": 2.863163423612714
+    }
+  },
+  "per_ach": [
+    {
+      "achievement": "collect_iron",
+      "depth": 4,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "sae": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "cav": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "random": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      }
+    },
+    {
+      "achievement": "place_plant",
+      "depth": null,
+      "on_wood_tree": false,
+      "baseline": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "sae": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "cav": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "random": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      }
+    },
+    {
+      "achievement": "collect_sapling",
+      "depth": null,
+      "on_wood_tree": false,
+      "baseline": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "sae": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "cav": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "random": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      }
+    },
+    {
+      "achievement": "collect_coal",
+      "depth": 4,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      },
+      "sae": {
+        "p": 0.05,
+        "lo": 0.0,
+        "hi": 0.125
+      },
+      "cav": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      },
+      "random": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      }
+    },
+    {
+      "achievement": "make_wood_pickaxe",
+      "depth": 1,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 0.8,
+        "lo": 0.65,
+        "hi": 0.9
+      },
+      "sae": {
+        "p": 0.775,
+        "lo": 0.625,
+        "hi": 0.9
+      },
+      "cav": {
+        "p": 0.8,
+        "lo": 0.6743750000000001,
+        "hi": 0.9
+      },
+      "random": {
+        "p": 0.825,
+        "lo": 0.7,
+        "hi": 0.925
+      }
+    },
+    {
+      "achievement": "make_wood_sword",
+      "depth": 1,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 0.8,
+        "lo": 0.65,
+        "hi": 0.9
+      },
+      "sae": {
+        "p": 0.775,
+        "lo": 0.625,
+        "hi": 0.9
+      },
+      "cav": {
+        "p": 0.8,
+        "lo": 0.6743750000000001,
+        "hi": 0.9
+      },
+      "random": {
+        "p": 0.825,
+        "lo": 0.7,
+        "hi": 0.925
+      }
+    },
+    {
+      "achievement": "wake_up",
+      "depth": null,
+      "on_wood_tree": false,
+      "baseline": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "sae": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "cav": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "random": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      }
+    },
+    {
+      "achievement": "place_table",
+      "depth": 1,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 0.8,
+        "lo": 0.65,
+        "hi": 0.9
+      },
+      "sae": {
+        "p": 0.775,
+        "lo": 0.625,
+        "hi": 0.9
+      },
+      "cav": {
+        "p": 0.8,
+        "lo": 0.6743750000000001,
+        "hi": 0.9
+      },
+      "random": {
+        "p": 0.85,
+        "lo": 0.725,
+        "hi": 0.95
+      }
+    },
+    {
+      "achievement": "eat_cow",
+      "depth": null,
+      "on_wood_tree": false,
+      "baseline": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      },
+      "sae": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      },
+      "cav": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      },
+      "random": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      }
+    },
+    {
+      "achievement": "place_furnace",
+      "depth": 3,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "sae": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "cav": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "random": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      }
+    },
+    {
+      "achievement": "collect_wood",
+      "depth": 0,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      },
+      "sae": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      },
+      "cav": {
+        "p": 0.975,
+        "lo": 0.925,
+        "hi": 1.0
+      },
+      "random": {
+        "p": 1.0,
+        "lo": 1.0,
+        "hi": 1.0
+      }
+    },
+    {
+      "achievement": "defeat_zombie",
+      "depth": null,
+      "on_wood_tree": false,
+      "baseline": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "sae": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "cav": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "random": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      }
+    },
+    {
+      "achievement": "place_stone",
+      "depth": 3,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 0.075,
+        "lo": 0.0,
+        "hi": 0.175
+      },
+      "sae": {
+        "p": 0.05,
+        "lo": 0.0,
+        "hi": 0.125
+      },
+      "cav": {
+        "p": 0.05,
+        "lo": 0.0,
+        "hi": 0.125
+      },
+      "random": {
+        "p": 0.075,
+        "lo": 0.0,
+        "hi": 0.15
+      }
+    },
+    {
+      "achievement": "make_stone_sword",
+      "depth": 3,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 0.075,
+        "lo": 0.0,
+        "hi": 0.175
+      },
+      "sae": {
+        "p": 0.05,
+        "lo": 0.0,
+        "hi": 0.125
+      },
+      "cav": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      },
+      "random": {
+        "p": 0.075,
+        "lo": 0.0,
+        "hi": 0.15
+      }
+    },
+    {
+      "achievement": "make_stone_pickaxe",
+      "depth": 3,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 0.075,
+        "lo": 0.0,
+        "hi": 0.175
+      },
+      "sae": {
+        "p": 0.05,
+        "lo": 0.0,
+        "hi": 0.125
+      },
+      "cav": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      },
+      "random": {
+        "p": 0.075,
+        "lo": 0.0,
+        "hi": 0.15
+      }
+    },
+    {
+      "achievement": "collect_stone",
+      "depth": 2,
+      "on_wood_tree": true,
+      "baseline": {
+        "p": 0.15,
+        "lo": 0.05,
+        "hi": 0.25
+      },
+      "sae": {
+        "p": 0.075,
+        "lo": 0.0,
+        "hi": 0.15
+      },
+      "cav": {
+        "p": 0.075,
+        "lo": 0.0,
+        "hi": 0.15
+      },
+      "random": {
+        "p": 0.1,
+        "lo": 0.025,
+        "hi": 0.2
+      }
+    },
+    {
+      "achievement": "collect_drink",
+      "depth": null,
+      "on_wood_tree": false,
+      "baseline": {
+        "p": 0.175,
+        "lo": 0.05,
+        "hi": 0.3
+      },
+      "sae": {
+        "p": 0.175,
+        "lo": 0.075,
+        "hi": 0.3
+      },
+      "cav": {
+        "p": 0.175,
+        "lo": 0.075,
+        "hi": 0.3006249999999994
+      },
+      "random": {
+        "p": 0.15,
+        "lo": 0.05,
+        "hi": 0.275
+      }
+    },
+    {
+      "achievement": "defeat_skeleton",
+      "depth": null,
+      "on_wood_tree": false,
+      "baseline": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      },
+      "sae": {
+        "p": 0.025,
+        "lo": 0.0,
+        "hi": 0.075
+      },
+      "cav": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      },
+      "random": {
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      }
+    }
+  ]
+}

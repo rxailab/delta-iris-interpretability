@@ -28,7 +28,7 @@
 \begin{document}
 \maketitle
 
-This document collects the displays deferred from the main text: codebook utilisation (Fig.~\ref{sfig:codebook}), the prediction-head read positions (Fig.~\ref{sfig:heads}), single-step ablation (Fig.~\ref{sfig:onestep}), decoded-frame filmstrips (Fig.~\ref{sfig:film}) and the partially observed (no-HUD) control (Fig.~\ref{sfig:nohud}); and Tables~\ref{stab:mi}--\ref{stab:logit}: detector codes, cross-corroborated dictionary features, matched-protocol reconstruction, HUD-shortcut margins, the sparse-autoencoder robustness sweep, the empirical random-direction null, steering, and direct logit attribution. All re-use the single frozen agent and the saved rollout corpora described in Methods.
+This document collects the displays deferred from the main text: codebook utilisation (Fig.~\ref{sfig:codebook}), the prediction-head read positions (Fig.~\ref{sfig:heads}), single-step ablation (Fig.~\ref{sfig:onestep}), decoded-frame filmstrips (Fig.~\ref{sfig:film}) the partially observed (no-HUD) control (Fig.~\ref{sfig:nohud}) and the behavioural cascade test (Fig.~\ref{sfig:cascade}); and Tables~\ref{stab:mi}--\ref{stab:logit}: detector codes, cross-corroborated dictionary features, matched-protocol reconstruction, HUD-shortcut margins, the sparse-autoencoder robustness sweep, the empirical random-direction null, steering, and direct logit attribution. All re-use the single frozen agent and the saved rollout corpora described in Methods.
 
 % ---------------- Supplementary Figures ----------------
 \begin{figure}[h]
@@ -60,6 +60,12 @@ This document collects the displays deferred from the main text: codebook utilis
 \centering
 \includegraphics[width=\textwidth]{figures/nohud_compare.pdf}
 \caption{\textbf{Partially observed (no-HUD) control: with-HUD vs no-HUD.} A second agent (identical code, hyperparameters and seed) was trained on a Crafter variant that zeroes the on-screen inventory/vitals region; mean return falls from $16.2$ to $9.7$. \textbf{(A)} input-encoder (\textsf{frame\_emb}) held-out AUROC for each cumulative-state concept, with HUD ($x$) vs no-HUD ($y$). World-persistent achievements (blue; placed objects, gathered materials, tools) stay near $1.0$ because they leave visible marks in the scene, so the input-encoder shortcut survives; only the six genuinely HUD-only concepts (magenta) drop below the diagonal. A transformer block out-reads \textsf{frame\_emb} on only $1$ of $17$ concepts, so the hidden state is not made linearly decodable from the blocks. \textbf{(B)} causal-tracing restoration mass on history cells (steps $1$ to $T{-}1$) vs the final unlock step: with state hidden, mean historical restoration rises $\approx\!5\times$ ($0.03\to0.15$) while the final-step mass is unchanged---next-code prediction de-Markovianises.}\label{sfig:nohud}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/cascade.pdf}
+\caption{\textbf{Behavioural cascade test: a residual-stream lesion of the \achname{collect\_wood} feature ($f_{187}$) does not change the agent's imagined behaviour.} Closed-loop imagination from \achname{collect\_wood} unlock moments ($n{=}40$; the actor--critic acts on each decoded frame), under baseline / SAE-$f_{187}$ / wood-CAV / random projection at block~1. \textbf{(A)} imagined return (sum of the reward head) is unchanged across conditions ($2.56$, $2.54$, $2.61$, $2.58$). \textbf{(B)} per wood-tree achievement, ordered by tech-tree depth from \achname{collect\_wood}, the probability its detector code is sampled within the 12-step horizon. Ablating $f_{187}$ erases only the wood code itself (depth 0, $1.00\to0.03$) and does \emph{not} cascade: the immediately downstream wooden-tool achievements (depth 1; sampled via the shared polysemantic code $\code{3}{36}$) and the stone tier are unchanged, and the CAV and random directions are equally inert. The SAE direction is causally load-bearing for the next-code distribution but behaviourally inert---it does not propagate through the tech tree---corroborating, with a ground-truth causal graph, that the read--write effect is confined to the code channel.}\label{sfig:cascade}
 \end{figure}
 
 \clearpage
