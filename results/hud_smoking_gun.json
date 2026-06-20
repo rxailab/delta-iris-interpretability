@@ -1,0 +1,12 @@
+{
+  "wood_code_p_baseline": 0.07291666666666667,
+  "wood_code_p_ablated": 0.0,
+  "hud_mae_baseline_vs_ablated": 2.1733145713806152,
+  "world_mae_baseline_vs_ablated": 20.415576934814453,
+  "hud_mae_ablated_vs_burnin": 3.529043674468994,
+  "world_mae_ablated_vs_burnin": 26.756546020507812,
+  "ratio_world_over_hud_baseline_vs_ablated": 9.393751463160392,
+  "n_moments": 6,
+  "horizon": 16,
+  "hud_rows": ">=49"
+}

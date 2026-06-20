@@ -28,7 +28,7 @@
 \begin{document}
 \maketitle
 
-This document collects the displays deferred from the main text: codebook utilisation (Fig.~\ref{sfig:codebook}), the prediction-head read positions (Fig.~\ref{sfig:heads}), single-step ablation (Fig.~\ref{sfig:onestep}), decoded-frame filmstrips (Fig.~\ref{sfig:film}) the partially observed (no-HUD) control (Fig.~\ref{sfig:nohud}) and the behavioural cascade test (Fig.~\ref{sfig:cascade}); and Tables~\ref{stab:mi}--\ref{stab:logit}: detector codes, cross-corroborated dictionary features, matched-protocol reconstruction, HUD-shortcut margins, the sparse-autoencoder robustness sweep, the empirical random-direction null, steering, and direct logit attribution. All re-use the single frozen agent and the saved rollout corpora described in Methods.
+This document collects the displays deferred from the main text: codebook utilisation (Fig.~\ref{sfig:codebook}), the prediction-head read positions (Fig.~\ref{sfig:heads}), single-step ablation (Fig.~\ref{sfig:onestep}), decoded-frame filmstrips (Fig.~\ref{sfig:film}) the partially observed (no-HUD) control (Fig.~\ref{sfig:nohud}), the behavioural cascade test (Fig.~\ref{sfig:cascade}) and the frame-carried-state smoking gun (Fig.~\ref{sfig:hud}); and Tables~\ref{stab:mi}--\ref{stab:logit}: detector codes, cross-corroborated dictionary features, matched-protocol reconstruction, HUD-shortcut margins, the sparse-autoencoder robustness sweep, the empirical random-direction null, steering, and direct logit attribution. All re-use the single frozen agent and the saved rollout corpora described in Methods.
 
 % ---------------- Supplementary Figures ----------------
 \begin{figure}[h]
@@ -66,6 +66,12 @@ This document collects the displays deferred from the main text: codebook utilis
 \centering
 \includegraphics[width=\textwidth]{figures/cascade.pdf}
 \caption{\textbf{Behavioural cascade test: a residual-stream lesion of the \achname{collect\_wood} feature ($f_{187}$) does not change the agent's imagined behaviour.} Closed-loop imagination from \achname{collect\_wood} unlock moments ($n{=}40$; the actor--critic acts on each decoded frame), under baseline / SAE-$f_{187}$ / wood-CAV / random projection at block~1. \textbf{(A)} imagined return (sum of the reward head) is unchanged across conditions ($2.56$, $2.54$, $2.61$, $2.58$). \textbf{(B)} per wood-tree achievement, ordered by tech-tree depth from \achname{collect\_wood}, the probability its detector code is sampled within the 12-step horizon. Ablating $f_{187}$ erases only the wood code itself (depth 0, $1.00\to0.03$) and does \emph{not} cascade: the immediately downstream wooden-tool achievements (depth 1; sampled via the shared polysemantic code $\code{3}{36}$) and the stone tier are unchanged, and the CAV and random directions are equally inert. The SAE direction is causally load-bearing for the next-code distribution but behaviourally inert---it does not propagate through the tech tree---corroborating, with a ground-truth causal graph, that the read--write effect is confined to the code channel.}\label{sfig:cascade}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/hud_smoking_gun.pdf}
+\caption{\textbf{Why the write does not drive: the suppressed state is carried by the frame, not the code.} Paired decoded imagination for a \achname{collect\_wood} moment, baseline (top) vs wood-feature ($f_{187}$) ablation (bottom); the orange box marks the HUD inventory/vitals strip (rows $y\ge 49$), a blue frame marks a step where the wood detector code is sampled. Under ablation the wood code is never sampled (blue frames vanish), yet the HUD inventory strip still renders the wood the agent holds: its mean per-pixel change from baseline is only $2.2/255$, versus $20.4/255$ ($\approx\!9.4\times$) in the world region above. Because the convolutional encoder re-reads the inventory from each frame, the downstream wooden-item codes can fire from this frame-carried state that the suppressed code never gated---the mechanism behind the powered behavioural null in Fig.~\ref{sfig:cascade}.}\label{sfig:hud}
 \end{figure}
 
 \clearpage
