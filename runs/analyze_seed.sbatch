@@ -20,6 +20,9 @@ set -uo pipefail
 source /usr/shared_apps/packages/anaconda3-2023.09/etc/profile.d/conda.sh
 conda activate /mmfs1/storage/users/xiar3/exp/ExpWM/envs/delta-iris-env
 export PYTHONIOENCODING=utf-8 LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+# Seed run dirs have no src/ snapshot, so the scripts' sys.path.insert(0, run/src)
+# is a no-op; provide the model code via the canonical repo src on PYTHONPATH.
+export PYTHONPATH=/mmfs1/storage/users/xiar3/exp/ExpWM/delta-iris/src:${PYTHONPATH:-}
 
 SEED="${SEED:?set SEED via --export=ALL,SEED=N}"
 RUN=/mmfs1/scratch/hpc/11/xiar3/expwm-runs/delta-iris-seed${SEED}/hydra
