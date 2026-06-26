@@ -1,0 +1,18 @@
+
+METRIC                                                original           seed1           seed2
+----------------------------------------------------------------------------------------------
+Codebook: active codes /1024                              1024            1023            1024
+Codebook: mean per-slot entropy (bits)                    5.73            5.64            4.63
+Event vocab: max lift (x chance)                           708             641             743
+Event vocab: mean best P(ach|code)                        0.37            0.36            0.41
+Decode just-unlock: mean AUROC (raw codes)               0.963           0.933           0.952
+Decode: # achievements AUROC>=0.85                       18/18           16/18           19/20
+HUD shortcut: ctrl>=blocks (cumul.)                      14/18           17/18           18/20
+HUD: mean ctrl AUROC (cumul.)                            0.957           0.932           0.948
+HUD: mean best-block AUROC (cumul.)                      0.959           0.928           0.949
+Read-write: |SAE| dlogP @unlock                          0.783           1.135           0.849
+Read-write: |random| dlogP @unlock                       0.035           0.057           0.033
+Cascade: wood SAE feature id                               187             293             624
+Cascade: wood code base->SAE                        1.00->0.03      1.00->1.00      1.00->0.97
+Cascade: downstream tools base->SAE                 0.80->0.78      0.78->0.72      0.72->0.78
+Cascade: imagined return base->SAE                  2.56->2.54      2.58->2.58      2.22->2.31
