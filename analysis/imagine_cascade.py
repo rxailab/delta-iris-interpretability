@@ -98,6 +98,8 @@ def main():
     ap.add_argument("--n-moments", type=int, default=40)
     ap.add_argument("--target-block", type=int, default=1)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--feat-override", type=int, default=None,
+                    help="override the auto-selected SAE feature id (E3 causal gate)")
     ap.add_argument("--device", default="cuda:0")
     args = ap.parse_args()
 
@@ -164,6 +166,8 @@ def main():
             best_feat[a["name"]] = dict(feat=f["feature"], lift=a["lift"])
     assert args.focus in best_feat, f"no strong SAE feature for {args.focus}"
     feat_id = best_feat[args.focus]["feat"]
+    if getattr(args, "feat_override", None) is not None:
+        feat_id = args.feat_override   # E3: use the causally-selected generative gate
     d_sae = decoder[:, feat_id].clone()
 
     cav_npz = np.load(args.cavs, allow_pickle=True)

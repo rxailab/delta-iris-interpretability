@@ -1,0 +1,11 @@
+E3 causal re-selection: wood generative gate vs best-decoder feature (teacher-forced within-horizon)
+
+agent     topdecoder  within    GATE  liftRank  gateWithin
+orig           f#187    0.00   f#187         1        0.00
+seed1          f#293    1.00   f#255        25        0.10
+seed2          f#624    0.97   f#996         9        0.13
+
+Conclusion: every agent has a wood generative gate (within ~0.0-0.13). In the original it IS
+the best-decoder feature (f187); in seeds 1-2 the gates are LOW-lift features (f255 rank25 lift4x;
+f996 rank9 lift22x). The cascade's 'non-replication' was a feature-SELECTION artifact:
+generative control dissociates from decodability even within the SAE dictionary.
