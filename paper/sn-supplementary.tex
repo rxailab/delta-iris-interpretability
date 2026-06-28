@@ -28,7 +28,7 @@
 \begin{document}
 \maketitle
 
-This document collects the displays deferred from the main text: codebook utilisation (Fig.~\ref{sfig:codebook}), the prediction-head read positions (Fig.~\ref{sfig:heads}), single-step ablation (Fig.~\ref{sfig:onestep}), decoded-frame filmstrips (Fig.~\ref{sfig:film}) the partially observed (no-HUD) control (Fig.~\ref{sfig:nohud}), the behavioural cascade test (Fig.~\ref{sfig:cascade}) and the frame-carried-state smoking gun (Fig.~\ref{sfig:hud}); and Tables~\ref{stab:mi}--\ref{stab:logit}: detector codes, cross-corroborated dictionary features, matched-protocol reconstruction, HUD-shortcut margins, the sparse-autoencoder robustness sweep, the empirical random-direction null, steering, and direct logit attribution. All re-use the single frozen agent and the saved rollout corpora described in Methods.
+This document collects the displays deferred from the main text: codebook utilisation (Fig.~\ref{sfig:codebook}), the prediction-head read positions (Fig.~\ref{sfig:heads}), single-step ablation (Fig.~\ref{sfig:onestep}), decoded-frame filmstrips (Fig.~\ref{sfig:film}) the partially observed (no-HUD) control (Fig.~\ref{sfig:nohud}), the behavioural cascade test (Fig.~\ref{sfig:cascade}) and the frame-carried-state smoking gun (Fig.~\ref{sfig:hud}); and Tables~\ref{stab:mi}--\ref{stab:logit}: detector codes, cross-corroborated dictionary features, matched-protocol reconstruction, HUD-shortcut margins, the sparse-autoencoder robustness sweep, the empirical random-direction null, steering, direct logit attribution, and the conditional write--drive law across three agents (Table~\ref{stab:gate}). All re-use the frozen agents and the saved rollout corpora described in Methods.
 
 % ---------------- Supplementary Figures ----------------
 \begin{figure}[h]
@@ -71,7 +71,7 @@ This document collects the displays deferred from the main text: codebook utilis
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{figures/hud_smoking_gun.pdf}
-\caption{\textbf{Why the write does not drive: the suppressed state is carried by the frame, not the code.} Paired decoded imagination for a \achname{collect\_wood} moment, baseline (top) vs wood-feature ($f_{187}$) ablation (bottom); the orange box marks the HUD inventory/vitals strip (rows $y\ge 49$), a blue frame marks a step where the wood detector code is sampled. Under ablation the wood code is never sampled (blue frames vanish), yet the HUD inventory strip still renders the wood the agent holds: its mean absolute pixel difference from baseline is only $2.2/255$, versus $20.4/255$ ($\approx\!9.4\times$) in the world view above. Because the convolutional encoder re-reads the inventory from each frame, the downstream wooden-item codes can fire from this frame-carried state that the suppressed code never gated---the mechanism behind the powered behavioural null in Fig.~\ref{sfig:cascade}.}\label{sfig:hud}
+\caption{\textbf{$f_{187}$ is a code-only lesion: the suppressed state is carried by the frame, not the code.} Paired decoded imagination for a \achname{collect\_wood} moment, baseline (top) vs wood-feature ($f_{187}$) ablation (bottom); the orange box marks the HUD inventory/vitals strip (rows $y\ge 49$), a blue frame marks a step where the wood detector code is sampled. Under ablation the wood code is never sampled (blue frames vanish), yet the HUD inventory strip still renders the wood the agent holds: its mean absolute pixel difference from baseline is only $2.2/255$, versus $20.4/255$ ($\approx\!9.4\times$) in the world view above. Because the convolutional encoder re-reads the inventory from each frame, the downstream wooden-item codes can fire from this frame-carried state that the suppressed code never gated---the mechanism behind the powered behavioural null in Fig.~\ref{sfig:cascade}.}\label{sfig:hud}
 \end{figure}
 
 \clearpage
@@ -228,6 +228,20 @@ Direction & $\overline{|\text{det}|}$ & $\overline{|\text{det}|-|\text{ctrl}|}$ 
 SAE feature & $0.311$ & $+0.073$ & $9$ \\
 CAV         & $0.083$ & $+0.024$ & $6$ \\
 random      & $0.013$ & $+0.000$ & $2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{\textbf{Write drives behaviour conditional on frame re-derivation}, across three independently trained agents. For each agent we select the wood feature whose teacher-forced imagination ablation most suppresses wood \emph{generation} (the \emph{generative gate}; its rank among the agent's wood-decoding features by detector lift in parentheses) and re-run the behavioural cascade with it. ``wood'', ``tools'': within-horizon probability the \achname{collect\_wood} / wooden-tool ($\achname{make\_wood\_pickaxe}$, $\achname{make\_wood\_sword}$, $\achname{place\_table}$) detector codes are sampled, baseline$\to$gate-ablated. ``HUD$\Delta$'', ``world$\Delta$'': mean absolute pixel change ($/255$) of the decoded HUD inventory strip ($y\ge49$) versus the world region under the lesion (teacher-forced, $n{=}40$). The gate is the best-decoding feature only in seed~0; in seeds~1--2 it is a low-lift feature (decodability $\ne$ generative control). Behaviour cascades exactly when the lesion also blanks the HUD copy (HUD$\Delta\gtrsim3$); off-tree achievements and the random control are unchanged in every case. Imagined return is not interpreted under the gate lesion (off-distribution world-model artefact).}\label{stab:gate}
+\begin{tabular}{lccccccc}
+\toprule
+agent & gate (lift-rank) & wood & tools & HUD$\Delta$ & world$\Delta$ & cascade \\
+\midrule
+seed~0 (audited) & $f_{187}$ (1) & $1.00\!\to\!0.03$ & $0.80\!\to\!0.78$ & $0.8$ & $9.7$ & no \\
+seed~1 & $f_{255}$ (25) & $1.00\!\to\!0.23$ & $0.78\!\to\!0.10$ & $4.0$ & $12.0$ & yes \\
+seed~2 & $f_{996}$ (9) & $1.00\!\to\!0.12$ & $0.72\!\to\!0.03$ & $3.0$ & $8.5$ & yes \\
 \bottomrule
 \end{tabular}
 \end{table}
