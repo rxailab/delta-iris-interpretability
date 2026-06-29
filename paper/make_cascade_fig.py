@@ -54,8 +54,8 @@ ax[1].set_xlabel("P(detector code sampled within 12-step imagination)")
 ax[1].set_title("(B) No cascade through the wood tech tree", fontsize=11, fontweight="bold")
 ax[1].legend(fontsize=8.5, loc="lower right"); ax[1].grid(axis="x", alpha=0.25); ax[1].set_xlim(0, 1.02)
 ax[1].axhline(0.5, color="none")
-ax[1].annotate("only the wood code (d0) is suppressed;\ndownstream achievements unchanged",
-               xy=(0.40, 0.5), fontsize=7.6, style="italic", color="#555")
+ax[1].text(0.34, 5.5, "only the wood code (d0) is suppressed;\ndownstream achievements unchanged",
+           fontsize=7.6, style="italic", color="#555", ha="left", va="center")
 for s in ("top", "right"):
     ax[0].spines[s].set_visible(False); ax[1].spines[s].set_visible(False)
 fig.tight_layout()
